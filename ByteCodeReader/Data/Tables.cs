@@ -37,7 +37,7 @@ namespace AlphaOmega.Debug
 		public UInt32 Count { get { return (UInt32)this._tables.Count; } }
 
 		/// <summary>Parent class file</summary>
-		protected ClassFile File { get { return this._file; } }
+		internal ClassFile File { get { return this._file; } }
 
 		/// <summary>Create instance of the tables collection</summary>
 		/// <param name="file">Parent class file</param>

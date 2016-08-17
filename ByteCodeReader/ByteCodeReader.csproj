@@ -44,6 +44,7 @@
     <Compile Include="AttributeData\AttributeRow.cs" />
     <Compile Include="AttributeData\AttributeTable.cs" />
     <Compile Include="AttributeData\AttributeTables.cs" />
+    <Compile Include="AttributeData\Tables\ConstantValueRow.cs" />
     <Compile Include="Data\Interface\IBaseRow.cs" />
     <Compile Include="Data\Interface\ICell.cs" />
     <Compile Include="Data\Interface\IColumn.cs" />

@@ -297,8 +297,73 @@ namespace AlphaOmega.Debug
 			InvokeDynamic = 18,
 		}
 
-		#region ATTRIBUTES
-		#endregion ATTRIBUTES
+		/// <summary>Known attributes</summary>
+		public enum ATTRIBUTE
+		{
+			/// <summary>Undefined custom attribute. Will be readed as Byte[]</summary>
+			Undefined,
+			/// <summary>A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</summary>
+			ConstantValue,
+			/// <summary>The Code attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6). A Code attribute contains the Java Virtual Machine instructions and auxiliary information for a method, including an instance initialization method or a class or interface initialization method (§2.9)</summary>
+			Code,
+			/// <summary>The StackMapTable attribute is a variable-length attribute in the attributes table of a Code attribute (§4.7.3). A StackMapTable attribute is used during the process of verification by type checking (§4.10.1).</summary>
+			StackMapTable,
+			/// <summary>The Exceptions attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6). The Exceptions attribute indicates which checked exceptions a method may throw.</summary>
+			Exceptions,
+			/// <summary>If the constant pool of a class or interface C contains at least one CONSTANT_Class_info entry (§4.4.1) which represents a class or interface that is not a member of a package, then there must be exactly one InnerClasses attribute in the attributes table of the ClassFile structure for C.</summary>
+			InnerClasses,
+			/// <summary>The EnclosingMethod attribute is a fixed-length attribute in the attributes table of a ClassFile structure (§4.1). A class must have an EnclosingMethod attribute if and only if it represents a local class or an anonymous class (JLS §14.3, JLS §15.9.5).</summary>
+			EnclosingMethod,
+			/// <summary>The Synthetic attribute is a fixed-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6). A class member that does not appear in the source code must be marked using a Synthetic attribute, or else it must have its ACC_SYNTHETIC flag set. The only exceptions to this requirement are compiler-generated methods which are not considered implementation artifacts, namely the instance initialization method representing a default constructor of the Java programming language (§2.9), the class initialization method (§2.9), and the Enum.values() and Enum.valueOf() methods.</summary>
+			Synthetic,
+			/// <summary>The Signature attribute is a fixed-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6). A Signature attribute records a signature (§4.7.9.1) for a class, interface, constructor, method, or field whose declaration in the Java programming language uses type variables or parameterized types. See The Java Language Specification, Java SE 8 Edition for details about these types.</summary>
+			Signature,
+			/// <summary>There may be at most one SourceFile attribute in the attributes table of a ClassFile structure.</summary>
+			SourceFile,
+			/// <summary>There may be at most one SourceDebugExtension attribute in the attributes table of a ClassFile structure.</summary>
+			SourceDebugExtension,
+			/// <summary>
+			/// The LineNumberTable attribute is an optional variable-length attribute in the attributes table of a Code attribute (§4.7.3). It may be used by debuggers to determine which part of the code array corresponds to a given line number in the original source file.
+			/// If multiple LineNumberTable attributes are present in the attributes table of a Code attribute, then they may appear in any order.
+			/// There may be more than one LineNumberTable attribute per line of a source file in the attributes table of a Code attribute. That is, LineNumberTable attributes may together represent a given line of a source file, and need not be one-to-one with source lines.
+			/// </summary>
+			LineNumberTable,
+			/// <summary>The LocalVariableTable attribute is an optional variable-length attribute in the attributes table of a Code attribute (§4.7.3). It may be used by debuggers to determine the value of a given local variable during the execution of a method.</summary>
+			LocalVariableTable,
+			/// <summary>The LocalVariableTypeTable attribute is an optional variable-length attribute in the attributes table of a Code attribute (§4.7.3). It may be used by debuggers to determine the value of a given local variable during the execution of a method.</summary>
+			LocalVariableTypeTable,
+			/// <summary>The Deprecated attribute is an optional fixed-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6). A class, interface, method, or field may be marked using a Deprecated attribute to indicate that the class, interface, method, or field has been superseded.</summary>
+			Deprecated,
+			/// <summary>The RuntimeVisibleAnnotations attribute is a variable-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6). The RuntimeVisibleAnnotations attribute records run-time visible annotations on the declaration of the corresponding class, field, or method. The Java Virtual Machine must make these annotations available so they can be returned by the appropriate reflective APIs.</summary>
+			RuntimeVisibleAnnotations,
+			/// <summary>The RuntimeInvisibleAnnotations attribute is a variable-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6). The RuntimeInvisibleAnnotations attribute records run-time invisible annotations on the declaration of the corresponding class, method, or field.</summary>
+			RuntimeInvisibleAnnotations,
+			/// <summary>The RuntimeVisibleParameterAnnotations attribute is a variable-length attribute in the attributes table of the method_info structure (§4.6). The RuntimeVisibleParameterAnnotations attribute records run-time visible annotations on the declarations of formal parameters of the corresponding method. The Java Virtual Machine must make these annotations available so they can be returned by the appropriate reflective APIs.</summary>
+			RuntimeVisibleParameterAnnotations,
+			/// <summary>The RuntimeInvisibleParameterAnnotations attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6). The RuntimeInvisibleParameterAnnotations attribute records run-time invisible annotations on the declarations of formal parameters of the corresponding method.</summary>
+			RuntimeInvisibleParameterAnnotations,
+			/// <summary>The RuntimeVisibleTypeAnnotations attribute is an variable-length attribute in the attributes table of a ClassFile, field_info, or method_info structure, or Code attribute (§4.1, §4.5, §4.6, §4.7.3). The RuntimeVisibleTypeAnnotations attribute records run-time visible annotations on types used in the declaration of the corresponding class, field, or method, or in an expression in the corresponding method body. The RuntimeVisibleTypeAnnotations attribute also records run-time visible annotations on type parameter declarations of generic classes, interfaces, methods, and constructors. The Java Virtual Machine must make these annotations available so they can be returned by the appropriate reflective APIs.</summary>
+			RuntimeVisibleTypeAnnotations,
+			/// <summary>The RuntimeInvisibleTypeAnnotations attribute is an variable-length attribute in the attributes table of a ClassFile, field_info, or method_info structure, or Code attribute (§4.1, §4.5, §4.6, §4.7.3). The RuntimeInvisibleTypeAnnotations attribute records run-time invisible annotations on types used in the corresponding declaration of a class, field, or method, or in an expression in the corresponding method body. The RuntimeInvisibleTypeAnnotations attribute also records annotations on type parameter declarations of generic classes, interfaces, methods, and constructors.</summary>
+			RuntimeInvisibleTypeAnnotations,
+			/// <summary>The AnnotationDefault attribute is a variable-length attribute in the attributes table of certain method_info structures (§4.6), namely those representing elements of annotation types (JLS §9.6.1). The AnnotationDefault attribute records the default value (JLS §9.6.2) for the element represented by the method_info structure. The Java Virtual Machine must make this default value available so it can be applied by appropriate reflective APIs.</summary>
+			AnnotationDefault,
+			/// <summary>The BootstrapMethods attribute is a variable-length attribute in the attributes table of a ClassFile structure (§4.1). The BootstrapMethods attribute records bootstrap method specifiers referenced by invokedynamic instructions (§invokedynamic).</summary>
+			BootstrapMethods,
+			/// <summary>The MethodParameters attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6). A MethodParameters attribute records information about the formal parameters of a method, such as their names.</summary>
+			MethodParameters,
+
+			/// <summary>Circular reference attribute</summary>
+			ExceptionTableRef,
+			/// <summary>Circular reference attribute</summary>
+			InnerClassRef,
+			/// <summary>Circular reference attribute</summary>
+			LineNumberTableRef,
+			/// <summary>Circular reference attribute</summary>
+			LocalVariableTableRef,
+			/// <summary>Circular reference attribute</summary>
+			LocalVariableTypeTableRef,
+		}
 
 		#region CONSTANT. See: ConstantTables.cs
 		/// <remarks>Because arrays are objects, the opcodes anewarray and multianewarray - but not the opcode new - can reference array "classes" via CONSTANT_Class_info structures in the constant_pool table. For such array classes, the name of the class is the descriptor of the array type (§4.3.2).</remarks>

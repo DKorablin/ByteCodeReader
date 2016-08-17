@@ -61,7 +61,7 @@ namespace AlphaOmega.Debug.AttributeData
 					AttributeReference[] references = new AttributeReference[base.RawValue];
 					for(UInt16 loop = 0; loop < base.RawValue; loop++)
 					{
-						UInt32 index=tables.ReadSubData(this._columnType.ToString(), reader);
+						UInt32 index = tables.ReadSubData(this._columnType.ToString(), reader);
 						references[loop] = new AttributeReference(tables, this._columnType.ToString(), index);
 					}
 					base.Value = references;

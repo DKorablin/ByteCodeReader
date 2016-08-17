@@ -27,7 +27,6 @@ namespace Demo
 					Utils.ConsoleWriteMembers(item);
 
 				var doubleRow = info.constant_pool.Double.FirstOrDefault();
-				Double d = (Double)(doubleRow.high_bytes << 32) + doubleRow.low_bytes;
 				//Utils.ConsoleWriteMembers(info.Header1);
 
 				//var tables = info.constant_pool;

@@ -6,41 +6,6 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <summary>Generic attribute table structures</summary>
 	public class AttributeTable : Table<String>
 	{
-		/// <summary>Known attributes</summary>
-		private enum ATTRIBUTE
-		{
-			Undefined,
-			ConstantValue,
-			Code,
-			StackMapTable,
-			Exceptions,
-			InnerClasses,
-			EnclosingMethod,
-			Synthetic,
-			Signature,
-			SourceFile,
-			SourceDebugExtension,
-			LineNumberTable,
-			LocalVariableTable,
-			LocalVariableTypeTable,
-			Deprecated,
-			RuntimeVisibleAnnotations,
-			RuntimeInvisibleAnnotations,
-			RuntimeVisibleParameterAnnotations,
-			RuntimeInvisibleParameterAnnotations,
-			RuntimeVisibleTypeAnnotations,
-			RuntimeInvisibleTypeAnnotations,
-			AnnotationDefault,
-			BootstrapMethods,
-			MethodParameters,
-
-			ExceptionTableRef,
-			InnerClassRef,
-			LineNumberTableRef,
-			LocalVariableTableRef,
-			LocalVariableTypeTableRef,
-		}
-
 		/// <summary>Create instance of the attribute table</summary>
 		/// <param name="root">Attribute tables collection</param>
 		/// <param name="type">Type of the attribute table</param>
@@ -70,95 +35,95 @@ namespace AlphaOmega.Debug.AttributeData
 			AttributeColumnType[] columnType;
 			String[] columnName;
 
-			ATTRIBUTE attr = Enum.IsDefined(typeof(ATTRIBUTE), type)
-				? (ATTRIBUTE)Enum.Parse(typeof(ATTRIBUTE), type)
-				: ATTRIBUTE.Undefined;
+			Jvm.ATTRIBUTE attr = Enum.IsDefined(typeof(Jvm.ATTRIBUTE), type)
+				? (Jvm.ATTRIBUTE)Enum.Parse(typeof(Jvm.ATTRIBUTE), type)
+				: Jvm.ATTRIBUTE.Undefined;
 
 			switch(attr)
 			{
-			case ATTRIBUTE.ConstantValue:
+			case Jvm.ATTRIBUTE.ConstantValue:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, };
 				columnName = new String[] { "constantvalue_index", };
 				break;
-			case ATTRIBUTE.Code:
+			case Jvm.ATTRIBUTE.Code:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.ByteArray, AttributeColumnType.ExceptionTableRef, AttributeColumnType.AttributeRef, };
 				columnName = new String[] { "max_stack", "max_locals", "code", "exception_table", "attributes", };
 				break;
-			case ATTRIBUTE.ExceptionTableRef:
+			case Jvm.ATTRIBUTE.ExceptionTableRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "start_pc", "end_pc", "handler_pc", "catch_type", };
 				break;
-			case ATTRIBUTE.Exceptions:
+			case Jvm.ATTRIBUTE.Exceptions:
 				columnType = new AttributeColumnType[] { AttributeColumnType.ShortArray, };
 				columnName = new String[] { "exception_index_table", };
 				break;
-			case ATTRIBUTE.InnerClasses:
+			case Jvm.ATTRIBUTE.InnerClasses:
 				columnType = new AttributeColumnType[] { AttributeColumnType.InnerClassRef, };
 				columnName = new String[] { "classes", };
 				break;
-			case ATTRIBUTE.InnerClassRef:
+			case Jvm.ATTRIBUTE.InnerClassRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "inner_class_info_index", "outer_class_info_index", "inner_name_index", "inner_class_access_flags", };
 				break;
-			case ATTRIBUTE.EnclosingMethod:
+			case Jvm.ATTRIBUTE.EnclosingMethod:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "class_index", "method_index", };
 				break;
-			case ATTRIBUTE.Signature:
+			case Jvm.ATTRIBUTE.Signature:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, };
 				columnName = new String[] { "signature_index", };
 				break;
-			case ATTRIBUTE.SourceFile:
+			case Jvm.ATTRIBUTE.SourceFile:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, };
 				columnName = new String[] { "sourcefile_index", };
 				break;
-			case ATTRIBUTE.SourceDebugExtension:
+			case Jvm.ATTRIBUTE.SourceDebugExtension:
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "debug_extension", };
 				break;
-			case ATTRIBUTE.LineNumberTable:
+			case Jvm.ATTRIBUTE.LineNumberTable:
 				columnType = new AttributeColumnType[] { AttributeColumnType.LineNumberTableRef, };
 				columnName = new String[] { "line_number_table", };
 				break;
-			case ATTRIBUTE.LineNumberTableRef:
+			case Jvm.ATTRIBUTE.LineNumberTableRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "start_pc", "line_number", };
 				break;
 
-			case ATTRIBUTE.LocalVariableTable:
+			case Jvm.ATTRIBUTE.LocalVariableTable:
 				columnType = new AttributeColumnType[] { AttributeColumnType.LocalVariableTableRef, };
 				columnName = new String[] { "local_variable_table", };
 				break;
-			case ATTRIBUTE.LocalVariableTableRef:
+			case Jvm.ATTRIBUTE.LocalVariableTableRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "start_pc", "length", "name_index", "descriptor_index", "index", };
 				break;
-			case ATTRIBUTE.LocalVariableTypeTable:
+			case Jvm.ATTRIBUTE.LocalVariableTypeTable:
 				columnType = new AttributeColumnType[] { AttributeColumnType.LocalVariableTypeTableRef, };
 				columnName = new String[] { "local_variable_type_table", };
 				break;
-			case ATTRIBUTE.LocalVariableTypeTableRef:
+			case Jvm.ATTRIBUTE.LocalVariableTypeTableRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "start_pc", "length", "name_index", "signature_index", "index", };
 				break;
-			case ATTRIBUTE.Deprecated:
+			case Jvm.ATTRIBUTE.Deprecated:
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "raw", };
 				break;
-			case ATTRIBUTE.Synthetic:
+			case Jvm.ATTRIBUTE.Synthetic:
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "raw", };
 				break;
-			case ATTRIBUTE.StackMapTable://TODO: Not implemented
-			case ATTRIBUTE.RuntimeVisibleAnnotations://TODO: Not implemented
-			case ATTRIBUTE.RuntimeVisibleParameterAnnotations://TODO: Not implemented
-			case ATTRIBUTE.RuntimeVisibleTypeAnnotations://TODO: Not implemented
-			case ATTRIBUTE.RuntimeInvisibleAnnotations://TODO: Not implemented
-			case ATTRIBUTE.RuntimeInvisibleParameterAnnotations://TODO: Not implemented
-			case ATTRIBUTE.RuntimeInvisibleTypeAnnotations://TODO: Not implemented
-			case ATTRIBUTE.AnnotationDefault://TODO: Not implemented
-			case ATTRIBUTE.BootstrapMethods://TODO: Not implemented
-			case ATTRIBUTE.MethodParameters://TODO: Not implemented
+			case Jvm.ATTRIBUTE.StackMapTable://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeVisibleAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeVisibleParameterAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeVisibleTypeAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeInvisibleAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeInvisibleParameterAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.RuntimeInvisibleTypeAnnotations://TODO: Not implemented
+			case Jvm.ATTRIBUTE.AnnotationDefault://TODO: Not implemented
+			case Jvm.ATTRIBUTE.BootstrapMethods://TODO: Not implemented
+			case Jvm.ATTRIBUTE.MethodParameters://TODO: Not implemented
 			default://Unknown attribute
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "raw", };

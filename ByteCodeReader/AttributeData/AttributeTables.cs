@@ -8,6 +8,20 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <summary>Attribute tables collection</summary>
 	public class AttributeTables : Tables<String>
 	{
+		#region Tables
+		/// <summary>The ConstantValue attribute is a fixed-length attribute in the attributes table of a field_info structure (§4.5). A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</summary>
+		public Data.BaseTable<ConstantValueRow, String> ConstantValue
+		{
+			get
+			{
+				AttributeTable table = (AttributeTable)base[Jvm.ATTRIBUTE.ConstantValue.ToString()];
+				return table == null
+					? null
+					: new Data.BaseTable<ConstantValueRow, String>(table);
+			}
+		}
+		#endregion Tables
+
 		internal AttributeTables(ClassFile file)
 			: base(file)
 		{
