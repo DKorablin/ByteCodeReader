@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9622538C-03C9-4C26-A2AD-A2820B8116C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AlphaOmega.Debug</RootNamespace>
+    <AssemblyName>ByteCodeReader</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\ByteCodeReader.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttributeData\AttributeCell.cs" />
+    <Compile Include="AttributeData\AttributeColumn.cs" />
+    <Compile Include="AttributeData\AttributeColumnType.cs" />
+    <Compile Include="AttributeData\AttributeReference.cs" />
+    <Compile Include="AttributeData\AttributeRow.cs" />
+    <Compile Include="AttributeData\AttributeTable.cs" />
+    <Compile Include="AttributeData\AttributeTables.cs" />
+    <Compile Include="Data\Interface\IBaseRow.cs" />
+    <Compile Include="Data\Interface\ICell.cs" />
+    <Compile Include="Data\Interface\IColumn.cs" />
+    <Compile Include="Data\Interface\ICellPointer.cs" />
+    <Compile Include="Data\Interface\IRow.cs" />
+    <Compile Include="Data\Interface\ITable.cs" />
+    <Compile Include="Data\Interface\ITables.cs" />
+    <Compile Include="Field_Info.cs" />
+    <Compile Include="ImageLoader\BinaryEndianReader.cs" />
+    <Compile Include="ClassFile.cs" />
+    <Compile Include="ConstantData\ConstantCell.cs" />
+    <Compile Include="ConstantData\ConstantColumn.cs" />
+    <Compile Include="ConstantData\ConstantColumnType.cs" />
+    <Compile Include="ConstantData\ConstantReference.cs" />
+    <Compile Include="ConstantData\ConstantRow.cs" />
+    <Compile Include="ConstantData\ConstantTable.cs" />
+    <Compile Include="ConstantData\ConstantTables.cs" />
+    <Compile Include="ConstantData\Tables\ClassRow.cs" />
+    <Compile Include="ConstantData\Tables\DoubleRow.cs" />
+    <Compile Include="ConstantData\Tables\FieldrefRow.cs" />
+    <Compile Include="ConstantData\Tables\FloatRow.cs" />
+    <Compile Include="ConstantData\Tables\IntegerRow.cs" />
+    <Compile Include="ConstantData\Tables\InterfaceMethodrefRow.cs" />
+    <Compile Include="ConstantData\Tables\InvokeDynamicRow.cs" />
+    <Compile Include="ConstantData\Tables\LongRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodHandleRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodrefRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodTypeRow.cs" />
+    <Compile Include="ConstantData\Tables\NameAndTypeRow.cs" />
+    <Compile Include="ConstantData\Tables\StringRow.cs" />
+    <Compile Include="ConstantData\Tables\Utf8Row.cs" />
+    <Compile Include="Data\BaseRow.cs" />
+    <Compile Include="Data\BaseTable.cs" />
+    <Compile Include="Data\Cell.cs" />
+    <Compile Include="Data\Column.cs" />
+    <Compile Include="Data\Row.cs" />
+    <Compile Include="Data\Table.cs" />
+    <Compile Include="Data\Tables.cs" />
+    <Compile Include="ImageLoader\IImageLoader.cs" />
+    <Compile Include="ImageLoader\LookupLoader.cs" />
+    <Compile Include="ImageLoader\StreamLoader.cs" />
+    <Compile Include="ISectionData.cs" />
+    <Compile Include="Jvm.cs" />
+    <Compile Include="ImageLoader\PinnedBufferReader.cs" />
+    <Compile Include="Method_Info.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
