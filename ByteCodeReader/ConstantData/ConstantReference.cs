@@ -15,10 +15,11 @@ namespace AlphaOmega.Debug.ConstantData
 
 		/// <summary>constant_pool array</summary>
 		private Tables<Jvm.CONSTANT> Root { get { return this._root; } }
+		ITables ICellPointer.Root { get { return this._root; } }
 
 		/// <summary>Constant type</summary>
 		public Jvm.CONSTANT? TableType { get { return this._type; } }
-		Object ICellPointer.TableType { get { return this.TableType; } }
+		Object ICellPointer.TableType { get { return this._type; } }
 
 		/// <summary>Constant index</summary>
 		public UInt32 Index { get { return this._index; } }

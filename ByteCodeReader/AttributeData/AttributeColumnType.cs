@@ -17,7 +17,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <summary>Basic attribute info contains 2 fields: attribute_length (u4) &amp; info[attribute_length] (u1)</summary>
 		ByteArray,
 
-		/// <summary>ExceptionsAttribute index</summary>
+		/// <summary>ExceptionsAttribute index, BootstrapMethodsRef index</summary>
 		ShortArray,
 
 		/// <summary>Undefined structure</summary>
@@ -29,16 +29,22 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <summary>CodeAttribute exception_table references</summary>
 		ExceptionTableRef,
 
-		/// <summary>InnerClassAttribute class references</summary>
+		/// <summary>InnerClassAttribute references</summary>
 		InnerClassRef,
 
-		/// <summary>LineNumberTable class reference</summary>
+		/// <summary>LineNumberTable reference</summary>
 		LineNumberTableRef,
 
-		/// <summary>LocalVariableTable class reference</summary>
+		/// <summary>LocalVariableTable reference</summary>
 		LocalVariableTableRef,
 
-		/// <summary>LocalVariableTypeTable class reference</summary>
+		/// <summary>LocalVariableTypeTable reference</summary>
 		LocalVariableTypeTableRef,
+
+		/// <summary>BootstrapMethods reference</summary>
+		BootstrapMethodsRef,
+
+		/// <summary>MethodParameters reference</summary>
+		MethodParametersRef,
 	}
 }

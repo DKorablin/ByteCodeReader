@@ -61,7 +61,7 @@ namespace AlphaOmega.Debug.AttributeData
 				columnType = new AttributeColumnType[] { AttributeColumnType.InnerClassRef, };
 				columnName = new String[] { "classes", };
 				break;
-			case Jvm.ATTRIBUTE.InnerClassRef:
+			case Jvm.ATTRIBUTE.InnerClassesRef:
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "inner_class_info_index", "outer_class_info_index", "inner_name_index", "inner_class_access_flags", };
 				break;
@@ -106,6 +106,22 @@ namespace AlphaOmega.Debug.AttributeData
 				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
 				columnName = new String[] { "start_pc", "length", "name_index", "signature_index", "index", };
 				break;
+			case Jvm.ATTRIBUTE.BootstrapMethods:
+				columnType = new AttributeColumnType[] { AttributeColumnType.BootstrapMethodsRef, };
+				columnName = new String[] { "bootstrap_methods", };
+				break;
+			case Jvm.ATTRIBUTE.BootstrapMethodsRef:
+				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.ShortArray, };
+				columnName = new String[] { "bootstrap_method_ref", "bootstrap_arguments", };
+				break;
+			case Jvm.ATTRIBUTE.MethodParameters:
+				columnType = new AttributeColumnType[] { AttributeColumnType.MethodParametersRef, };
+				columnName = new String[] { "parameters", };
+				break;
+			case Jvm.ATTRIBUTE.MethodParametersRef:
+				columnType = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
+				columnName = new String[] { "name_index", "access_flags", };
+				break;
 			case Jvm.ATTRIBUTE.Deprecated:
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "raw", };
@@ -122,8 +138,6 @@ namespace AlphaOmega.Debug.AttributeData
 			case Jvm.ATTRIBUTE.RuntimeInvisibleParameterAnnotations://TODO: Not implemented
 			case Jvm.ATTRIBUTE.RuntimeInvisibleTypeAnnotations://TODO: Not implemented
 			case Jvm.ATTRIBUTE.AnnotationDefault://TODO: Not implemented
-			case Jvm.ATTRIBUTE.BootstrapMethods://TODO: Not implemented
-			case Jvm.ATTRIBUTE.MethodParameters://TODO: Not implemented
 			default://Unknown attribute
 				columnType = new AttributeColumnType[] { AttributeColumnType.Raw, };
 				columnName = new String[] { "raw", };

@@ -22,8 +22,8 @@ namespace AlphaOmega.Debug.Data
 			}
 		}
 
-		/// <summary>Transparent row index</summary>
-		public UInt32 index { get { return this.Row.Index; } }
+		/// <summary>Transparent row id</summary>
+		public UInt32 Id { get { return this.Row.Index; } }
 
 		/// <summary>Generic interface row</summary>
 		IRow IBaseRow.Row { get { return this.Row; } }

@@ -356,13 +356,17 @@ namespace AlphaOmega.Debug
 			/// <summary>Circular reference attribute</summary>
 			ExceptionTableRef,
 			/// <summary>Circular reference attribute</summary>
-			InnerClassRef,
+			InnerClassesRef,
 			/// <summary>Circular reference attribute</summary>
 			LineNumberTableRef,
 			/// <summary>Circular reference attribute</summary>
 			LocalVariableTableRef,
 			/// <summary>Circular reference attribute</summary>
 			LocalVariableTypeTableRef,
+			/// <summary>Circular reference attribute</summary>
+			BootstrapMethodsRef,
+			/// <summary>Circular reference attribute</summary>
+			MethodParametersRef,
 		}
 
 		#region CONSTANT. See: ConstantTables.cs

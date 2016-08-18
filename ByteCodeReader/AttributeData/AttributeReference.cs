@@ -15,10 +15,11 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>Attribute tables array</summary>
 		private Tables<String> Root { get { return this._root; } }
+		ITables ICellPointer.Root { get { return this._root; } }
 
 		/// <summary>Attribute type</summary>
 		public String TableType { get { return this._type; } }
-		Object ICellPointer.TableType { get { return this.TableType; } }
+		Object ICellPointer.TableType { get { return this._type; } }
 
 		/// <summary>Attribute index</summary>
 		public UInt32 Index { get { return this._index; } }

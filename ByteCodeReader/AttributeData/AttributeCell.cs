@@ -30,8 +30,9 @@ namespace AlphaOmega.Debug.AttributeData
 					base.Value = base.RawValue;
 					break;
 				case AttributeColumnType.UInt16:
-					base.RawValue = reader.ReadUInt16();
-					base.Value = base.RawValue;
+					UInt16 value = reader.ReadUInt16();
+					base.RawValue = value;
+					base.Value = value;
 					break;
 				case AttributeColumnType.UInt32:
 					base.RawValue = reader.ReadUInt32();
@@ -57,6 +58,8 @@ namespace AlphaOmega.Debug.AttributeData
 				case AttributeColumnType.LineNumberTableRef:
 				case AttributeColumnType.LocalVariableTableRef:
 				case AttributeColumnType.LocalVariableTypeTableRef:
+				case AttributeColumnType.BootstrapMethodsRef:
+				case AttributeColumnType.MethodParametersRef:
 					base.RawValue = reader.ReadUInt16();
 					AttributeReference[] references = new AttributeReference[base.RawValue];
 					for(UInt16 loop = 0; loop < base.RawValue; loop++)
@@ -71,7 +74,6 @@ namespace AlphaOmega.Debug.AttributeData
 					base.Value = tables.ReadSubAttributes((UInt16)base.RawValue, reader);
 					break;
 				default:
-
 					throw new NotSupportedException();
 				}
 			}
