@@ -3,12 +3,16 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Byte Code Reader")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Danila Korablin")]
 [assembly: AssemblyProduct("JVM ClassFile reader")]
-[assembly: AssemblyCopyright("Copyright © Danila Korablin 2016")]
+[assembly: AssemblyCopyright("Copyright © Danila Korablin 2016-2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+#if DEBUG
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
 
 [assembly: ComVisible(false)]
 

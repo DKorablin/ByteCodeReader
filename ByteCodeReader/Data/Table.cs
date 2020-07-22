@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlphaOmega.Debug
 {
-	/// <summary>Generic structure collection</summary>
+	/// <summary>Generic structure container</summary>
 	/// <typeparam name="T">Table type</typeparam>
 	public class Table<T> : ITable
 	{
@@ -17,20 +17,20 @@ namespace AlphaOmega.Debug
 		/// <summary>Tables colection</summary>
 		public Tables<T> Root { get { return this._root; } }
 
-		/// <summary>All rows from the table</summary>
+		/// <summary>All rows from current table</summary>
 		public Row<T>[] Rows { get { return this._rows.ToArray(); } }
-		IRow[] ITable.Rows { get { return this.Rows; } }
+		IEnumerable<IRow> ITable.Rows { get { return this._rows.ToArray(); } }
 
 		/// <summary>Rows count in the table</summary>
 		public UInt32 RowsCount { get { return (UInt32)this._rows.Count; } }
 
 		/// <summary>Columns from current table</summary>
 		public Column<T>[] Columns { get { return this._columns; } }
-		IColumn[] ITable.Columns { get { return this.Columns; } }
+		IColumn[] ITable.Columns { get { return this._columns; } }
 
-		/// <summary>Table type</summary>
+		/// <summary>Type of current table</summary>
 		public T Type { get { return this._type; } }
-		Object ITable.Type { get { return this.Type; } }
+		Object ITable.Type { get { return this._type; } }
 
 		/// <summary>Create instance of the tables class with variables columns and variable table type</summary>
 		/// <param name="root">Tables collection</param>

@@ -128,7 +128,7 @@ namespace AlphaOmega.Debug.ConstantData
 
 				UInt32 rowOffset = offset;
 				ConstantTable table = (ConstantTable)base[tag];
-				table.AddRow(base.File, constantIndex, ref offset);
+				table.AddRow(constantIndex, ref offset);
 				constantIndex++;
 
 				switch(tag)

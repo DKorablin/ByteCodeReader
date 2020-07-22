@@ -37,6 +37,11 @@ namespace AlphaOmega.Debug.AttributeData
 			ACC_ENUM = 0x4000
 		}
 
+		/// <summary>
+		/// The value of the inner_class_info_index item must be a valid index into the constant_pool table.
+		/// The constant_pool entry at that index must be a CONSTANT_Class_info structure (§4.4.1) representing C.
+		/// The remaining items in the classes array entry give information about C.
+		/// </summary>
 		private UInt16 inner_class_info_indexI { get { return base.GetValue<UInt16>(0); } }
 
 		private UInt16 outer_class_info_indexI { get { return base.GetValue<UInt16>(1); } }

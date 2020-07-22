@@ -12,12 +12,12 @@ namespace AlphaOmega.Debug.ConstantData
 		{
 		}
 
-		internal void AddRow(ClassFile file, UInt16 constantIndex, ref UInt32 offset)
+		internal void AddRow(UInt16 constantIndex, ref UInt32 offset)
 		{
 			ConstantCell[] cells = new ConstantCell[base.Columns.Length];
 			for(UInt32 loop = 0; loop < cells.Length; loop++)
 			{
-				ConstantCell cell = new ConstantCell(file, (ConstantColumn)base.Columns[loop], offset);
+				ConstantCell cell = new ConstantCell(base.Root.File, (ConstantColumn)base.Columns[loop], offset);
 				offset += cell.Size;
 				cells[loop] = cell;
 			}

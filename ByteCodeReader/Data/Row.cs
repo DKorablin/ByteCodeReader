@@ -95,17 +95,14 @@ namespace AlphaOmega.Debug
 			foreach(Cell<T> cell in this.Cells)
 				yield return cell;
 		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return this.GetEnumerator();
-		}
-
 		IEnumerator<ICell> IEnumerable<ICell>.GetEnumerator()
 		{
 			foreach(ICell cell in this.Cells)
 				yield return cell;
 		}
-
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return this.GetEnumerator();
+		}
 	}
 }

@@ -5,7 +5,7 @@ namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>Reference to the constant tables</summary>
 	[DebuggerDisplay("Type={TableType} Index={Index}")]
-	public class ConstantReference : ICellPointer
+	public class ConstantReference : IRowPointer
 	{
 		#region Fields
 		private readonly Tables<Jvm.CONSTANT> _root;
@@ -15,15 +15,15 @@ namespace AlphaOmega.Debug.ConstantData
 
 		/// <summary>constant_pool array</summary>
 		private Tables<Jvm.CONSTANT> Root { get { return this._root; } }
-		ITables ICellPointer.Root { get { return this._root; } }
+		ITables IRowPointer.Root { get { return this._root; } }
 
 		/// <summary>Constant type</summary>
 		public Jvm.CONSTANT? TableType { get { return this._type; } }
-		Object ICellPointer.TableType { get { return this._type; } }
+		Object IRowPointer.TableType { get { return this._type; } }
 
 		/// <summary>Constant index</summary>
 		public UInt32 Index { get { return this._index; } }
-		UInt32 ICellPointer.Index { get { return this.Index; } }
+		UInt32 IRowPointer.Index { get { return this.Index; } }
 
 		/// <summary>Create instance to the constants table with the exactly tag type</summary>
 		/// <param name="root">Constants tables storage</param>
@@ -61,7 +61,7 @@ namespace AlphaOmega.Debug.ConstantData
 				return result;
 		}
 
-		IRow ICellPointer.GetReference()
+		IRow IRowPointer.GetReference()
 		{
 			return this.GetReference();
 		}

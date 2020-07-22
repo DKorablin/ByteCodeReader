@@ -351,7 +351,7 @@ namespace AlphaOmega.Debug.AttributeData
 		{
 			AttributeTable table = this.GetOrCreateTable(type);
 
-			return table.AddRow(this, reader);
+			return table.AddRow(reader);
 		}
 
 		private AttributeReference ParseAttribute(Jvm.attribute_info attribute, Byte[] payload)
@@ -361,8 +361,8 @@ namespace AlphaOmega.Debug.AttributeData
 
 			using(MemoryStream stream = new MemoryStream(payload))
 			{
-				BinaryReader reader = BinaryEndianReader.CreateReader(Utils.Endian.Big, stream);
-				UInt32 rowIndex = table.AddRow(this, reader);
+				BinaryReader reader = BinaryEndianReader.CreateReader(EndianHelper.Endian.Big, stream);
+				UInt32 rowIndex = table.AddRow(reader);
 				return new AttributeReference(this, constantRow.bytes, rowIndex);
 			}
 		}

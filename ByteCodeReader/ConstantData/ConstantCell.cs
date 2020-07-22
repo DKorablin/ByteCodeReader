@@ -10,7 +10,7 @@ namespace AlphaOmega.Debug.ConstantData
 		private readonly ConstantColumnType _columnType;
 
 		/// <summary>Size in bytes of the column</summary>
-		public override UInt32 Size
+		public UInt32 Size
 		{
 			get
 			{

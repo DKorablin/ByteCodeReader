@@ -5,7 +5,7 @@ namespace AlphaOmega.Debug.AttributeData
 {
 	/// <summary>Reference to the attributes tables</summary>
 	[DebuggerDisplay("Type={TableType} Index={Index}")]
-	public class AttributeReference : ICellPointer
+	public class AttributeReference : IRowPointer
 	{
 		#region Fields
 		private readonly Tables<String> _root;
@@ -15,11 +15,11 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>Attribute tables array</summary>
 		private Tables<String> Root { get { return this._root; } }
-		ITables ICellPointer.Root { get { return this._root; } }
+		ITables IRowPointer.Root { get { return this._root; } }
 
 		/// <summary>Attribute type</summary>
 		public String TableType { get { return this._type; } }
-		Object ICellPointer.TableType { get { return this._type; } }
+		Object IRowPointer.TableType { get { return this._type; } }
 
 		/// <summary>Attribute index</summary>
 		public UInt32 Index { get { return this._index; } }
@@ -56,7 +56,7 @@ namespace AlphaOmega.Debug.AttributeData
 				return result;
 		}
 
-		IRow ICellPointer.GetReference()
+		IRow IRowPointer.GetReference()
 		{
 			return this.GetReference();
 		}

@@ -6,7 +6,7 @@ namespace AlphaOmega.Debug
 	/// <summary>Generic cell for dynamic structures</summary>
 	/// <typeparam name="T">Type of the owner table</typeparam>
 	[DebuggerDisplay("Column={Column.Name} Value={Value}")]
-	public abstract class Cell<T> : ICell
+	public class Cell<T> : ICell
 	{
 		#region Fields
 		private Column<T> _column;
@@ -21,7 +21,7 @@ namespace AlphaOmega.Debug
 			protected set { this._value = value; }
 		}
 
-		/// <summary>Here can be cell value or value length or ondes to the different table</summary>
+		/// <summary>Here can be cell value or value length or reference to the different table</summary>
 		public UInt32 RawValue
 		{
 			get { return this._rawValue; }
@@ -32,9 +32,6 @@ namespace AlphaOmega.Debug
 		public Column<T> Column { get { return this._column; } }
 
 		IColumn ICell.Column { get { return this.Column; } }
-
-		/// <summary>Size of the cell in bytes</summary>
-		public abstract UInt32 Size { get; }
 
 		/// <summary>Create instance of the generic cell specifying owner column</summary>
 		/// <param name="column">Owner column</param>

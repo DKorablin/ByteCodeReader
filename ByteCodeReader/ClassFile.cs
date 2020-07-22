@@ -69,7 +69,14 @@ namespace AlphaOmega.Debug
 		/// The value of the this_class item must be a valid index into the constant_pool table.
 		/// The constant_pool entry at that index must be a CONSTANT_Class_info structure (§4.4.1) representing the class or interface defined by this class file.
 		/// </summary>
-		public ClassRow this_class { get { return this.constant_pool.Class[this._header2.this_class]; } }
+		public Utf8Row this_class
+		{
+			get
+			{
+				ClassRow row = this.constant_pool.Class[this._header2.this_class];
+				return this.constant_pool.Utf8[row.name_index.Index];
+			}
+		}
 
 		/// <summary>
 		/// For a class, the value of the super_class item either must be zero or must be a valid index into the constant_pool table.
@@ -78,13 +85,15 @@ namespace AlphaOmega.Debug
 		/// If the value of the super_class item is zero, then this class file must represent the class Object, the only class or interface without a direct superclass.
 		/// For an interface, the value of the super_class item must always be a valid index into the constant_pool table. The constant_pool entry at that index must be a CONSTANT_Class_info structure representing the class Object.
 		/// </summary>
-		public ClassRow super_class
+		public Utf8Row super_class
 		{
 			get
 			{
-				return this._header2.super_class == 0
-					? null
-					: this.constant_pool.Class[this._header2.super_class];
+				if(this._header2.super_class == 0)
+					return null;
+
+				ClassRow row = this.constant_pool.Class[this._header2.super_class];
+				return this.constant_pool.Utf8[row.name_index.Index];
 			}
 		}
 
@@ -150,7 +159,7 @@ namespace AlphaOmega.Debug
 				throw new ArgumentNullException("loader");
 
 			this._loader = loader;
-			this._loader.Endianness = Utils.Endian.Big;
+			this._loader.Endianness = EndianHelper.Endian.Big;
 
 			this._header1 = this.PtrToStructure<Jvm.ClassFile1>(0);
 			if(!this._header1.IsValid)
@@ -185,12 +194,14 @@ namespace AlphaOmega.Debug
 			this._fields = new Field_Info[fields_count];
 			for(Int32 loop = 0; loop < fields.Length; loop++)
 			{
+				UInt32 start = offset;
 				Jvm.field_info field = this.PtrToStructure<Jvm.field_info>(offset);
 				offset += (UInt16)Marshal.SizeOf(typeof(Jvm.field_info));
 
 				AttributeReference[] attributes = this.attribute_pool.ReadAttributes(field.attributes_count, ref offset);
+				UInt32 dataLength = offset - start;
 
-				this._fields[loop] = new Field_Info(this, field, attributes);
+				this._fields[loop] = new Field_Info(this, field, attributes, start, dataLength);
 			}
 
 			//methods
@@ -200,11 +211,14 @@ namespace AlphaOmega.Debug
 			this._methods = new Method_Info[methods_count];
 			for(Int32 loop = 0; loop < methods.Length; loop++)
 			{
+				UInt32 start = offset;
 				Jvm.method_info method = this.PtrToStructure<Jvm.method_info>(offset);
 				offset += (UInt16)Marshal.SizeOf(typeof(Jvm.method_info));
 
 				AttributeReference[] attributes = this.attribute_pool.ReadAttributes(method.attributes_count, ref offset);
-				this._methods[loop] = new Method_Info(this, method, attributes);
+				UInt32 dataLength = offset - start;
+
+				this._methods[loop] = new Method_Info(this, method, attributes, start, dataLength);
 			}
 
 			UInt16 attributes_count = this.PtrToStructure<UInt16>(offset);

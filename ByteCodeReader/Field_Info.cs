@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using AlphaOmega.Debug.AttributeData;
 using AlphaOmega.Debug.ConstantData;
 
@@ -6,12 +7,14 @@ namespace AlphaOmega.Debug
 {
 	/// <summary>Each field is described by a field_info structure. No two fields in one class file may have the same name and descriptor (§4.3.2).</summary>
 	[DebuggerDisplay("{access_flags} {descriptor.bytes} {name.bytes}")]
-	public class Field_Info
+	public class Field_Info : ISectionData
 	{
 		#region Fields
 		private readonly ClassFile _file;
 		private readonly Jvm.field_info _field;
 		private readonly AttributeReference[] _attributes;
+		private readonly UInt32 _offset;
+		private readonly UInt32 _dataLength;
 		#endregion Fields
 
 		/// <summary>Class file owner</summary>
@@ -47,11 +50,29 @@ namespace AlphaOmega.Debug
 		/// <param name="file">Owner class file</param>
 		/// <param name="field">Native structure</param>
 		/// <param name="attributes">Field attributes</param>
-		internal Field_Info(ClassFile file, Jvm.field_info field, AttributeReference[] attributes)
+		/// <param name="offset">Index where method data is started</param>
+		/// <param name="dataLength">Length in bytes</param>
+		internal Field_Info(ClassFile file, Jvm.field_info field, AttributeReference[] attributes, UInt32 offset, UInt32 dataLength)
 		{
 			this._file = file;
 			this._field = field;
 			this._attributes = attributes;
+			this._offset = offset;
+			this._dataLength = dataLength;
+		}
+
+		/// <summary>Gets the raw binary data from class file where current field is stored</summary>
+		/// <returns>byte array</returns>
+		public Byte[] GetData()
+		{
+			return this.File.ReadBytes(this._offset, this._dataLength);
+		}
+
+		/// <summary>Represents field structure as String</summary>
+		/// <returns>String representation</returns>
+		public override String ToString()
+		{
+			return String.Join(" ", new String[] { this.access_flags.ToString(), this.descriptor.bytes, this.name.bytes, });
 		}
 	}
 }

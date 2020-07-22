@@ -17,6 +17,14 @@ namespace AlphaOmega.Debug.Data
 		/// <summary>Таблица в метаданных</summary>
 		public Table<T> Table { get { return this._table; } }
 
+		/// <summary>Gets row by transparent row index</summary>
+		/// <param name="rowIndex">Transparent row index</param>
+		/// <returns>Strongly typed row by index</returns>
+		public E this[UInt32 rowIndex]
+		{
+			get { return new E() { Row = this.Table[rowIndex], }; }
+		}
+
 		/// <summary>Create instance of the strongly typed base table</summary>
 		/// <param name="table">Owner generic table</param>
 		public BaseTable(Table<T> table)
@@ -25,14 +33,6 @@ namespace AlphaOmega.Debug.Data
 				throw new ArgumentNullException("table");
 
 			this._table = table;
-		}
-
-		/// <summary>Gets row by transparent row index</summary>
-		/// <param name="rowIndex">Transparent row index</param>
-		/// <returns>Strongly typed row by index</returns>
-		public E this[UInt32 rowIndex]
-		{
-			get { return new E() { Row = this.Table[rowIndex], }; }
 		}
 
 		/// <summary>Получить в итерации список всех рядов в таблице метаданных</summary>

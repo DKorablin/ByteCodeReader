@@ -26,17 +26,59 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\ByteCodeReader.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\..\AlphaOmega %28NoPwd%29.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\ImageData\IBaseRow.cs">
+      <Link>Data\Interface\IBaseRow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\ICell.cs">
+      <Link>Data\Interface\ICell.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\IColumn.cs">
+      <Link>Data\Interface\IColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\IRow.cs">
+      <Link>Data\Interface\IRow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\IRowPointer.cs">
+      <Link>Data\Interface\IRowPointer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\ITable.cs">
+      <Link>Data\Interface\ITable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageData\ITables.cs">
+      <Link>Data\Interface\ITables.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageLoader\BinaryEndianReader.cs">
+      <Link>ImageLoader\BinaryEndianReader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageLoader\EndianHelper.cs">
+      <Link>ImageLoader\EndianHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageLoader\IImageLoader.cs">
+      <Link>ImageLoader\IImageLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageLoader\LookupLoader.cs">
+      <Link>ImageLoader\LookupLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\..\ImageLoader\StreamLoader.cs">
+      <Link>ImageLoader\StreamLoader.cs</Link>
+    </Compile>
     <Compile Include="AttributeData\AttributeCell.cs" />
     <Compile Include="AttributeData\AttributeColumn.cs" />
     <Compile Include="AttributeData\AttributeColumnType.cs" />
@@ -64,15 +106,7 @@
     <Compile Include="AttributeData\Tables\SignatureRow.cs" />
     <Compile Include="AttributeData\Tables\SourceDebugExtensionRow.cs" />
     <Compile Include="AttributeData\Tables\SourceFileRow.cs" />
-    <Compile Include="Data\Interface\IBaseRow.cs" />
-    <Compile Include="Data\Interface\ICell.cs" />
-    <Compile Include="Data\Interface\IColumn.cs" />
-    <Compile Include="Data\Interface\ICellPointer.cs" />
-    <Compile Include="Data\Interface\IRow.cs" />
-    <Compile Include="Data\Interface\ITable.cs" />
-    <Compile Include="Data\Interface\ITables.cs" />
     <Compile Include="Field_Info.cs" />
-    <Compile Include="ImageLoader\BinaryEndianReader.cs" />
     <Compile Include="ClassFile.cs" />
     <Compile Include="ConstantData\ConstantCell.cs" />
     <Compile Include="ConstantData\ConstantColumn.cs" />
@@ -102,17 +136,17 @@
     <Compile Include="Data\Row.cs" />
     <Compile Include="Data\Table.cs" />
     <Compile Include="Data\Tables.cs" />
-    <Compile Include="ImageLoader\IImageLoader.cs" />
-    <Compile Include="ImageLoader\LookupLoader.cs" />
-    <Compile Include="ImageLoader\StreamLoader.cs" />
     <Compile Include="ISectionData.cs" />
     <Compile Include="Jvm.cs" />
     <Compile Include="ImageLoader\PinnedBufferReader.cs" />
     <Compile Include="Method_Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\..\..\AlphaOmega %28NoPwd%29.snk">
+      <Link>AlphaOmega %28NoPwd%29.snk</Link>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
