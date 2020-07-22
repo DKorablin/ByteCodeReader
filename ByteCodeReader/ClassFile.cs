@@ -114,7 +114,8 @@ namespace AlphaOmega.Debug
 		public Field_Info[] fields { get { return this._fields; } }
 
 		/// <summary>
-		/// Each value in the methods table must be a method_info (§4.6) structure giving a complete description of a method in this class or interface. If neither of the ACC_NATIVE and ACC_ABSTRACT flags are set in the access_flags item of a method_info structure, the Java Virtual Machine instructions implementing the method are also supplied.
+		/// Each value in the methods table must be a method_info (§4.6) structure giving a complete description of a method in this class or interface.
+		/// If neither of the ACC_NATIVE and ACC_ABSTRACT flags are set in the access_flags item of a method_info structure, the Java Virtual Machine instructions implementing the method are also supplied.
 		/// </summary>
 		/// <remarks>
 		/// The method_info structures represent all methods declared by this class or interface type, including instance methods, class methods, instance initialization methods (§2.9), and any class or interface initialization method (§2.9).
