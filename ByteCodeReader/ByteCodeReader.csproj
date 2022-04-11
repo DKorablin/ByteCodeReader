@@ -76,6 +76,9 @@
     <Compile Include="..\..\ImageLoader\LookupLoader.cs">
       <Link>ImageLoader\LookupLoader.cs</Link>
     </Compile>
+    <Compile Include="..\..\ImageLoader\PinnedBufferReader.cs">
+      <Link>ImageLoader\PinnedBufferReader.cs</Link>
+    </Compile>
     <Compile Include="..\..\ImageLoader\StreamLoader.cs">
       <Link>ImageLoader\StreamLoader.cs</Link>
     </Compile>
@@ -138,7 +141,6 @@
     <Compile Include="Data\Tables.cs" />
     <Compile Include="ISectionData.cs" />
     <Compile Include="Jvm.cs" />
-    <Compile Include="ImageLoader\PinnedBufferReader.cs" />
     <Compile Include="Method_Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
