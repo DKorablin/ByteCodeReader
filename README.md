@@ -21,7 +21,7 @@ using(ClassFile cls = new ClassFile(StreamLoader.FromFile(@"C:\Test\CString.clas
 }
 </pre>
 
-Suppordes tructures:
+Supported structures:
 <ul>
 	<li><i>Header</i> &mdash; Each class file contains the definition of a single class or interface.</li>
 	<li><i>constant_pool</i> &mdash; The constant_pool is a table of structures (§4.4) representing various string constants, class and interface names, field names, and other constants that are referred to within the ClassFile structure and its substructures.</li>
