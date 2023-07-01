@@ -1,6 +1,5 @@
 ﻿using System;
 using AlphaOmega.Debug.Data;
-using System.Collections.Generic;
 
 namespace AlphaOmega.Debug.AttributeData
 {

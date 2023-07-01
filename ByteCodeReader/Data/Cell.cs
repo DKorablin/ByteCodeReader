@@ -38,10 +38,7 @@ namespace AlphaOmega.Debug
 		/// <exception cref="ArgumentNullException">column is null</exception>
 		public Cell(Column<T> column)
 		{
-			if(column == null)
-				throw new ArgumentNullException("column");
-
-			this._column = column;
+			this._column = column ?? throw new ArgumentNullException(nameof(column));
 		}
 	}
 }

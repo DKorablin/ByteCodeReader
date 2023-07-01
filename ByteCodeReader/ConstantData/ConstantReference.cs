@@ -40,10 +40,7 @@ namespace AlphaOmega.Debug.ConstantData
 		/// <param name="index">Transparent index</param>
 		public ConstantReference(Tables<Jvm.CONSTANT> root, UInt32 index)
 		{
-			if(root == null)
-				throw new ArgumentNullException("root");
-
-			this._root = root;
+			this._root = root ?? throw new ArgumentNullException(nameof(root));
 			this._index = index;
 		}
 
@@ -55,10 +52,7 @@ namespace AlphaOmega.Debug.ConstantData
 				? this.Root.GetRowByIndex(this.Index)
 				: this.Root[this.TableType.Value][this.Index];
 
-			if(result == null)
-				throw new ArgumentException(String.Format("Reference by index {0} not found", this.Index));
-			else
-				return result;
+			return result ?? throw new ArgumentException($"Reference by index {this.Index} not found");
 		}
 
 		IRow IRowPointer.GetReference()
@@ -70,7 +64,7 @@ namespace AlphaOmega.Debug.ConstantData
 		/// <returns>String</returns>
 		public override String ToString()
 		{
-			return String.Format("{0}: {{{1}}}:{{{2}}}", this.GetType().Name, this.TableType, this.Index);
+			return $"{this.GetType().Name}: {{{this.TableType}}}:{{{this.Index}}}";
 		}
 	}
 }

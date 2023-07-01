@@ -32,13 +32,8 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <exception cref="ArgumentNullException">type is null or empty</exception>
 		public AttributeReference(Tables<String> root, String type, UInt32 index)
 		{
-			if(root == null)
-				throw new ArgumentNullException("root");
-			if(String.IsNullOrEmpty(type))
-				throw new ArgumentNullException("type");
-
-			this._root = root;
-			this._type = type;
+			this._root = root ?? throw new ArgumentNullException(nameof(root));
+			this._type = type ?? throw new ArgumentNullException(nameof(type));
 			this._index = index;
 		}
 
@@ -50,10 +45,7 @@ namespace AlphaOmega.Debug.AttributeData
 				? this.Root.GetRowByIndex(this.Index)
 				: this.Root[this.TableType][this.Index];
 
-			if(result == null)
-				throw new ArgumentException(String.Format("Reference by index {0} not found", this.Index));
-			else
-				return result;
+			return result ?? throw new ArgumentException($"Reference by index {this.Index} not found", nameof(result));
 		}
 
 		IRow IRowPointer.GetReference()
@@ -65,7 +57,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <returns>String</returns>
 		public override String ToString()
 		{
-			return String.Format("{0}: {{{1}}}:{{{2}}}", this.GetType().Name, this.TableType, this.Index);
+			return $"{this.GetType().Name}: {{{this.TableType}}}:{{{this.Index}}}";
 		}
 	}
 }

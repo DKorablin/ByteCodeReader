@@ -44,10 +44,7 @@ namespace AlphaOmega.Debug
 		/// <exception cref="ArgumentNullException">file can't be null</exception>
 		public Tables(ClassFile file)
 		{
-			if(file == null)
-				throw new ArgumentNullException("file");
-
-			this._file = file;
+			this._file = file ?? throw new ArgumentNullException(nameof(file));
 			this._tables = new Dictionary<T, Table<T>>();
 		}
 
@@ -59,9 +56,8 @@ namespace AlphaOmega.Debug
 		protected void AddTable(T type, Table<T> table)
 		{
 			if(type == null)
-				throw new ArgumentNullException("typw");
-			if(table == null)
-				throw new ArgumentNullException("table");
+				throw new ArgumentNullException(nameof(type));
+			_ = table ?? throw new ArgumentNullException(nameof(table));
 
 			this._tables.Add(type, table);
 		}
@@ -71,8 +67,7 @@ namespace AlphaOmega.Debug
 		/// <returns>Transparent row index</returns>
 		public virtual UInt32 AddRow(Row<T> row)
 		{
-			if(row == null)
-				throw new ArgumentNullException("row");
+			_ = row ?? throw new ArgumentNullException(nameof(row));
 
 			UInt32 index = (UInt32)Interlocked.Increment(ref this._rowIndex);
 			this.AddRow(index, row);
@@ -85,8 +80,7 @@ namespace AlphaOmega.Debug
 		/// <exception cref="ArgumentNullException">row is null</exception>
 		public virtual void AddRow(UInt32 rowIndex, Row<T> row)
 		{
-			if(row == null)
-				throw new ArgumentNullException("row");
+			_ = row ?? throw new ArgumentNullException(nameof(row));
 
 			this._rows.Add(rowIndex, row);
 		}

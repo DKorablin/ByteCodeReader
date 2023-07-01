@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9622538C-03C9-4C26-A2AD-A2820B8116C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AlphaOmega.Debug</RootNamespace>
+    <AssemblyName>ByteCodeReader</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\..\AlphaOmega %28NoPwd%29.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\FileReader.Shared\ImageData\IBaseRow.cs">
+      <Link>Data\Interface\IBaseRow.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\ICell.cs">
+      <Link>Data\Interface\ICell.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\IColumn.cs">
+      <Link>Data\Interface\IColumn.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\IRow.cs">
+      <Link>Data\Interface\IRow.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\IRowPointer.cs">
+      <Link>Data\Interface\IRowPointer.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\ITable.cs">
+      <Link>Data\Interface\ITable.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageData\ITables.cs">
+      <Link>Data\Interface\ITables.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\BinaryEndianReader.cs">
+      <Link>ImageLoader\BinaryEndianReader.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\EndianHelper.cs">
+      <Link>ImageLoader\EndianHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\IImageLoader.cs">
+      <Link>ImageLoader\IImageLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\LookupLoader.cs">
+      <Link>ImageLoader\LookupLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\PinnedBufferReader.cs">
+      <Link>ImageLoader\PinnedBufferReader.cs</Link>
+    </Compile>
+    <Compile Include="..\FileReader.Shared\ImageLoader\StreamLoader.cs">
+      <Link>ImageLoader\StreamLoader.cs</Link>
+    </Compile>
+    <Compile Include="AttributeData\AttributeCell.cs" />
+    <Compile Include="AttributeData\AttributeColumn.cs" />
+    <Compile Include="AttributeData\AttributeColumnType.cs" />
+    <Compile Include="AttributeData\AttributeReference.cs" />
+    <Compile Include="AttributeData\AttributeRow.cs" />
+    <Compile Include="AttributeData\AttributeTable.cs" />
+    <Compile Include="AttributeData\AttributeTables.cs" />
+    <Compile Include="AttributeData\Tables\BootstrapMethodsRefRow.cs" />
+    <Compile Include="AttributeData\Tables\BootstrapMethodsRow.cs" />
+    <Compile Include="AttributeData\Tables\CodeRow.cs" />
+    <Compile Include="AttributeData\Tables\ConstantValueRow.cs" />
+    <Compile Include="AttributeData\Tables\EnclosingMethodRow.cs" />
+    <Compile Include="AttributeData\Tables\ExceptionsRow.cs" />
+    <Compile Include="AttributeData\Tables\ExceptionTableRefRow.cs" />
+    <Compile Include="AttributeData\Tables\InnerClassesRefRow.cs" />
+    <Compile Include="AttributeData\Tables\InnerClassesRow.cs" />
+    <Compile Include="AttributeData\Tables\LineNumberTableRefRow.cs" />
+    <Compile Include="AttributeData\Tables\LineNumberTableRow.cs" />
+    <Compile Include="AttributeData\Tables\LocalVariableTableRefRow.cs" />
+    <Compile Include="AttributeData\Tables\LocalVariableTableRow.cs" />
+    <Compile Include="AttributeData\Tables\LocalVariableTypeTableRefRow.cs" />
+    <Compile Include="AttributeData\Tables\LocalVariableTypeTableRow.cs" />
+    <Compile Include="AttributeData\Tables\MethodParametersRefRow.cs" />
+    <Compile Include="AttributeData\Tables\MethodParametersRow.cs" />
+    <Compile Include="AttributeData\Tables\SignatureRow.cs" />
+    <Compile Include="AttributeData\Tables\SourceDebugExtensionRow.cs" />
+    <Compile Include="AttributeData\Tables\SourceFileRow.cs" />
+    <Compile Include="Field_Info.cs" />
+    <Compile Include="ClassFile.cs" />
+    <Compile Include="ConstantData\ConstantCell.cs" />
+    <Compile Include="ConstantData\ConstantColumn.cs" />
+    <Compile Include="ConstantData\ConstantColumnType.cs" />
+    <Compile Include="ConstantData\ConstantReference.cs" />
+    <Compile Include="ConstantData\ConstantRow.cs" />
+    <Compile Include="ConstantData\ConstantTable.cs" />
+    <Compile Include="ConstantData\ConstantTables.cs" />
+    <Compile Include="ConstantData\Tables\ClassRow.cs" />
+    <Compile Include="ConstantData\Tables\DoubleRow.cs" />
+    <Compile Include="ConstantData\Tables\FieldrefRow.cs" />
+    <Compile Include="ConstantData\Tables\FloatRow.cs" />
+    <Compile Include="ConstantData\Tables\IntegerRow.cs" />
+    <Compile Include="ConstantData\Tables\InterfaceMethodrefRow.cs" />
+    <Compile Include="ConstantData\Tables\InvokeDynamicRow.cs" />
+    <Compile Include="ConstantData\Tables\LongRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodHandleRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodrefRow.cs" />
+    <Compile Include="ConstantData\Tables\MethodTypeRow.cs" />
+    <Compile Include="ConstantData\Tables\NameAndTypeRow.cs" />
+    <Compile Include="ConstantData\Tables\StringRow.cs" />
+    <Compile Include="ConstantData\Tables\Utf8Row.cs" />
+    <Compile Include="Data\BaseRow.cs" />
+    <Compile Include="Data\BaseTable.cs" />
+    <Compile Include="Data\Cell.cs" />
+    <Compile Include="Data\Column.cs" />
+    <Compile Include="Data\Row.cs" />
+    <Compile Include="Data\Table.cs" />
+    <Compile Include="Data\Tables.cs" />
+    <Compile Include="ISectionData.cs" />
+    <Compile Include="Jvm.cs" />
+    <Compile Include="Method_Info.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\AlphaOmega %28NoPwd%29.snk">
+      <Link>AlphaOmega %28NoPwd%29.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

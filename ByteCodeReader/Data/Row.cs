@@ -38,10 +38,9 @@ namespace AlphaOmega.Debug
 		{
 			get
 			{
-				if(columnIndex < this._cells.Length)
-					return this._cells[columnIndex];
-				else
-					throw new ArgumentOutOfRangeException("columnIndex is to big");
+				return columnIndex < this._cells.Length
+					? this._cells[columnIndex]
+					: throw new ArgumentOutOfRangeException(nameof(columnIndex), "columnIndex is to big");
 			}
 		}
 
@@ -55,12 +54,12 @@ namespace AlphaOmega.Debug
 			get
 			{
 				if(String.IsNullOrEmpty(columnName))
-					throw new ArgumentNullException("columnName");
+					throw new ArgumentNullException(nameof(columnName));
 
 				foreach(Cell<T> cell in this._cells)
 					if(cell.Column.Name == columnName)
 						return cell;
-				throw new ArgumentException(String.Format("Column with name '{0}' not found", columnName));
+				throw new ArgumentException($"Column with name '{columnName}' not found");
 			}
 		}
 
@@ -78,12 +77,10 @@ namespace AlphaOmega.Debug
 		/// <param name="cells">Cell array</param>
 		public Row(Table<T> table, UInt32 index, Cell<T>[] cells)
 		{
-			if(table == null)
-				throw new ArgumentNullException("table");
 			if(cells == null || cells.Length == 0)
-				throw new ArgumentNullException("cells");
+				throw new ArgumentNullException(nameof(cells));
 
-			this._table = table;
+			this._table = table ?? throw new ArgumentNullException(nameof(table));
 			this._index = index;
 			this._cells = cells;
 		}

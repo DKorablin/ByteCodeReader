@@ -41,14 +41,12 @@ namespace AlphaOmega.Debug
 		/// <exception cref="ArgumentNullException">Columns collection is null or empty</exception>
 		public Table(Tables<T> root, T type, Column<T>[] columns)
 		{
-			if(root == null)
-				throw new ArgumentNullException("root");
 			if(type == null)
-				throw new ArgumentNullException("type");
+				throw new ArgumentNullException(nameof(type));
 			if(columns == null || columns.Length == 0)
-				throw new ArgumentNullException("columns");
+				throw new ArgumentNullException(nameof(columns));
 
-			this._root = root;
+			this._root = root ?? throw new ArgumentNullException(nameof(root));
 			this._type = type;
 			this._rows = new List<Row<T>>();
 			this._columns = columns;
@@ -66,7 +64,7 @@ namespace AlphaOmega.Debug
 					if(row.Index == rowIndex)
 						return row;
 
-				throw new ArgumentException(String.Format("Row with index {0} not found", rowIndex));
+				throw new ArgumentException($"Row with index {rowIndex} not found", nameof(rowIndex));
 			}
 		}
 
@@ -80,8 +78,7 @@ namespace AlphaOmega.Debug
 		/// <returns>Transparent row index for reference</returns>
 		protected UInt32 AddRow(Row<T> row)
 		{
-			if(row == null)
-				throw new ArgumentNullException("row");
+			_ = row ?? throw new ArgumentNullException(nameof(row));
 
 			UInt32 rowIndex = this._root.AddRow(row);
 			row.Index = rowIndex;
@@ -94,8 +91,7 @@ namespace AlphaOmega.Debug
 		/// <param name="row">Row to add</param>
 		protected void AddRow(UInt32 rowIndex, Row<T> row)
 		{
-			if(row == null)
-				throw new ArgumentNullException("row");
+			_ = row ?? throw new ArgumentNullException(nameof(row));
 
 			this._root.AddRow(rowIndex, row);
 			this._rows.Add(row);
@@ -105,7 +101,7 @@ namespace AlphaOmega.Debug
 		/// <returns>String</returns>
 		public override String ToString()
 		{
-			return String.Format("{0}: {{{1}}}", this.GetType().Name, this.Type);
+			return $"{this.GetType().Name}: {{{this.Type}}}";
 		}
 	}
 }

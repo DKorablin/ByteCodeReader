@@ -29,10 +29,7 @@ namespace AlphaOmega.Debug.Data
 		/// <param name="table">Owner generic table</param>
 		public BaseTable(Table<T> table)
 		{
-			if(table == null)
-				throw new ArgumentNullException("table");
-
-			this._table = table;
+			this._table = table ?? throw new ArgumentNullException(nameof(table));
 		}
 
 		/// <summary>Получить в итерации список всех рядов в таблице метаданных</summary>
@@ -52,7 +49,7 @@ namespace AlphaOmega.Debug.Data
 		/// <returns>String</returns>
 		public override String ToString()
 		{
-			return String.Format("{0}: {{{1}}}", this.GetType().Name, this.Table.Type);
+			return $"{this.GetType().Name}: {{{this.Table.Type}}}";
 		}
 	}
 }

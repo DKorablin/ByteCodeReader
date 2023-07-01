@@ -30,9 +30,9 @@ namespace AlphaOmega.Debug
 		public Column(T tableType, String columnName, UInt16 columnIndex)
 		{
 			if(tableType == null)
-				throw new ArgumentNullException("tableType");
+				throw new ArgumentNullException(nameof(tableType));
 			if(String.IsNullOrEmpty(columnName))
-				throw new ArgumentNullException("columnName");
+				throw new ArgumentNullException(nameof(columnName));
 
 			this._tableType = tableType;
 			this._columnName = columnName;

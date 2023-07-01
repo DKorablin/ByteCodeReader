@@ -156,10 +156,7 @@ namespace AlphaOmega.Debug
 		/// <exception cref="ArgumentException">Magic number is invalid</exception>
 		public ClassFile(IImageLoader loader)
 		{
-			if(loader == null)
-				throw new ArgumentNullException("loader");
-
-			this._loader = loader;
+			this._loader = loader ?? throw new ArgumentNullException(nameof(loader));
 			this._loader.Endianness = EndianHelper.Endian.Big;
 
 			this._header1 = this.PtrToStructure<Jvm.ClassFile1>(0);

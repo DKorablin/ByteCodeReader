@@ -14,12 +14,7 @@ namespace AlphaOmega.Debug.Data
 		internal Row<T> Row
 		{
 			get { return this._row; }
-			set
-			{
-				if(value == null)
-					throw new ArgumentNullException("value");
-				this._row = value;
-			}
+			set { this._row = value ?? throw new ArgumentNullException(nameof(value)); }
 		}
 
 		/// <summary>Transparent row id</summary>

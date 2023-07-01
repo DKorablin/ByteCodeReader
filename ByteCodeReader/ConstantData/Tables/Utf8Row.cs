@@ -20,7 +20,7 @@ namespace AlphaOmega.Debug.ConstantData
 		/// <returns></returns>
 		public override String ToString()
 		{
-			return String.Format("{0}: {{{1}}}", this.GetType().Name, this.bytes);
+			return $"{this.GetType().Name}: {{{this.bytes}}}";
 		}
 	}
 }

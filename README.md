@@ -1,5 +1,5 @@
 ﻿## Byte Code reader
-
+[![Auto build](https://github.com/DKorablin/ByteCodeReader/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DKorablin/ByteCodeReader/actions)
 [![Nuget](https://img.shields.io/nuget/v/AlphaOmega.ByteCodeReader)](https://www.nuget.org/packages/AlphaOmega.ByteCodeReader)
 
 Java Virtual Machine bytecode reader
