@@ -29,7 +29,7 @@ jobs:
         custom_tag: 1.0.0
     - name: Decode SNK
       id: sign_key_file
-      uses: timheuer/base64-to-file@v1
+      uses: timheuer/base64-to-file@v1 
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
