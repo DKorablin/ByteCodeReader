@@ -37,7 +37,7 @@ jobs:
     - name: Build .NET v20
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe "${{github.workspace}}\ByteCodeReader35.sln" -nologo -restore -property:OutputPath="${{github.workspace}}\..\bin\";AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}";
+        .\MSBuild.exe -nologo -restore "${{github.workspace}}\ByteCodeReader35.sln" -property:OutputPath="${{github.workspace}}\..\bin\" -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}";
     - name: Build .NET Standart
       run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="..\bin\" /p:DocumentationFile="../bin/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Test .NET Standart
