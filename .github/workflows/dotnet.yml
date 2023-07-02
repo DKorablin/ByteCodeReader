@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
 
     steps:
     - uses: actions/checkout@v3
@@ -18,7 +18,9 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: |
+          6.0.x
+          4.8.x
     - name: Restore dependencies
       run: dotnet restore ByteCodeReader.sln
     - name: Update version number
@@ -32,9 +34,11 @@ jobs:
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
-    - name: Build
-      run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="../bin/" /p:DocumentationFile="../bin/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
-    - name: Test
+    - name: Build .NET35
+      run: MSBuild.exe -nologo -restore -property:OutDir=..\bin\; ByteCodeReader35.sln
+    - name: Build .NETStandart
+      run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="..\bin\" /p:DocumentationFile="../bin/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
+    - name: Test .NET
       run: dotnet test ByteCodeReader.sln --no-build --verbosity normal
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
