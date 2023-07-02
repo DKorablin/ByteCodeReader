@@ -26,6 +26,7 @@ jobs:
       uses: mathieudutour/github-tag-action@v6.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        dry_run: true
     - name: Decode SNK
       id: sign_key_file
       uses: timheuer/base64-to-file@v1 
@@ -35,7 +36,7 @@ jobs:
     - name: Build .NET35
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe -nologo -restore -property:OutDir=..\bin\; ByteCodeReader35.sln
+        .\MSBuild.exe -nologo -restore -property:OutDir=..\bin\; ${{github.workspace}}\ByteCodeReader35.sln
     - name: Build .NETStandart
       run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="..\bin\" /p:DocumentationFile="../bin/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Test .NET
