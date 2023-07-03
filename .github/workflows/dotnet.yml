@@ -10,8 +10,8 @@ env:
   SolutionName: ByteCodeReader
 
 jobs:
-  init:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-2019
 
     steps:
     - name: Update version number
@@ -26,13 +26,6 @@ jobs:
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
-
-
-  build:
-    runs-on: windows-2019
-    needs: [init]
-
-    steps:
     - uses: actions/checkout@v3
       with:
         submodules: true
