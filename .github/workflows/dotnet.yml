@@ -34,13 +34,13 @@ jobs:
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
-    - name: Build .NET v20
+    - name: Build .NET v2.0
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe -nologo -restore "${{github.workspace}}\ByteCodeReader35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}";
+        .\MSBuild.exe -nologo -restore "${{github.workspace}}\ByteCodeReader35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}" -property:Version=${{ steps.tag_version.outputs.new_version }}
     - name: Build .NET Standart
       run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="../bin/netstandard2.0/" /p:DocumentationFile="../bin/netstandard2.0/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
-    - name: Test .NET Standart
+    - name: Test .NET Standart v2.0
       run: dotnet test ByteCodeReader.sln --no-build --verbosity normal
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
@@ -48,16 +48,16 @@ jobs:
         name: Artifacts
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
-    - name: Zip artifacts
-      run: |
-        7z a -t7z -mx=9 "${{github.workspace}}/release.7z" "${{github.workspace}}/bin/*"
+#    - name: Zip artifacts
+#      run: |
+#        7z a -t7z -mx=9 "${{github.workspace}}/release.7z" "${{github.workspace}}/bin/*"
 #    - name: Zip artifact
 #      run: zip -qq -r release.zip *.*
 #      working-directory: ${{github.workspace}}/bin
     - name: Deploy GitHub
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ${{github.workspace}}/release.7z
+ #       artifacts: ${{github.workspace}}/release.7z
         tag: ${{ steps.tag_version.outputs.new_tag }}
         name: Auto ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
