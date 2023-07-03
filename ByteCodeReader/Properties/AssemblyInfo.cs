@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 
 [assembly: System.CLSCompliant(false)]
 
+#if !NETSTANDARD
 [assembly: AssemblyCompany("Danila Korablin")]
 [assembly: AssemblyCopyright("Copyright © Danila Korablin 2016-2023")]
 [assembly: AssemblyProduct("JVM ClassFile reader")]
@@ -17,3 +18,4 @@ using System.Runtime.InteropServices;
 #endif
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyInformationalVersion("1.0.0")]
+#endif
