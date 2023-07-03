@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>AlphaOmega.Debug</RootNamespace>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <AssemblyTitle>Byte Code Reader</AssemblyTitle>
     <Company>Danila Korablin</Company>
     <Product>JVM ClassFile reader</Product>

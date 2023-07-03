@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        submodules: 'true'
+        submodules: true
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -34,14 +34,14 @@ jobs:
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
-    - name: Build .NET Standart
+    - name: Build .NET Standart v2.0
       run: dotnet build ByteCodeReader.sln --configuration Release --no-restore /p:Configuration=Release /p:DebugType=none /p:OutputPath="../bin/netstandard2.0/" /p:DocumentationFile="../bin/netstandard2.0/ByteCodeReader.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
+    - name: Test .NET Standart v2.0
+      run: dotnet test ByteCodeReader.sln --no-build --verbosity normal
     - name: Build .NET v2.0
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
         .\MSBuild.exe -nologo -restore "${{github.workspace}}\ByteCodeReader35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}" -property:Version=${{ steps.tag_version.outputs.new_version }}
-    - name: Test .NET Standart v2.0
-      run: dotnet test ByteCodeReader.sln --no-build --verbosity normal
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
       with:
