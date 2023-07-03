@@ -49,6 +49,8 @@ jobs:
         name: Artifacts
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
+    - name: Pack artifacts
+      run: nuget pack ByteCodeReader.dll.nuspec -Version ${{ steps.tag_version.outputs.new_version }}
     - name: Zip artifacts
       run: |
         7z a -t7z -mx=9 "${{github.workspace}}/release.7z" "${{github.workspace}}/bin/*"
