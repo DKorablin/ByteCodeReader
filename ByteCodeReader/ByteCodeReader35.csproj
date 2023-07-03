@@ -2,8 +2,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <!--This to lines are added to separate build process between .NET & .NET Standart-->
-    <BaseOutputPath>$(MSBuildProjectDirectory)/out/$(MSBuildProjectName)/bin</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/out/$(MSBuildProjectName)/obj</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildProjectDirectory)/net20/$(MSBuildProjectName)/bin</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/net20/$(MSBuildProjectName)/obj</BaseIntermediateOutputPath>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -35,11 +35,10 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
+    <Version Condition="'$(Version)' == ''">1.0.0.0</Version>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\..\..\..\AlphaOmega %28NoPwd%29.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
@@ -153,11 +152,20 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+    <ItemGroup>
+      <AssemblyAttributes Include="AssemblyVersion">
+        <_Parameter1>$(Version)</_Parameter1>
+      </AssemblyAttributes>
+    </ItemGroup>
+    <MakeDir Directories="$(IntermediateOutputPath)" />
+    <WriteCodeFragment Language="C#"
+                       OutputFile="$(IntermediateOutputPath)Version.cs"
+                       AssemblyAttributes="@(AssemblyAttributes)" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)Version.cs" />
+    </ItemGroup>
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <!--Target Name="AfterBuild">
+  </Target-->
 </Project>
