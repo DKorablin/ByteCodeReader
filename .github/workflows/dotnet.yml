@@ -11,21 +11,7 @@ env:
 
 jobs:
   init:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        submodules: true
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.SolutionName }}.sln
-  build:
-    runs-on: windows-latest
-    needs: [init]
+    runs-on: ubuntu-latest
 
     steps:
     - name: Update version number
@@ -40,6 +26,22 @@ jobs:
       with:
         fileName: 'Signature.snk'
         encodedString: ${{ secrets.SIGN_KEY }}
+
+
+  build:
+    runs-on: windows-latest
+    needs: [init]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SolutionName }}.sln
     - name: Build .NET Standart v2.0
       run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/netstandard2.0/" /p:DocumentationFile="../bin/netstandard2.0/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Test .NET Standart v2.0
