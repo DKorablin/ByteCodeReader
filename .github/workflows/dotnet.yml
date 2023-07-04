@@ -10,9 +10,27 @@ env:
   SolutionName: ByteCodeReader
 
 jobs:
-  build:
-    runs-on: windows-2019
-
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SolutionName }}.sln
+    - name: Test .NET Standard v2.0
+      run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
+  version:
+    needs: [test]
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.tag_version.outputs.new_version }}
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      changelog:  ${{ steps.tag_version.outputs.changelog }}
     steps:
     - name: Update version number
       id: tag_version
@@ -20,6 +38,11 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         #custom_tag: 1.0.0
+  build:
+    needs: [test,version]
+    runs-on: windows-2019
+
+    steps:
     - name: Decode SNK
       id: sign_key_file
       uses: timheuer/base64-to-file@v1 
@@ -35,25 +58,36 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore ${{ env.SolutionName }}.sln
-    - name: Build .NET Standart v2.0
-      run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/netstandard20/" /p:DocumentationFile="../bin/netstandard20/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ steps.tag_version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
-    - name: Test .NET Standart v2.0
-      run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
+    - name: Build .NET Standard v2.0
+      run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/netstandard20/" /p:DocumentationFile="../bin/netstandard20/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ needs.version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Build .NET v2.0
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}" -property:Version=${{ steps.tag_version.outputs.new_version }}
+        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:Version=${{ needs.version.outputs.new_version }} -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Artifacts
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
+  deploy:
+    needs: [version, build]
+    runs-on: windows-latest
+    
+    steps:
+    - name: Extracting artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: Artifacts
+        path: bin
+    - name: Display structure of downloaded files
+      run: dir
+      working-directory: dir
     - name: Pack artifacts
-      run: nuget pack ByteCodeReader.dll.nuspec -Version ${{ steps.tag_version.outputs.new_version }} -OutputDirectory nupkg
-    - name: Zip artifacts
-      run: |
-        7z a -t7z -mx=9 "${{github.workspace}}/release.7z" "${{github.workspace}}/bin/*"
+      run: nuget pack ByteCodeReader.dll.nuspec -Version ${{ needs.version.outputs.new_version }} -OutputDirectory nupkg
+#    - name: Zip artifacts
+#      run: |
+#        7z a -t7z -mx=9 "${{github.workspace}}/release.7z" "${{github.workspace}}/bin/*"
 #    - name: Zip artifact
 #      run: zip -qq -r release.zip *.*
 #      working-directory: ${{github.workspace}}/bin
@@ -61,21 +95,8 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         artifacts: ${{github.workspace}}/nupkg/*.nupkg
-        tag: ${{ steps.tag_version.outputs.new_tag }}
-        name: Auto ${{ steps.tag_version.outputs.new_tag }}
-        body: ${{ steps.tag_version.outputs.changelog }}
+        tag: ${{ needs.version.outputs.new_tag }}
+        name: Auto ${{ needs.version.outputs.new_tag }}
+        body: ${{ needs.version.outputs.changelog }}
         artifactErrorsFailBuild: true
         generateReleaseNotes: true
-  deploy:
-    needs: [build]
-    runs-on: windows-latest
-    
-    steps:
-      - name: Extracting artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: Artifacts
-          path: bin
-      - name: Display structure of downloaded files
-        run: dir
-        working-directory: dir
