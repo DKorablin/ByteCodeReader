@@ -10,12 +10,8 @@ env:
   SolutionName: ByteCodeReader
 
 jobs:
-  version:
-    runs-on: ubuntu-latest
-    outputs:
-      new_version: ${{ steps.tag_version.outputs.new_version }}
-      new_tag: ${{ steps.tag_version.outputs.new_tag }}
-      changelog:  ${{ steps.tag_version.outputs.changelog }}
+  test_net_standard20_windows:
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
       with:
@@ -28,13 +24,38 @@ jobs:
       run: dotnet restore ${{ env.SolutionName }}.sln
     - name: Test .NET Standard v2.0
       run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
+
+  test_net_standard20_ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SolutionName }}.sln
+    - name: Test .NET Standard v2.0
+      run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
+
+  version:
+    needs: [test_net_standard20_windows,test_net_standard20_ubuntu]
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.tag_version.outputs.new_version }}
+      new_tag: ${{ steps.tag_version.outputs.new_tag }}
+      changelog:  ${{ steps.tag_version.outputs.changelog }}
+    steps:
     - name: Update version number
       id: tag_version
       uses: mathieudutour/github-tag-action@v6.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         #custom_tag: 1.0.0
-  build_Net20:
+
+  build_net20:
     needs: [version]
     runs-on: windows-latest
     steps:
@@ -57,6 +78,7 @@ jobs:
         name: Net20
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
+
   build_net_standard20:
     needs: [version]
     runs-on: ubuntu-latest
@@ -84,8 +106,9 @@ jobs:
         name: NetStandard20
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
+
   deploy:
-    needs: [version, build_Net20, build_net_standard20]
+    needs: [build_net20, build_net_standard20]
     runs-on: windows-latest
     
     steps:
