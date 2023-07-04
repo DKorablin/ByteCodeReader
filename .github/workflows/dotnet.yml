@@ -36,7 +36,7 @@ jobs:
         #custom_tag: 1.0.0
   build_Net20:
     needs: [version]
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
     - name: Decode SNK
       id: sign_key_file
@@ -59,7 +59,7 @@ jobs:
         if-no-files-found: error
   build_net_standard20:
     needs: [version]
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Decode SNK
       id: sign_key_file
