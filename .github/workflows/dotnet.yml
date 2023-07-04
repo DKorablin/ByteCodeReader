@@ -38,10 +38,32 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         #custom_tag: 1.0.0
-  build:
+  build_Net20:
     needs: [test,version]
     runs-on: windows-2019
-
+    steps:
+    - name: Decode SNK
+      id: sign_key_file
+      uses: timheuer/base64-to-file@v1 
+      with:
+        fileName: 'Signature.snk'
+        encodedString: ${{ secrets.SIGN_KEY }}
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Build .NET v2.0
+      run: |
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:Version=${{ needs.version.outputs.new_version }} -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
+    - name: Deploy artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Net20
+        path: ${{github.workspace}}/bin/*
+        if-no-files-found: error
+  build_net_standard20:
+    needs: [test,version]
+    runs-on: windows-latest
     steps:
     - name: Decode SNK
       id: sign_key_file
@@ -60,29 +82,21 @@ jobs:
       run: dotnet restore ${{ env.SolutionName }}.sln
     - name: Build .NET Standard v2.0
       run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/netstandard20/" /p:DocumentationFile="../bin/netstandard20/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ needs.version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
-    - name: Build .NET v2.0
-      run: |
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:Version=${{ needs.version.outputs.new_version }} -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Artifacts
+        name: NetStandard20
         path: ${{github.workspace}}/bin/*
         if-no-files-found: error
   deploy:
-    needs: [version, build]
+    needs: [version, build_Net20, build_net_standard20]
     runs-on: windows-latest
     
     steps:
-    - name: Extracting artifacts
+    - name: Extracting all artifacts
       uses: actions/download-artifact@v3
       with:
-        name: Artifacts
         path: bin
-    - name: Display structure of downloaded files
-      run: dir
-      working-directory: dir
     - name: Pack artifacts
       run: nuget pack ByteCodeReader.dll.nuspec -Version ${{ needs.version.outputs.new_version }} -OutputDirectory nupkg
 #    - name: Zip artifacts
