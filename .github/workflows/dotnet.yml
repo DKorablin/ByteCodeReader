@@ -108,7 +108,7 @@ jobs:
         if-no-files-found: error
 
   deploy:
-    needs: [build_net20, build_net_standard20]
+    needs: [version, build_net20, build_net_standard20]
     runs-on: windows-latest
     
     steps:
