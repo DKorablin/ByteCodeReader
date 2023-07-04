@@ -99,7 +99,7 @@ jobs:
     - name: Extracting all artifacts
       uses: actions/download-artifact@v3
       with:
-        path: bin
+        path: ../bin
     - name: Pack artifacts
       run: nuget pack ${{ env.SolutionName }}.dll.nuspec -Version ${{ needs.version.outputs.new_version }} -OutputDirectory nupkg
 #    - name: Zip artifacts
