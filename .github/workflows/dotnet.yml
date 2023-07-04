@@ -89,9 +89,11 @@ jobs:
     runs-on: windows-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout nessesary files from repo
+      uses: actions/checkout@v3
       with:
         sparse-checkout: |
+          README.md
           ${{ env.SolutionName }}.dll.nuspec
         sparse-checkout-cone-mode: false
     - name: Extracting all artifacts
