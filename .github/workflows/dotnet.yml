@@ -50,7 +50,7 @@ jobs:
     - name: Build .NET v2.0
       run: |
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/net20/" -property:Version=${{ needs.version.outputs.new_version }} -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
+        .\MSBuild.exe -nologo -restore "${{github.workspace}}\${{ env.SolutionName }}35.sln" /property:Configuration=Release -property:OutputPath="${{github.workspace}}/bin/" -property:Version=${{ needs.version.outputs.new_version }} -property:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -77,7 +77,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{ env.SolutionName }}.sln
     - name: Build .NET Standard v2.0
-      run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/netstandard20/" /p:DocumentationFile="../bin/netstandard20/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ needs.version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
+      run: dotnet build ${{ env.SolutionName }}.sln --configuration Release --no-restore /p:OutputPath="../bin/" /p:DocumentationFile="../bin/${{ env.SolutionName }}.xml" /p:AssemblyVersion=${{ needs.version.outputs.new_version }} /p:SignAssembly=true /p:AssemblyOriginatorKeyFile="${{ steps.sign_key_file.outputs.filePath }}"
     - name: Deploy artifacts
       uses: actions/upload-artifact@v3
       with:
@@ -99,7 +99,7 @@ jobs:
     - name: Extracting all artifacts
       uses: actions/download-artifact@v3
       with:
-        path: ../bin
+        path: bin
     - name: Pack artifacts
       run: nuget pack ${{ env.SolutionName }}.dll.nuspec -Version ${{ needs.version.outputs.new_version }} -OutputDirectory nupkg
 #    - name: Zip artifacts
