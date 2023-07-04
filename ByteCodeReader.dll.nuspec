@@ -22,8 +22,8 @@
 	</metadata>
 	<files>
 		<file src="readme.md" target="docs" />
-		<file src="..\bin\ByteCodeReader.xml" target="xml" />
-		<file src="..\bin\ByteCodeReader.dll" target="lib\net20" />
-		<file src="..\bin\netstandard2.0\ByteCodeReader.dll" target="lib\netstandard2.0" />
+		<file src="bin\net20\ByteCodeReader.xml" target="xml" />
+		<file src="bin\netstandard20\ByteCodeReader.dll" target="lib\net20" />
+		<file src="bin\netstandard20\ByteCodeReader.dll" target="lib\netstandard2.0" />
 	</files>
 </package>
