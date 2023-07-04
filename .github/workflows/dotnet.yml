@@ -1,4 +1,4 @@
-name: Buid, Test & GitDeploy
+name: Test, Buid, Release
 
 on:
   push:
