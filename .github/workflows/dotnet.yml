@@ -66,3 +66,16 @@ jobs:
         body: ${{ steps.tag_version.outputs.changelog }}
         artifactErrorsFailBuild: true
         generateReleaseNotes: true
+  deploy:
+    needs: [build]
+    runs-on: windows-latest
+    
+    steps:
+      - name: Extracting artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: Artifacts
+          path: bin
+      - name: Display structure of downloaded files
+        run: dir
+        working-directory: dir
