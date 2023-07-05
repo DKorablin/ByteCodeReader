@@ -11,6 +11,7 @@ env:
 
 jobs:
   test_net_standard20_windows:
+    name: Testing .NET Standard v2.0 on Windows
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
@@ -26,6 +27,7 @@ jobs:
       run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
 
   test_net_standard20_ubuntu:
+    name: Testing .NET Standard v2.0 on Ubuntu
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -41,6 +43,7 @@ jobs:
       run: dotnet test ${{ env.SolutionName }}.sln --no-build --verbosity normal
 
   version:
+    name: Incrementing version number
     needs: [test_net_standard20_windows,test_net_standard20_ubuntu]
     runs-on: ubuntu-latest
     outputs:
@@ -56,6 +59,7 @@ jobs:
         #custom_tag: 1.0.0
 
   build_net20:
+    name: Build .NET Framework v2.0 assembly
     needs: [version]
     runs-on: windows-latest
     steps:
@@ -80,6 +84,7 @@ jobs:
         if-no-files-found: error
 
   build_net_standard20:
+    name: Build .NET Standard v2.0 assembly
     needs: [version]
     runs-on: ubuntu-latest
     steps:
@@ -108,6 +113,7 @@ jobs:
         if-no-files-found: error
 
   deploy:
+    name: Packing and deploying NuGet package to Release
     needs: [version, build_net20, build_net_standard20]
     runs-on: windows-latest
     
