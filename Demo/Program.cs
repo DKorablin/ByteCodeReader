@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using AlphaOmega.Debug;
 
@@ -8,7 +9,7 @@ namespace Demo
 	{
 		static void Main(String[] args)
 		{
-			foreach(String classFile in new String[] { @"..\..\..\..\Samples\Main.class", @"..\..\..\..\Samples\PrintTest.class", @"..\..\..\..\Samples\PrintTest2.class" })
+			foreach(String classFile in Directory.GetFiles(@"C:\Visual Studio Projects\C#\Shared.Classes\AlphaOmega.Debug\FileReader\Samples", "*.class", SearchOption.AllDirectories))
 				ReadClassFile(classFile);
 		}
 
