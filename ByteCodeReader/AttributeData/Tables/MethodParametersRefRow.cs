@@ -13,24 +13,20 @@ namespace AlphaOmega.Debug.AttributeData
 		{
 			/// <summary> Indicates that the formal parameter was declared final.</summary>
 			FINAL = 0x0010,
-			/// <summary>
-			/// Indicates that the formal parameter was not explicitly or implicitly declared in source code, according to the specification of the language in which the source code was written (JLS §13.1).
-			/// (The formal parameter is an implementation artifact of the compiler which produced this class file.)
-			/// </summary>
+			/// <summary>Indicates that the formal parameter was not explicitly or implicitly declared in source code, according to the specification of the language in which the source code was written (JLS §13.1)</summary>
+			/// <remarks>The formal parameter is an implementation artifact of the compiler which produced this class file</remarks>
 			SYNTHETIC = 0x1000,
-			/// <summary>
-			///  Indicates that the formal parameter was implicitly declared in source code, according to the specification of the language in which the source code was written (JLS §13.1).
-			///  (The formal parameter is mandated by a language specification, so all compilers for the language must emit it.)
-			/// </summary>
+			/// <summary>Indicates that the formal parameter was implicitly declared in source code, according to the specification of the language in which the source code was written (JLS §13.1)</summary>
+			/// <remarks>The formal parameter is mandated by a language specification, so all compilers for the language must emit it</remarks>
 			MANDATED = 0x8000,
 		}
 
 		private UInt16 name_indexI { get { return base.GetValue<UInt16>(0); } }
 
-		/// <summary>The value of the name_index item must either be zero or a valid index into the constant_pool table.</summary>
+		/// <summary>The value of the name_index item must either be zero or a valid index into the constant_pool table</summary>
 		/// <remarks>
 		/// If the value of the name_index item is zero, then this parameters element indicates a formal parameter with no name.
-		/// If the value of the name_index item is nonzero, the constant_pool entry at that index must be a CONSTANT_Utf8_info structure representing a valid unqualified name denoting a formal parameter (§4.2.2).
+		/// If the value of the name_index item is nonzero, the constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Utf8_info"/> structure representing a valid unqualified name denoting a formal parameter (§4.2.2).
 		/// </remarks>
 		public ConstantReference name_index
 		{

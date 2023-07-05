@@ -15,14 +15,20 @@ namespace AlphaOmega.Debug.ConstantData
 
 		/// <summary>constant_pool array</summary>
 		private Tables<Jvm.CONSTANT> Root { get { return this._root; } }
+
+		/// <inheritdoc/>
 		ITables IRowPointer.Root { get { return this._root; } }
 
 		/// <summary>Constant type</summary>
 		public Jvm.CONSTANT? TableType { get { return this._type; } }
+
+		/// <inheritdoc/>
 		Object IRowPointer.TableType { get { return this._type; } }
 
 		/// <summary>Constant index</summary>
 		public UInt32 Index { get { return this._index; } }
+
+		/// <inheritdoc/>
 		UInt32 IRowPointer.Index { get { return this.Index; } }
 
 		/// <summary>Create instance to the constants table with the exactly tag type</summary>
@@ -46,6 +52,7 @@ namespace AlphaOmega.Debug.ConstantData
 
 		/// <summary>Gets the constant reference</summary>
 		/// <returns>Reference row</returns>
+		/// <exception cref="ArgumentException">Reference not found</exception>
 		public Row<Jvm.CONSTANT> GetReference()
 		{
 			Row<Jvm.CONSTANT> result = this.TableType == null
@@ -55,6 +62,7 @@ namespace AlphaOmega.Debug.ConstantData
 			return result ?? throw new ArgumentException($"Reference by index {this.Index} not found");
 		}
 
+		/// <inheritdoc/>
 		IRow IRowPointer.GetReference()
 		{
 			return this.GetReference();

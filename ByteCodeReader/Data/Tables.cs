@@ -31,7 +31,8 @@ namespace AlphaOmega.Debug
 			}
 		}
 
-		ITable ITables.this[Object type] { get { return this[(T)type]; } }
+        /// <inheritdoc/>
+        ITable ITables.this[Object type] { get { return this[(T)type]; } }
 
 		/// <summary>Total tables count (must be fixed size)</summary>
 		public UInt32 Count { get { return (UInt32)this._tables.Count; } }
@@ -93,7 +94,8 @@ namespace AlphaOmega.Debug
 			return this._rows[rowIndex];
 		}
 
-		IRow ITables.GetRowByIndex(UInt32 rowIndex)
+        /// <inheritdoc/>
+        IRow ITables.GetRowByIndex(UInt32 rowIndex)
 		{
 			return this.GetRowByIndex(rowIndex);
 		}
@@ -106,12 +108,14 @@ namespace AlphaOmega.Debug
 				yield return table;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this.GetEnumerator();
 		}
 
-		IEnumerator<ITable> IEnumerable<ITable>.GetEnumerator()
+        /// <inheritdoc/>
+        IEnumerator<ITable> IEnumerable<ITable>.GetEnumerator()
 		{
 			foreach(Table<T> table in this._tables.Values)
 				yield return table;

@@ -26,11 +26,11 @@ namespace AlphaOmega.Debug.Data
 		/// <summary>Shortcut to the tables root</summary>
 		protected Tables<T> Root { get { return this._row.Table.Root; } }
 
-		/// <summary>Получить значение из колонки ряда по значению</summary>
-		/// <typeparam name="V">Column Value type</typeparam>
-		/// <param name="columnIndex">Индекс колонки в таблице метаданных</param>
-		/// <returns>Значение колонки в таблице метаданных</returns>
-		protected V GetValue<V>(UInt16 columnIndex)
+        /// <summary>Get the value from the column of the row by value</summary>
+        /// <typeparam name="V">Column Value type</typeparam>
+        /// <param name="columnIndex">Column index from metadata table</param>
+        /// <returns>Column value from metadata table</returns>
+        protected V GetValue<V>(UInt16 columnIndex)
 		{
 			return (V)this.Row[columnIndex].Value;
 		}

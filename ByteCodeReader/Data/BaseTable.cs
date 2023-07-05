@@ -12,10 +12,10 @@ namespace AlphaOmega.Debug.Data
 	{
 		#region Fields
 		private readonly Table<T> _table;
-		#endregion Fields
+        #endregion Fields
 
-		/// <summary>Таблица в метаданных</summary>
-		public Table<T> Table { get { return this._table; } }
+        /// <summary>Table in metadata</summary>
+        public Table<T> Table { get { return this._table; } }
 
 		/// <summary>Gets row by transparent row index</summary>
 		/// <param name="rowIndex">Transparent row index</param>
@@ -32,15 +32,16 @@ namespace AlphaOmega.Debug.Data
 			this._table = table ?? throw new ArgumentNullException(nameof(table));
 		}
 
-		/// <summary>Получить в итерации список всех рядов в таблице метаданных</summary>
-		/// <returns>Ряд метаданных детально описывающий структуру таблицы</returns>
-		public IEnumerator<E> GetEnumerator()
+        /// <summary>Get in iteration a list of all rows in a metadata table</summary>
+        /// <returns>A set of metadata detailing the structure of a table</returns>
+        public IEnumerator<E> GetEnumerator()
 		{
 			foreach(var row in this.Table.Rows)
 				yield return new E() { Row = row, };
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this.GetEnumerator();
 		}

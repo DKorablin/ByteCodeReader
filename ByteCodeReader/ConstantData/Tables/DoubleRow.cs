@@ -3,12 +3,16 @@ using AlphaOmega.Debug.Data;
 
 namespace AlphaOmega.Debug.ConstantData
 {
-	/// <summary>The CONSTANT_Double_info represent 8-byte numeric (double) constants</summary>
+	/// <summary>The <see cref="Jvm.CONSTANT_Double_info"/> represent 8-byte numeric (double) constants</summary>
 	public class DoubleRow : BaseRow<Jvm.CONSTANT>
 	{
-		/// <summary>The high_bytes and low_bytes items of the CONSTANT_Double_info structure together represent the double value in IEEE 754 floating-point double format (§2.3.2). The bytes of each item are stored in big-endian (high byte first) order. </summary>
+		/// <summary>
+		/// The high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Double_info"/> structure together represent the double value in IEEE 754 floating-point double format (§2.3.2).
+		/// The bytes of each item are stored in big-endian (high byte first) order
+		/// </summary>
 		/// <remarks>
-		/// The value represented by the CONSTANT_Double_info structure is determined as follows. The high_bytes and low_bytes items are converted into the long constant bits, which is equal to
+		/// The value represented by the <see cref="Jvm.CONSTANT_Double_info"/> structure is determined as follows.
+		/// The high_bytes and low_bytes items are converted into the long constant bits, which is equal to
 		/// ((long) high_bytes &lt;&lt; 32) + low_bytes
 		/// 
 		/// Then:
@@ -27,7 +31,8 @@ namespace AlphaOmega.Debug.ConstantData
 		/// </remarks>
 		public UInt32 high_bytes { get { return base.GetValue<UInt32>(0); } }
 
-		/// <summary>The high_bytes and low_bytes items of the CONSTANT_Double_info structure together represent the double value in IEEE 754 floating-point double format (§2.3.2). The bytes of each item are stored in big-endian (high byte first) order. </summary>
+		/// <summary>The high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Double_info"/> structure together represent the double value in IEEE 754 floating-point double format (§2.3.2)</summary>
+		/// <remarks>The bytes of each item are stored in big-endian (high byte first) order</remarks>
 		public UInt32 low_bytes { get { return base.GetValue<UInt32>(1); } }
 	}
 }

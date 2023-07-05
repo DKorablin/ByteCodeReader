@@ -36,9 +36,10 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>
 		/// If the value of the catch_type item is nonzero, it must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must be a CONSTANT_Class_info structure (§4.4.1) representing a class of exceptions that this exception handler is designated to catch.
+		/// The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing a class of exceptions that this exception handler is designated to catch.
 		/// The exception handler will be called only if the thrown exception is an instance of the given class or one of its subclasses.
-		/// If the value of the catch_type item is zero, this exception handler is called for all exceptions. This is used to implement finally (§3.13).
+		/// If the value of the catch_type item is zero, this exception handler is called for all exceptions.
+		/// This is used to implement finally (§3.13).
 		/// </summary>
 		public ConstantReference catch_type
 		{

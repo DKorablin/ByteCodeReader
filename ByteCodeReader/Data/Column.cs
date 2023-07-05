@@ -17,8 +17,9 @@ namespace AlphaOmega.Debug
 		/// <summary>Table type</summary>
 		public T TableType { get { return this._tableType; } }
 
-		/// <summary>Name of the column. From CONSTANT structures</summary>
-		public String Name { get { return this._columnName; } }
+        /// <summary>Name of the column</summary>
+        /// <remarks>From CONSTANT structures</remarks>
+        public String Name { get { return this._columnName; } }
 
 		/// <summary>Zero based index from the beggining of structure</summary>
 		public UInt16 Index { get { return this._columnIndex; } }

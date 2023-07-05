@@ -13,11 +13,11 @@ namespace AlphaOmega.Debug.AttributeData
 	{
 		private UInt16[] exception_index_tableI { get { return base.GetValue<UInt16[]>(0); } }
 
-		/// <summary>The value of the number_of_exceptions item indicates the number of entries in the exception_index_table.</summary>
+		/// <summary>The value of the number_of_exceptions item indicates the number of entries in the exception_index_table</summary>
 		public UInt16 number_of_exceptions { get { return (UInt16)this.exception_index_tableI.Length; } }
 		/// <summary>
 		/// Each value in the exception_index_table array must be a valid index into the constant_pool table.
-		/// The constant_pool entry referenced by each table item must be a CONSTANT_Class_info structure (§4.4.1) representing a class type that this method is declared to throw.
+		/// The constant_pool entry referenced by each table item must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing a class type that this method is declared to throw.
 		/// </summary>
 		/// <remarks>
 		/// A method should throw an exception only if at least one of the following three criteria is met:

@@ -7,13 +7,14 @@ namespace AlphaOmega.Debug.ConstantData
 	/// <remarks>https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.4.8</remarks>
 	public class MethodHandleRow : BaseRow<Jvm.CONSTANT>
 	{
-		/// <summary>The value of the reference_kind item must be in the range 1 to 9. The value denotes the kind of this method handle, which characterizes its bytecode behavior (§5.4.3.5).</summary>
+		/// <summary>The value denotes the kind of this method handle, which characterizes its bytecode behavior (§5.4.3.5)</summary>
+		/// <remarks>The value of the reference_kind item must be in the range 1 to 9</remarks>
 		public Jvm.REF reference_kind { get { return base.GetValue<Jvm.REF>(0); } }
 
-		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table.</summary>
+		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table</summary>
 		private UInt16 reference_indexI { get { return base.GetValue<UInt16>(1); } }
 
-		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table.</summary>
+		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table</summary>
 		public ConstantReference reference_index
 		{
 			get

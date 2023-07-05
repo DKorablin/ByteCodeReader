@@ -12,7 +12,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>
 		/// The value of the sourcefile_index item must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must be a CONSTANT_Utf8_info structure (§4.4.7) representing a string.
+		/// The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Utf8_info"/> structure (§4.4.7) representing a string.
 		/// </summary>
 		/// <remarks>
 		/// The string referenced by the sourcefile_index item will be interpreted as indicating the name of the source file from which this class file was compiled.

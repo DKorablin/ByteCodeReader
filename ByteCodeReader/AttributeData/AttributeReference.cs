@@ -19,6 +19,8 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>Attribute type</summary>
 		public String TableType { get { return this._type; } }
+
+		/// <inheritdoc/>
 		Object IRowPointer.TableType { get { return this._type; } }
 
 		/// <summary>Attribute index</summary>
@@ -39,6 +41,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>Gets the constant reference</summary>
 		/// <returns>Reference row</returns>
+		/// <exception cref="ArgumentException">Reference not found</exception>
 		public Row<String> GetReference()
 		{
 			Row<String> result = this.TableType == null
@@ -48,6 +51,7 @@ namespace AlphaOmega.Debug.AttributeData
 			return result ?? throw new ArgumentException($"Reference by index {this.Index} not found", nameof(result));
 		}
 
+		/// <inheritdoc/>
 		IRow IRowPointer.GetReference()
 		{
 			return this.GetReference();

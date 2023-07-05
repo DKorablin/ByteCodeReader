@@ -31,7 +31,8 @@ namespace AlphaOmega.Debug
 		/// <summary>Description of the column owner</summary>
 		public Column<T> Column { get { return this._column; } }
 
-		IColumn ICell.Column { get { return this.Column; } }
+        /// <inheritdoc/>
+        IColumn ICell.Column { get { return this.Column; } }
 
 		/// <summary>Create instance of the generic cell specifying owner column</summary>
 		/// <param name="column">Owner column</param>

@@ -22,22 +22,18 @@ namespace AlphaOmega.Debug.AttributeData
 
 		private UInt16 name_indexI { get { return base.GetValue<UInt16>(2); } }
 
-		/// <summary>
-		/// The value of the name_index item must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must contain a CONSTANT_Utf8_info structure (§4.4.7) representing a valid unqualified name denoting a local variable (§4.2.2).
-		/// </summary>
+		/// <summary>The constant_pool entry at that index must contain a <see cref="Jvm.CONSTANT_Utf8_info"/> structure (§4.4.7) representing a valid unqualified name denoting a local variable (§4.2.2)</summary>
+		/// <remarks>The value of the name_index item must be a valid index into the constant_pool table</remarks>
 		public ConstantReference name_index { get { return new ConstantReference(base.Root.File.constant_pool, Jvm.CONSTANT.Utf8, this.name_indexI); } }
 
 		private UInt16 descriptor_indexI { get { return base.GetValue<UInt16>(3); } }
 
-		/// <summary>
-		/// The value of the descriptor_index item must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must contain a CONSTANT_Utf8_info structure (§4.4.7) representing a field descriptor which encodes the type of a local variable in the source program (§4.3.2).
-		/// </summary>
+		/// <summary>The constant_pool entry at that index must contain a <see cref="Jvm.CONSTANT_Utf8_info"/> structure (§4.4.7) representing a field descriptor which encodes the type of a local variable in the source program (§4.3.2)</summary>
+		/// <remarks>The value of the descriptor_index item must be a valid index into the constant_pool table</remarks>
 		public ConstantReference descriptor_index { get { return new ConstantReference(base.Root.File.constant_pool, Jvm.CONSTANT.Utf8, this.descriptor_indexI); } }
 
-		/// <summary>The given local variable must be at index in the local variable array of the current frame.</summary>
-		/// <remarks>If the local variable at index is of type double or long, it occupies both index and index + 1.</remarks>
+		/// <summary>The given local variable must be at index in the local variable array of the current frame</summary>
+		/// <remarks>If the local variable at index is of type double or long, it occupies both index and index + 1</remarks>
 		public UInt16 index { get { return base.GetValue<UInt16>(4); } }
 	}
 }

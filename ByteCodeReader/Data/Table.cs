@@ -19,18 +19,24 @@ namespace AlphaOmega.Debug
 
 		/// <summary>All rows from current table</summary>
 		public Row<T>[] Rows { get { return this._rows.ToArray(); } }
-		IEnumerable<IRow> ITable.Rows { get { return this._rows.ToArray(); } }
+
+        /// <inheritdoc/>
+        IEnumerable<IRow> ITable.Rows { get { return this._rows.ToArray(); } }
 
 		/// <summary>Rows count in the table</summary>
 		public UInt32 RowsCount { get { return (UInt32)this._rows.Count; } }
 
 		/// <summary>Columns from current table</summary>
 		public Column<T>[] Columns { get { return this._columns; } }
-		IColumn[] ITable.Columns { get { return this._columns; } }
+
+        /// <inheritdoc/>
+        IColumn[] ITable.Columns { get { return this._columns; } }
 
 		/// <summary>Type of current table</summary>
 		public T Type { get { return this._type; } }
-		Object ITable.Type { get { return this._type; } }
+
+        /// <inheritdoc/>
+        Object ITable.Type { get { return this._type; } }
 
 		/// <summary>Create instance of the tables class with variables columns and variable table type</summary>
 		/// <param name="root">Tables collection</param>
@@ -68,7 +74,8 @@ namespace AlphaOmega.Debug
 			}
 		}
 
-		IRow ITable.this[UInt32 rowIndex]
+        /// <inheritdoc/>
+        IRow ITable.this[UInt32 rowIndex]
 		{
 			get { return this[rowIndex]; }
 		}

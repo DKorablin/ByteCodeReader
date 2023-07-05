@@ -52,13 +52,11 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>The value of the attributes_count item indicates the number of attributes of the Code attribute.</summary>
+		/// <summary>The value of the attributes_count item indicates the number of attributes of the Code attribute</summary>
 		public UInt16 attributes_count { get { return (UInt16)this.attributes.Length; } }
 
-		/// <summary>
-		/// Each value of the attributes table must be an attribute structure (§4.7).
-		/// A Code attribute can have any number of optional attributes associated with it.
-		/// </summary>
+		/// <summary>A Code attribute can have any number of optional attributes associated with it</summary>
+		/// <remarks>Each value of the attributes table must be an attribute structure (§4.7)</remarks>
 		public AttributeReference[] attributes { get { return base.GetValue<AttributeReference[]>(4); } }
 	}
 }

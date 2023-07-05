@@ -4,7 +4,7 @@ using AlphaOmega.Debug.Data;
 
 namespace AlphaOmega.Debug.ConstantData
 {
-	/// <summary>The CONSTANT_Utf8_info structure is used to represent constant string values</summary>
+	/// <summary>The <see cref="Jvm.CONSTANT.Utf8"/>_info structure is used to represent constant string values</summary>
 	[DebuggerDisplay("bytes={bytes}")]
 	public class Utf8Row : BaseRow<Jvm.CONSTANT>
 	{

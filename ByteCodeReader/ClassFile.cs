@@ -28,7 +28,7 @@ namespace AlphaOmega.Debug
 		/// <summary>Class file loader</summary>
 		private IImageLoader Loader { get { return this._loader; } }
 
-		/// <summary>The magic item supplies the magic number identifying the class file format; it has the value 0xCAFEBABE.</summary>
+		/// <summary>The magic item supplies the magic number identifying the class file format; it has the value 0xCAFEBABE</summary>
 		public UInt32 magic { get { return this._header1.magic; } }
 
 		/// <summary>Minor class file version</summary>
@@ -37,17 +37,15 @@ namespace AlphaOmega.Debug
 		/// <summary>Major class file version</summary>
 		public UInt16 major_version { get { return this._header1.major_version; } }
 
-		/// <summary>
-		/// The value of the constant_pool_count item is equal to the number of entries in the constant_pool table plus one.
-		/// A constant_pool index is considered valid if it is greater than zero and less than constant_pool_count, with the exception for constants of type long and double noted in §4.4.5.
-		/// </summary>
+		/// <summary>A <see cref="constant_pool"/> index is considered valid if it is greater than zero and less than <see cref="constant_pool_count"/>, with the exception for constants of type long and double noted in §4.4.5</summary>
+		/// <remarks>The value of the <see cref="constant_pool_count"/> item is equal to the number of entries in the <see cref="constant_pool"/> table plus one</remarks>
 		public UInt16 constant_pool_count { get { return this._header1.constant_pool_count; } }
 
 		/// <summary>
-		/// The constant_pool is a table of structures (§4.4) representing various string constants, class and interface names, field names, and other constants that are referred to within the ClassFile structure and its substructures.
-		/// The format of each constant_pool table entry is indicated by its first "tag" byte.
+		/// The <see cref="constant_pool"/> is a table of structures (§4.4) representing various string constants, class and interface names, field names, and other constants that are referred to within the ClassFile structure and its substructures.
+		/// The format of each <see cref="constant_pool"/> table entry is indicated by its first "tag" byte.
 		/// </summary>
-		/// <remarks>The constant_pool table is indexed from 1 to constant_pool_count-1.</remarks>
+		/// <remarks>The <see cref="constant_pool"/> table is indexed from 1 to constant_pool_count-1</remarks>
 		public ConstantTables constant_pool
 		{
 			get
@@ -65,10 +63,8 @@ namespace AlphaOmega.Debug
 		/// <summary>The value of the access_flags item is a mask of flags used to denote access permissions to and properties of this class or interface</summary>
 		public Jvm.ClassFile2.ACC access_flags { get { return this._header2.access_flags; } }
 
-		/// <summary>
-		/// The value of the this_class item must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must be a CONSTANT_Class_info structure (§4.4.1) representing the class or interface defined by this class file.
-		/// </summary>
+		/// <summary>The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the class or interface defined by this class file</summary>
+		/// <remarks>The value of the this_class item must be a valid index into the <see cref="constant_pool"/> table</remarks>
 		public Utf8Row this_class
 		{
 			get
@@ -79,11 +75,12 @@ namespace AlphaOmega.Debug
 		}
 
 		/// <summary>
-		/// For a class, the value of the super_class item either must be zero or must be a valid index into the constant_pool table.
-		/// If the value of the super_class item is nonzero, the constant_pool entry at that index must be a CONSTANT_Class_info structure (§4.4.1) representing the direct superclass of the class defined by this class file. Neither the direct superclass nor any of its superclasses may have the ACC_FINAL flag set in the access_flags item of its ClassFile structure.
+		/// For a class, the value of the super_class item either must be zero or must be a valid index into the <see cref="constant_pool"/> table.
+		/// If the value of the super_class item is nonzero, the <see cref="constant_pool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the direct superclass of the class defined by this class file. Neither the direct superclass nor any of its superclasses may have the ACC_FINAL flag set in the access_flags item of its ClassFile structure.
 		/// 
 		/// If the value of the super_class item is zero, then this class file must represent the class Object, the only class or interface without a direct superclass.
-		/// For an interface, the value of the super_class item must always be a valid index into the constant_pool table. The constant_pool entry at that index must be a CONSTANT_Class_info structure representing the class Object.
+		/// For an interface, the value of the super_class item must always be a valid index into the <see cref="constant_pool"/> table.
+		/// The <see cref="constant_pool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure representing the class Object.
 		/// </summary>
 		public Utf8Row super_class
 		{
@@ -97,13 +94,11 @@ namespace AlphaOmega.Debug
 			}
 		}
 
-		/// <summary>The value of the interfaces_count item gives the number of direct superinterfaces of this class or interface type.</summary>
+		/// <summary>The value of the interfaces_count item gives the number of direct superinterfaces of this class or interface type</summary>
 		public UInt16 interfaces_count { get { return this._header2.interfaces_count; } }
 
-		/// <summary>
-		/// Each value in the interfaces array must be a valid index into the constant_pool table.
-		/// The constant_pool entry at each value of interfaces[i], where 0 ≤ i &lt; interfaces_count, must be a CONSTANT_Class_info structure (§4.4.1) representing an interface that is a direct superinterface of this class or interface type, in the left-to-right order given in the source for the type.
-		/// </summary>
+		/// <summary>The constant_pool entry at each value of interfaces[i], where 0 ≤ i &lt; interfaces_count, must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing an interface that is a direct superinterface of this class or interface type, in the left-to-right order given in the source for the type</summary>
+		/// <remarks>Each value in the interfaces array must be a valid index into the constant_pool table</remarks>
 		public ClassRow[] interfaces { get { return this._interfaces; } }
 
 		/// <summary>

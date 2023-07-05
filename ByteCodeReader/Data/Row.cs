@@ -18,6 +18,8 @@ namespace AlphaOmega.Debug
 
 		/// <summary>Row owner table</summary>
 		public Table<T> Table { get { return this._table; } }
+
+		/// <inheritdoc/>
 		ITable IRow.Table { get { return this.Table; } }
 
 		/// <summary>Transparent row index</summary>
@@ -63,13 +65,17 @@ namespace AlphaOmega.Debug
 			}
 		}
 
-		ICell[] IRow.Cells { get { return this.Cells; } }
+        /// <inheritdoc/>
+        ICell[] IRow.Cells { get { return this.Cells; } }
 
-		ICell IRow.this[UInt16 columnIndex] { get { return this[columnIndex]; } }
+        /// <inheritdoc/>
+        ICell IRow.this[UInt16 columnIndex] { get { return this[columnIndex]; } }
 
-		ICell IRow.this[String columnName] { get { return this[columnName]; } }
+        /// <inheritdoc/>
+        ICell IRow.this[String columnName] { get { return this[columnName]; } }
 
-		ICell IRow.this[IColumn column] { get { return this[column.Index]; } }
+        /// <inheritdoc/>
+        ICell IRow.this[IColumn column] { get { return this[column.Index]; } }
 
 		/// <summary>Create instance for the generic row</summary>
 		/// <param name="table">Owner table</param>
@@ -92,12 +98,16 @@ namespace AlphaOmega.Debug
 			foreach(Cell<T> cell in this.Cells)
 				yield return cell;
 		}
-		IEnumerator<ICell> IEnumerable<ICell>.GetEnumerator()
+
+        /// <inheritdoc/>
+        IEnumerator<ICell> IEnumerable<ICell>.GetEnumerator()
 		{
 			foreach(ICell cell in this.Cells)
 				yield return cell;
 		}
-		IEnumerator IEnumerable.GetEnumerator()
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
 		{
 			return this.GetEnumerator();
 		}

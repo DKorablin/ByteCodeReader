@@ -9,7 +9,8 @@ namespace AlphaOmega.Debug.AttributeData
 	public class AttributeTables : Tables<String>
 	{
 		#region Tables
-		/// <summary>The ConstantValue attribute is a fixed-length attribute in the attributes table of a field_info structure (§4.5). A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</summary>
+		/// <summary>The ConstantValue attribute is a fixed-length attribute in the attributes table of a field_info structure (§4.5)</summary>
+		/// <remarks>A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</remarks>
 		public Data.BaseTable<ConstantValueRow, String> ConstantValue
 		{
 			get
@@ -72,7 +73,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>
 		/// The InnerClasses attribute is a variable-length attribute in the attributes table of a ClassFile structure (§4.1).
-		/// If the constant pool of a class or interface C contains a CONSTANT_Class_info entry which represents a class or interface that is not a member of a package, then C's ClassFile structure must have exactly one InnerClasses attribute in its attributes table.
+		/// If the constant pool of a class or interface C contains a <see cref="Jvm.CONSTANT_Class_info"/> entry which represents a class or interface that is not a member of a package, then C's ClassFile structure must have exactly one InnerClasses attribute in its attributes table.
 		/// </summary>
 		public Data.BaseTable<InnerClassesRow, String> InnerClasses
 		{
@@ -85,7 +86,7 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>Every CONSTANT_Class_info entry in the constant_pool table which represents a class or interface C that is not a package member must have exactly one corresponding entry in the classes array.</summary>
+		/// <summary>Every <see cref="Jvm.CONSTANT_Class_info"/> entry in the constant_pool table which represents a class or interface C that is not a package member must have exactly one corresponding entry in the classes array.</summary>
 		/// <remarks>
 		/// If a class has members that are classes or interfaces, its constant_pool table (and hence its InnerClasses attribute) must refer to each such member, even if that member is not otherwise mentioned by the class.
 		/// These rules imply that a nested class or interface member will have InnerClasses information for each enclosing class and for each immediate member.
@@ -102,9 +103,10 @@ namespace AlphaOmega.Debug.AttributeData
 		}
 
 		/// <summary>
-		/// The EnclosingMethod attribute is an optional fixed-length attribute in the attributes table of a ClassFile structure (§4.1). A class must have an EnclosingMethod attribute if and only if it is a local class or an anonymous class.
-		/// A class may have no more than one EnclosingMethod attribute.
+		/// The EnclosingMethod attribute is an optional fixed-length attribute in the attributes table of a ClassFile structure (§4.1).
+		/// A class must have an EnclosingMethod attribute if and only if it is a local class or an anonymous class.
 		/// </summary>
+		/// <remarks>A class may have no more than one EnclosingMethod attribute</remarks>
 		public Data.BaseTable<EnclosingMethodRow, String> EnclosingMethod
 		{
 			get
@@ -132,8 +134,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>The SourceFile attribute is an optional fixed-length attribute in the attributes table of a ClassFile structure (§4.1).</summary>
-		/// <remarks>There may be at most one SourceFile attribute in the attributes table of a ClassFile structure.</remarks>
+		/// <summary>The SourceFile attribute is an optional fixed-length attribute in the attributes table of a ClassFile structure (§4.1)</summary>
+		/// <remarks>There may be at most one SourceFile attribute in the attributes table of a ClassFile structure</remarks>
 		public Data.BaseTable<SourceFileRow, String> SourceFile
 		{
 			get
@@ -145,8 +147,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>The SourceDebugExtension attribute is an optional attribute in the attributes table of a ClassFile structure (§4.1).</summary>
-		/// <remarks>There may be at most one SourceDebugExtension attribute in the attributes table of a ClassFile structure.</remarks>
+		/// <summary>The SourceDebugExtension attribute is an optional attribute in the attributes table of a ClassFile structure (§4.1)</summary>
+		/// <remarks>There may be at most one SourceDebugExtension attribute in the attributes table of a ClassFile structure</remarks>
 		public Data.BaseTable<SourceDebugExtensionRow, String> SourceDebugExtension
 		{
 			get
@@ -164,7 +166,8 @@ namespace AlphaOmega.Debug.AttributeData
 		/// </summary>
 		/// <remarks>
 		/// If multiple LineNumberTable attributes are present in the attributes table of a Code attribute, then they may appear in any order.
-		/// There may be more than one LineNumberTable attribute per line of a source file in the attributes table of a Code attribute. That is, LineNumberTable attributes may together represent a given line of a source file, and need not be one-to-one with source lines.
+		/// There may be more than one LineNumberTable attribute per line of a source file in the attributes table of a Code attribute.
+		/// That is, LineNumberTable attributes may together represent a given line of a source file, and need not be one-to-one with source lines.
 		/// </remarks>
 		public Data.BaseTable<LineNumberTableRow, String> LineNumberTable
 		{
@@ -177,7 +180,7 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>Each entry in the line_number_table array indicates that the line number in the original source file changes at a given point in the code array.</summary>
+		/// <summary>Each entry in the line_number_table array indicates that the line number in the original source file changes at a given point in the code array</summary>
 		public Data.BaseTable<LineNumberTableRefRow, String> LineNumberTableRef
 		{
 			get
@@ -269,7 +272,7 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>Each entry in the bootstrap_methods table contains an index to a CONSTANT_MethodHandle_info structure (§4.4.8) which specifies a bootstrap method, and a sequence (perhaps empty) of indexes to static arguments for the bootstrap method.</summary>
+		/// <summary>Each entry in the bootstrap_methods table contains an index to a <see cref="Jvm.CONSTANT_MethodHandle_info"/> structure (§4.4.8) which specifies a bootstrap method, and a sequence (perhaps empty) of indexes to static arguments for the bootstrap method</summary>
 		public Data.BaseTable<BootstrapMethodsRefRow, String> BootstrapMethodsRef
 		{
 			get
@@ -285,7 +288,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The MethodParameters attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6).
 		/// A MethodParameters attribute records information about the formal parameters of a method, such as their names.
 		/// </summary>
-		/// <remarks>There may be at most one MethodParameters attribute in the attributes table of a method_info structure.</remarks>
+		/// <remarks>There may be at most one MethodParameters attribute in the attributes table of a method_info structure</remarks>
 		public Data.BaseTable<MethodParametersRow, String> MethodParametersRow
 		{
 			get

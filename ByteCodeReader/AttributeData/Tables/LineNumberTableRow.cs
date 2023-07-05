@@ -16,10 +16,10 @@ namespace AlphaOmega.Debug.AttributeData
 	{
 		private AttributeReference[] line_number_tableI { get { return base.GetValue<AttributeReference[]>(0); } }
 
-		/// <summary>The value of the line_number_table_length item indicates the number of entries in the line_number_table array.</summary>
+		/// <summary>The value of the line_number_table_length item indicates the number of entries in the line_number_table array</summary>
 		public UInt16 line_number_table_length { get { return (UInt16)this.line_number_tableI.Length; } }
 
-		/// <summary>Each entry in the line_number_table array indicates that the line number in the original source file changes at a given point in the code array.</summary>
+		/// <summary>Each entry in the line_number_table array indicates that the line number in the original source file changes at a given point in the code array</summary>
 		public LineNumberTableRefRow[] line_number_table
 		{
 			get

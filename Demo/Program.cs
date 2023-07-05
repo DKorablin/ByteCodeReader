@@ -8,13 +8,13 @@ namespace Demo
 	{
 		static void Main(String[] args)
 		{
-			String classFile = @"C:\Visual Studio Projects\Java\HelloWorld\out\production\untitled104\AlphaOmega\Test\PrintTest.class";
-
-			ReadClassFile(classFile);
+			foreach(String classFile in new String[] { @"..\..\..\..\Samples\Main.class", @"..\..\..\..\Samples\PrintTest.class", @"..\..\..\..\Samples\PrintTest2.class" })
+				ReadClassFile(classFile);
 		}
 
 		private static void ReadClassFile(String classFile)
 		{
+			Console.WriteLine("Reading file: {0}", classFile);
 			using(ClassFile info = new ClassFile(StreamLoader.FromFile(classFile)))
 			{
 				foreach(var item in info.fields)
