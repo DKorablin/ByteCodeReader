@@ -11,8 +11,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <param name="type">Type of the attribute table</param>
 		internal AttributeTable(AttributeTables root, String type)
 			: base(root, type, AttributeTable.GetTableDescrption(type))
-		{
-		}
+		{ }
 
 		internal UInt32 AddRow(BinaryReader reader)
 		{
@@ -42,93 +41,87 @@ namespace AlphaOmega.Debug.AttributeData
 			{
 			case Jvm.ATTRIBUTE.ConstantValue:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(ConstantValueRow.constantvalue_index), };
+				columnNames = new String[] { nameof(ConstantValueRow.ConstantValueIndex), };
 				break;
 			case Jvm.ATTRIBUTE.Code:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.ByteArray, AttributeColumnType.ExceptionTableRef, AttributeColumnType.AttributeRef, };
-				columnNames = new String[] { nameof(CodeRow.max_stack), nameof(CodeRow.max_locals), nameof(CodeRow.code), nameof(CodeRow.exception_table), nameof(CodeRow.attributes), };
+				columnNames = new String[] { nameof(CodeRow.MaxStack), nameof(CodeRow.MaxLocals), nameof(CodeRow.Code), nameof(CodeRow.ExceptionTable), nameof(CodeRow.Attributes), };
 				break;
 			case Jvm.ATTRIBUTE.ExceptionTableRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(ExceptionTableRefRow.start_pc), nameof(ExceptionTableRefRow.end_pc), nameof(ExceptionTableRefRow.handler_pc), nameof(ExceptionTableRefRow.catch_type), };
+				columnNames = new String[] { nameof(ExceptionTableRefRow.StartPc), nameof(ExceptionTableRefRow.EndPc), nameof(ExceptionTableRefRow.HandlerPc), nameof(ExceptionTableRefRow.CatchType), };
 				break;
 			case Jvm.ATTRIBUTE.Exceptions:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.ShortArray, };
-				columnNames = new String[] { nameof(ExceptionsRow.exception_index_table), };
+				columnNames = new String[] { nameof(ExceptionsRow.ExceptionIndexTable), };
 				break;
 			case Jvm.ATTRIBUTE.InnerClasses:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.InnerClassRef, };
-				columnNames = new String[] { nameof(InnerClassesRow.classes), };
+				columnNames = new String[] { nameof(InnerClassesRow.Classes), };
 				break;
 			case Jvm.ATTRIBUTE.InnerClassesRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(InnerClassesRefRow.inner_class_info_index), nameof(InnerClassesRefRow.outer_class_info_index), nameof(InnerClassesRefRow.inner_name_index), nameof(InnerClassesRefRow.inner_class_access_flags), };
+				columnNames = new String[] { nameof(InnerClassesRefRow.InnerClassInfoIndex), nameof(InnerClassesRefRow.OuterClassInfoIndex), nameof(InnerClassesRefRow.InnerNameIndex), nameof(InnerClassesRefRow.InnerClassAccessFlags), };
 				break;
 			case Jvm.ATTRIBUTE.EnclosingMethod:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(EnclosingMethodRow.class_index), nameof(EnclosingMethodRow.method_index), };
+				columnNames = new String[] { nameof(EnclosingMethodRow.ClassIndex), nameof(EnclosingMethodRow.MethodIndex), };
 				break;
 			case Jvm.ATTRIBUTE.Signature:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(SignatureRow.signature_index), };
+				columnNames = new String[] { nameof(SignatureRow.SignatureIndex), };
 				break;
 			case Jvm.ATTRIBUTE.SourceFile:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(SourceFileRow.sourcefile_index), };
+				columnNames = new String[] { nameof(SourceFileRow.SourceFileIndex), };
 				break;
 			case Jvm.ATTRIBUTE.SourceDebugExtension:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.Raw, };
-				columnNames = new String[] { nameof(SourceDebugExtensionRow.debug_extension), };
+				columnNames = new String[] { nameof(SourceDebugExtensionRow.DebugExtension), };
 				break;
 			case Jvm.ATTRIBUTE.LineNumberTable:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.LineNumberTableRef, };
-				columnNames = new String[] { nameof(LineNumberTableRow.line_number_table), };
+				columnNames = new String[] { nameof(LineNumberTableRow.LineNumberTable), };
 				break;
 			case Jvm.ATTRIBUTE.LineNumberTableRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { "start_pc", "line_number", };
+				columnNames = new String[] { "StartPc", "LineNumber", };
 				break;
 
 			case Jvm.ATTRIBUTE.LocalVariableTable:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.LocalVariableTableRef, };
-				columnNames = new String[] { nameof(LocalVariableTableRow.local_variable_table), };
+				columnNames = new String[] { nameof(LocalVariableTableRow.LocalVariableTable), };
 				break;
 			case Jvm.ATTRIBUTE.LocalVariableTableRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(LocalVariableTableRefRow.start_pc), nameof(LocalVariableTableRefRow.length), nameof(LocalVariableTableRefRow.name_index), nameof(LocalVariableTableRefRow.descriptor_index), nameof(LocalVariableTableRefRow.index), };
+				columnNames = new String[] { nameof(LocalVariableTableRefRow.StartPc), nameof(LocalVariableTableRefRow.Length), nameof(LocalVariableTableRefRow.NameIndex), nameof(LocalVariableTableRefRow.DescriptorIndex), nameof(LocalVariableTableRefRow.Index), };
 				break;
 			case Jvm.ATTRIBUTE.LocalVariableTypeTable:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.LocalVariableTypeTableRef, };
-				columnNames = new String[] { nameof(LocalVariableTypeTableRow.local_variable_type_table), };
+				columnNames = new String[] { nameof(LocalVariableTypeTableRow.LocalVariableTypeTable), };
 				break;
 			case Jvm.ATTRIBUTE.LocalVariableTypeTableRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(LocalVariableTypeTableRefRow.start_pc), nameof(LocalVariableTypeTableRefRow.length), nameof(LocalVariableTypeTableRefRow.name_index), nameof(LocalVariableTypeTableRefRow.signature_index), nameof(LocalVariableTypeTableRefRow.index), };
+				columnNames = new String[] { nameof(LocalVariableTypeTableRefRow.StartPc), nameof(LocalVariableTypeTableRefRow.Length), nameof(LocalVariableTypeTableRefRow.NameIndex), nameof(LocalVariableTypeTableRefRow.SignatureIndex), nameof(LocalVariableTypeTableRefRow.Index), };
 				break;
 			case Jvm.ATTRIBUTE.BootstrapMethods:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.BootstrapMethodsRef, };
-				columnNames = new String[] { nameof(BootstrapMethodsRow.bootstrap_methods), };
+				columnNames = new String[] { nameof(BootstrapMethodsRow.BootstrapMethods), };
 				break;
 			case Jvm.ATTRIBUTE.BootstrapMethodsRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.ShortArray, };
-				columnNames = new String[] { nameof(BootstrapMethodsRefRow.bootstrap_method_ref), nameof(BootstrapMethodsRefRow.bootstrap_arguments), };
+				columnNames = new String[] { nameof(BootstrapMethodsRefRow.BootstrapMethodRef), nameof(BootstrapMethodsRefRow.BootstrapArguments), };
 				break;
 			case Jvm.ATTRIBUTE.MethodParameters:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.MethodParametersRef, };
-				columnNames = new String[] { nameof(MethodParametersRow.parameters), };
+				columnNames = new String[] { nameof(MethodParametersRow.Parameters), };
 				break;
 			case Jvm.ATTRIBUTE.MethodParametersRef:
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.UInt16, AttributeColumnType.UInt16, };
-				columnNames = new String[] { nameof(MethodParametersRefRow.name_index), nameof(MethodParametersRefRow.access_flags), };
+				columnNames = new String[] { nameof(MethodParametersRefRow.NameIndex), nameof(MethodParametersRefRow.AccessFlags), };
 				break;
 			case Jvm.ATTRIBUTE.Deprecated:
-				columnTypes = new AttributeColumnType[] { AttributeColumnType.Raw, };
-				columnNames = new String[] { "raw", };
-				break;
 			case Jvm.ATTRIBUTE.Synthetic:
-				columnTypes = new AttributeColumnType[] { AttributeColumnType.Raw, };
-				columnNames = new String[] { "raw", };
-				break;
 			case Jvm.ATTRIBUTE.StackMapTable://TODO: Not implemented
 			case Jvm.ATTRIBUTE.RuntimeVisibleAnnotations://TODO: Not implemented
 			case Jvm.ATTRIBUTE.RuntimeVisibleParameterAnnotations://TODO: Not implemented
@@ -139,7 +132,7 @@ namespace AlphaOmega.Debug.AttributeData
 			case Jvm.ATTRIBUTE.AnnotationDefault://TODO: Not implemented
 			default://Unknown attribute
 				columnTypes = new AttributeColumnType[] { AttributeColumnType.Raw, };
-				columnNames = new String[] { "raw", };
+				columnNames = new String[] { "Raw", };
 				break;
 			}
 

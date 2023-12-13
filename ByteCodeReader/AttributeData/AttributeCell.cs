@@ -8,10 +8,8 @@ namespace AlphaOmega.Debug.AttributeData
 	[DebuggerDisplay("Column={Column.Name} Value={Value}")]
 	public class AttributeCell : Cell<String>
 	{
-		#region Fields
 		private readonly AttributeColumnType _columnType;
 		//private readonly UInt32 _size;
-		#endregion Fields
 
 		internal AttributeCell(AttributeTables tables, AttributeColumn column, BinaryReader reader)
 			: base(column)

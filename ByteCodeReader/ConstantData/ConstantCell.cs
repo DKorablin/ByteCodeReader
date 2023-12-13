@@ -47,7 +47,7 @@ namespace AlphaOmega.Debug.ConstantData
 				break;
 			case ConstantColumnType.UInt32:
 				base.RawValue = file.PtrToStructure<UInt32>(offset);
-				base.Value = (UInt32)base.RawValue;
+				base.Value = base.RawValue;
 				break;
 			case ConstantColumnType.Utf8String:
 				base.RawValue = file.PtrToStructure<UInt16>(offset);

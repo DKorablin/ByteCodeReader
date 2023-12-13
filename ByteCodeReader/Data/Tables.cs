@@ -9,43 +9,33 @@ namespace AlphaOmega.Debug
 	/// <typeparam name="T">Tables type</typeparam>
 	public class Tables<T> : IEnumerable<Table<T>>, ITables
 	{
-		#region Fields
-		private readonly ClassFile _file;
-
 		private readonly Dictionary<T, Table<T>> _tables = new Dictionary<T, Table<T>>();
 		private Int32 _rowIndex = 0;
 		private readonly Dictionary<UInt32, Row<T>> _rows = new Dictionary<UInt32, Row<T>>();
-		#endregion Fields
 
 		/// <summary>Gets the table by the table type value</summary>
 		/// <param name="type">Table type value</param>
 		/// <returns>table with structures by table type</returns>
 		public Table<T> this[T type]
-		{
-			get
-			{
-				Table<T> result;
-				return this._tables.TryGetValue(type, out result)
-					? result
-					: null;
-			}
-		}
+			=> this._tables.TryGetValue(type, out Table<T> result)
+				? result
+				: null;
 
-        /// <inheritdoc/>
-        ITable ITables.this[Object type] { get { return this[(T)type]; } }
+		/// <inheritdoc/>
+		ITable ITables.this[Object type] => this[(T)type];
 
 		/// <summary>Total tables count (must be fixed size)</summary>
-		public UInt32 Count { get { return (UInt32)this._tables.Count; } }
+		public UInt32 Count => (UInt32)this._tables.Count;
 
 		/// <summary>Parent class file</summary>
-		internal ClassFile File { get { return this._file; } }
+		internal ClassFile File { get; }
 
 		/// <summary>Create instance of the tables collection</summary>
 		/// <param name="file">Parent class file</param>
 		/// <exception cref="ArgumentNullException">file can't be null</exception>
 		public Tables(ClassFile file)
 		{
-			this._file = file ?? throw new ArgumentNullException(nameof(file));
+			this.File = file ?? throw new ArgumentNullException(nameof(file));
 			this._tables = new Dictionary<T, Table<T>>();
 		}
 
@@ -90,15 +80,11 @@ namespace AlphaOmega.Debug
 		/// <param name="rowIndex">Row index</param>
 		/// <returns>Found row or exception</returns>
 		public Row<T> GetRowByIndex(UInt32 rowIndex)
-		{
-			return this._rows[rowIndex];
-		}
+			=> this._rows[rowIndex];
 
-        /// <inheritdoc/>
-        IRow ITables.GetRowByIndex(UInt32 rowIndex)
-		{
-			return this.GetRowByIndex(rowIndex);
-		}
+		/// <inheritdoc/>
+		IRow ITables.GetRowByIndex(UInt32 rowIndex)
+			=> this.GetRowByIndex(rowIndex);
 
 		/// <summary>Gets all tables in table collection</summary>
 		/// <returns>Created tables</returns>
@@ -108,14 +94,12 @@ namespace AlphaOmega.Debug
 				yield return table;
 		}
 
-        /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator()
-		{
-			return this.GetEnumerator();
-		}
+		/// <inheritdoc/>
+		IEnumerator IEnumerable.GetEnumerator()
+			=> this.GetEnumerator();
 
-        /// <inheritdoc/>
-        IEnumerator<ITable> IEnumerable<ITable>.GetEnumerator()
+		/// <inheritdoc/>
+		IEnumerator<ITable> IEnumerable<ITable>.GetEnumerator()
 		{
 			foreach(Table<T> table in this._tables.Values)
 				yield return table;

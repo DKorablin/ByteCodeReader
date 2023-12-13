@@ -24,13 +24,13 @@ namespace AlphaOmega.Debug
 			public UInt16 major_version;
 
 			/// <summary>
-			/// The value of the <see cref="ClassFile.constant_pool_count"/> item is equal to the number of entries in the <see cref="ClassFile.constant_pool"/> table plus one.
-			/// A <see cref="ClassFile.constant_pool"/> index is considered valid if it is greater than zero and less than <see cref="ClassFile.constant_pool_count"/>, with the exception for constants of type long and double noted in §4.4.5.
+			/// The value of the <see cref="ClassFile.ConstantPoolCount"/> item is equal to the number of entries in the <see cref="ClassFile.ConstantPool"/> table plus one.
+			/// A <see cref="ClassFile.ConstantPool"/> index is considered valid if it is greater than zero and less than <see cref="ClassFile.ConstantPoolCount"/>, with the exception for constants of type long and double noted in §4.4.5.
 			/// </summary>
 			public UInt16 constant_pool_count;
 
 			/// <summary>Class files is valid</summary>
-			public Boolean IsValid { get { return this.magic == 0xCAFEBABE; } }
+			public Boolean IsValid => this.magic == 0xCAFEBABE;
 
 			/// <summary>
 			/// The values of the minor_version and major_version items are the minor and major version numbers of this class file.
@@ -42,7 +42,7 @@ namespace AlphaOmega.Debug
 			/// A Java Virtual Machine implementation can support a class file format of version v if and only if v lies in some contiguous range Mi.0 ≤ v ≤ Mj.m.
 			/// The release level of the Java SE platform to which a Java Virtual Machine implementation conforms is responsible for determining the range.
 			/// </remarks>
-			public Version Version { get { return new Version(this.major_version, this.minor_version); } }
+			public Version Version => new Version(this.major_version, this.minor_version);
 		}
 
 		/// <summary>Each class file contains the definition of a single class or interface</summary>
@@ -52,7 +52,7 @@ namespace AlphaOmega.Debug
 		{
 			/// <summary>The value of the access_flags item is a mask of flags used to denote access permissions to and properties of this class or interface</summary>
 			[Flags]
-			public enum ACC : ushort
+			public enum ACC : UInt16
 			{
 				/// <summary>Declared public; may be accessed from outside its package</summary>
 				PUBLIC = 0x0001,
@@ -93,19 +93,19 @@ namespace AlphaOmega.Debug
 			/// <summary>The value of the access_flags item is a mask of flags used to denote access permissions to and properties of this class or interface</summary>
 			public ACC access_flags;
 
-			/// <summary>The value of the this_class item must be a valid index into the <see cref="ClassFile.constant_pool"/> table</summary>
-			/// <remarks>The <see cref="ClassFile.constant_pool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure (§4.4.1) representing the class or interface defined by this class file</remarks>
+			/// <summary>The value of the this_class item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table</summary>
+			/// <remarks>The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure (§4.4.1) representing the class or interface defined by this class file</remarks>
 			public UInt16 this_class;
 
 			/// <summary>
-			/// For a class, the value of the super_class item either must be zero or must be a valid index into the <see cref="ClassFile.constant_pool"/> table.
-			/// If the value of the super_class item is nonzero, the <see cref="ClassFile.constant_pool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure (§4.4.1) representing the direct superclass of the class defined by this class file.
+			/// For a class, the value of the super_class item either must be zero or must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
+			/// If the value of the super_class item is nonzero, the <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure (§4.4.1) representing the direct superclass of the class defined by this class file.
 			/// Neither the direct superclass nor any of its superclasses may have the <see cref="ACC.FINAL"/> flag set in the access_flags item of its ClassFile structure.
 			/// </summary>
 			/// <remarks>
 			/// If the value of the super_class item is zero, then this class file must represent the class Object, the only class or interface without a direct superclass.
-			/// For an interface, the value of the super_class item must always be a valid index into the <see cref="ClassFile.constant_pool"/> table.
-			/// The <see cref="ClassFile.constant_pool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure representing the class Object.
+			/// For an interface, the value of the super_class item must always be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
+			/// The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="CONSTANT_Class_info"/> structure representing the class Object.
 			/// </remarks>
 			public UInt16 super_class;
 
@@ -127,7 +127,7 @@ namespace AlphaOmega.Debug
 			/// All fields of interfaces must have their <see cref="ACC.PUBLIC"/>, <see cref="ACC.STATIC"/>, and <see cref="ACC.FINAL"/> flags set; they may have their <see cref="ACC.SYNTHETIC"/> flag set and must not have any of the other flags in Table 4.4 set (JLS §9.3). 
 			/// </remarks>
 			[Flags]
-			public enum ACC : ushort
+			public enum ACC : UInt16
 			{
 				/// <summary>Declared public; may be accessed from outside its package</summary>
 				PUBLIC = 0x0001,
@@ -160,8 +160,8 @@ namespace AlphaOmega.Debug
 			/// </summary>
 			public UInt16 name_index;
 
-			/// <summary>The value of the descriptor_index item must be a valid index into the <see cref="ClassFile.constant_pool"/> table</summary>
-			/// <remarks>The <see cref="ClassFile.constant_pool"/> entry at that index must be a <see cref="CONSTANT_Utf8_info"/> (§4.4.7) structure that must represent a valid field descriptor (§4.3.2)</remarks>
+			/// <summary>The value of the descriptor_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table</summary>
+			/// <remarks>The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="CONSTANT_Utf8_info"/> (§4.4.7) structure that must represent a valid field descriptor (§4.3.2)</remarks>
 			public UInt16 descriptor_index;
 
 			/// <summary>The value of the attributes_count item indicates the number of additional attributes (§4.7) of this field</summary>
@@ -185,7 +185,7 @@ namespace AlphaOmega.Debug
 			/// Each instance initialization method (§2.9) may have at most one of its <see cref="ACC.PUBLIC"/>, <see cref="ACC.PRIVATE"/>, and <see cref="ACC.PROTECTED"/> flags set, and may also have its <see cref="ACC.VARARGS"/>, <see cref="ACC.STRICT"/>, and <see cref="ACC.SYNTHETIC"/> flags set, but must not have any of the other flags in Table 4.6-A set.
 			/// </remarks>
 			[Flags]
-			public enum ACC : ushort
+			public enum ACC : UInt16
 			{
 				/// <summary>Declared public; may be accessed from outside its package</summary>
 				PUBLIC = 0x0001,
@@ -247,7 +247,7 @@ namespace AlphaOmega.Debug
 		public struct attribute_info
 		{
 			/// <summary>For all attributes, the attribute_name_index must be a valid unsigned 16-bit index into the constant pool of the class</summary>
-			/// <remarks>The <see cref="ClassFile.constant_pool"/> entry at attribute_name_index must be a <see cref="CONSTANT_Utf8_info"/> structure (§4.4.7) representing the name of the attribute</remarks>
+			/// <remarks>The <see cref="ClassFile.ConstantPool"/> entry at attribute_name_index must be a <see cref="CONSTANT_Utf8_info"/> structure (§4.4.7) representing the name of the attribute</remarks>
 			public UInt16 attribute_name_index;
 
 			/// <summary>The value of the attribute_length item indicates the length of the subsequent information in bytes</summary>
@@ -259,7 +259,7 @@ namespace AlphaOmega.Debug
 
 		/// <summary>Method Type and Method Handle Resolution</summary>
 		/// <remarks>https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html#jvms-5.4.3.5</remarks>
-		public enum REF : byte
+		public enum REF : Byte
 		{
 			/// <summary>getfield C.f:T</summary>
 			getField=1,
@@ -282,7 +282,7 @@ namespace AlphaOmega.Debug
 		}
 
 		/// <summary>Constant pool tags</summary>
-		public enum CONSTANT : byte
+		public enum CONSTANT : Byte
 		{
 			/// <summary>The <see cref="CONSTANT_Class_info"/> structure is used to represent a class or an interface</summary>
 			Class = 7,
@@ -431,7 +431,7 @@ namespace AlphaOmega.Debug
 			public UInt16 name_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Class; } }
+			public Boolean IsValid => this.tag == CONSTANT.Class;
 		}
 
 		/// <summary>Fields, methods, and interface methods are represented by similar structures</summary>
@@ -460,7 +460,7 @@ namespace AlphaOmega.Debug
 			public UInt16 name_and_type_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Fieldref; } }
+			public Boolean IsValid => this.tag == CONSTANT.Fieldref;
 		}
 
 		/// <summary>Fields, methods, and interface methods are represented by similar structures</summary>
@@ -478,7 +478,7 @@ namespace AlphaOmega.Debug
 			public UInt16 name_and_type_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Methodref; } }
+			public Boolean IsValid => this.tag == CONSTANT.Methodref;
 		}
 
 		/// <summary>Fields, methods, and interface methods are represented by similar structures</summary>
@@ -495,7 +495,7 @@ namespace AlphaOmega.Debug
 			public UInt16 name_and_type_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.InterfaceMethodref; } }
+			public Boolean IsValid => this.tag == CONSTANT.InterfaceMethodref;
 		}
 
 		/// <summary>The <see cref="CONSTANT_String_info"/> structure is used to represent constant objects of the type String</summary>
@@ -510,7 +510,7 @@ namespace AlphaOmega.Debug
 			public UInt16 string_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.String; } }
+			public Boolean IsValid => this.tag == CONSTANT.String;
 		}
 
 		/// <summary>The <see cref="CONSTANT_Integer_info"/> structures represent 4-byte numeric (int) constants</summary>
@@ -527,7 +527,7 @@ namespace AlphaOmega.Debug
 			public UInt32 bytes;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Integer; } }
+			public Boolean IsValid => this.tag == CONSTANT.Integer;
 		}
 
 		/// <summary>The <see cref="CONSTANT_Float_info"/> structures represent 4-byte numeric (float) constants</summary>
@@ -561,7 +561,7 @@ namespace AlphaOmega.Debug
 			public UInt32 bytes;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Float; } }
+			public Boolean IsValid => this.tag == CONSTANT.Float;
 		}
 
 		/// <summary>The <see cref="CONSTANT_Long_info"/> and represent 8-byte numeric (long) constants</summary>
@@ -591,7 +591,7 @@ namespace AlphaOmega.Debug
 			public UInt32 low_bytes;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Long; } }
+			public Boolean IsValid => this.tag == CONSTANT.Long;
 		}
 
 		/// <summary>The <see cref="CONSTANT_Double_info"/> represent 8-byte numeric (double) constants</summary>
@@ -633,7 +633,7 @@ namespace AlphaOmega.Debug
 			public UInt32 low_bytes;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Double; } }
+			public Boolean IsValid => this.tag == CONSTANT.Double;
 		}
 
 		/// <summary>The <see cref="CONSTANT_NameAndType_info"/> structure is used to represent a field or method, without indicating which class or interface type it belongs to</summary>
@@ -652,7 +652,7 @@ namespace AlphaOmega.Debug
 			public UInt16 descriptor_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.NameAndType; } }
+			public Boolean IsValid => this.tag == CONSTANT.NameAndType;
 		}
 
 		/// <summary>The <see cref="CONSTANT_Utf8_info"/> structure is used to represent constant string values</summary>
@@ -673,7 +673,7 @@ namespace AlphaOmega.Debug
 			public Byte[] bytes;*/
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.Utf8; } }
+			public Boolean IsValid => this.tag == CONSTANT.Utf8;
 		}
 
 		/// <summary>The <see cref="CONSTANT_MethodHandle_info"/> structure is used to represent a method handle</summary>
@@ -692,7 +692,7 @@ namespace AlphaOmega.Debug
 			public Byte reference_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.MethodHandle; } }
+			public Boolean IsValid => this.tag == CONSTANT.MethodHandle;
 		}
 
 		/// <summary>The <see cref="CONSTANT_MethodType_info"/> structure is used to represent a method type</summary>
@@ -707,7 +707,7 @@ namespace AlphaOmega.Debug
 			public UInt16 descriptor_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.MethodType; } }
+			public Boolean IsValid => this.tag == CONSTANT.MethodType;
 		}
 
 		/// <summary>The <see cref="CONSTANT_InvokeDynamic_info"/> structure is used by an invokedynamic instruction (§invokedynamic) to specify a bootstrap method, the dynamic invocation name, the argument and return types of the call, and optionally, a sequence of additional constants called static arguments to the bootstrap method</summary>
@@ -725,7 +725,7 @@ namespace AlphaOmega.Debug
 			public UInt16 name_and_type_index;
 
 			/// <summary>CONSTANT validataion</summary>
-			public Boolean IsValid { get { return this.tag == CONSTANT.InvokeDynamic; } }
+			public Boolean IsValid => this.tag == CONSTANT.InvokeDynamic;
 		}
 		#endregion CONSTANT. See: ConstantTables.cs
 	}

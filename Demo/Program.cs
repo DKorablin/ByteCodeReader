@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web;
 using AlphaOmega.Debug;
 
 namespace Demo
@@ -18,15 +19,15 @@ namespace Demo
 			Console.WriteLine("Reading file: {0}", classFile);
 			using(ClassFile info = new ClassFile(StreamLoader.FromFile(classFile)))
 			{
-				foreach(var item in info.fields)
+				foreach(var item in info.Fields)
 					Utils.ConsoleWriteMembers(item);
-				foreach(var item in info.methods)
+				foreach(var item in info.Methods)
 					Utils.ConsoleWriteMembers(item);
-				foreach(var item in info.interfaces)
+				foreach(var item in info.Interfaces)
 					Utils.ConsoleWriteMembers(item);
 
-				var doubleRow = info.constant_pool.Double.FirstOrDefault();
-				var codeRow = info.attribute_pool.Code.FirstOrDefault();
+				var doubleRow = info.ConstantPool.Double.FirstOrDefault();
+				var codeRow = info.AttributePool.Code.FirstOrDefault();
 				if(codeRow != null)
 					Utils.ConsoleWriteMembers(codeRow);
 				//Utils.ConsoleWriteMembers(info.Header1);

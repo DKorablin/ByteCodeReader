@@ -1,6 +1,5 @@
 ﻿using System;
 using AlphaOmega.Debug.Data;
-using System.Collections.Generic;
 
 namespace AlphaOmega.Debug.AttributeData
 {
@@ -14,18 +13,18 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </remarks>
 	public class LineNumberTableRow : BaseRow<String>
 	{
-		private AttributeReference[] line_number_tableI { get { return base.GetValue<AttributeReference[]>(0); } }
+		private AttributeReference[] LineNumberTableI => base.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the line_number_table_length item indicates the number of entries in the line_number_table array</summary>
-		public UInt16 line_number_table_length { get { return (UInt16)this.line_number_tableI.Length; } }
+		public UInt16 LineNumberTableLength => (UInt16)this.LineNumberTableI.Length;
 
 		/// <summary>Each entry in the line_number_table array indicates that the line number in the original source file changes at a given point in the code array</summary>
-		public LineNumberTableRefRow[] line_number_table
+		public LineNumberTableRefRow[] LineNumberTable
 		{
 			get
 			{
-				AttributeReference[] references = this.line_number_tableI;
-				BaseTable<LineNumberTableRefRow, String> baseTable = base.Root.File.attribute_pool.LineNumberTableRef;
+				AttributeReference[] references = this.LineNumberTableI;
+				BaseTable<LineNumberTableRefRow, String> baseTable = base.Root.File.AttributePool.LineNumberTableRef;
 
 				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
 			}

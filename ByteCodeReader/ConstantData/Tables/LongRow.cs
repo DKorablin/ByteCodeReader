@@ -5,9 +5,9 @@ namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>The <see cref="Jvm.CONSTANT_Long_info"/> and represent 8-byte numeric (long) constants</summary>
 	/// <remarks>
-	/// All 8-byte constants take up two entries in the constant_pool table of the class file.
-	/// If a <see cref="Jvm.CONSTANT_Long_info"/> or <see cref="Jvm.CONSTANT_Double_info"/> structure is the item in the constant_pool table at index n, then the next usable item in the pool is located at index n+2.
-	/// The constant_pool index n+1 must be valid but is considered unusable.
+	/// All 8-byte constants take up two entries in the <see cref="ClassFile.ConstantPool"/> table of the class file.
+	/// If a <see cref="Jvm.CONSTANT_Long_info"/> or <see cref="Jvm.CONSTANT_Double_info"/> structure is the item in the <see cref="ClassFile.ConstantPool"/> table at index n, then the next usable item in the pool is located at index n+2.
+	/// The <see cref="ClassFile.ConstantPool"/> index n+1 must be valid but is considered unusable.
 	/// 
 	/// In retrospect, making 8-byte constants take two constant pool entries was a poor choice.
 	/// </remarks>
@@ -20,9 +20,9 @@ namespace AlphaOmega.Debug.ConstantData
 		/// The high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Double_info"/> structure together represent the double value in IEEE 754 floating-point double format (§2.3.2).
 		/// The bytes of each item are stored in big-endian (high byte first) order.
 		/// </remarks>
-		public UInt32 high_bytes { get { return base.GetValue<UInt32>(0); } }
+		public UInt32 HighBytes => base.GetValue<UInt32>(0);
 
 		/// <summary>The unsigned high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Long_info"/> structure together represent the value of the long constant</summary>
-		public UInt32 low_bytes { get { return base.GetValue<UInt32>(1); } }
+		public UInt32 LowBytes => base.GetValue<UInt32>(1);
 	}
 }

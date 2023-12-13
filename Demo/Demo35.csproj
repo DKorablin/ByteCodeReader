@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{635BD0E3-164E-4BD5-9F3B-CCE452B47230}</ProjectGuid>
+    <ProjectGuid>{B4E3344F-5DE4-40DD-88D5-008E54B78808}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Demo</RootNamespace>
@@ -47,16 +47,16 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ByteCodeReader\ByteCodeReader35.csproj">
-      <Project>{9622538C-03C9-4C26-A2AD-A2820B8116C5}</Project>
-      <Name>ByteCodeReader35</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ByteCodeReader\ByteCodeReader35.csproj">
+      <Project>{01b8d464-746e-4a81-9e72-4eea2cb92988}</Project>
+      <Name>ByteCodeReader35</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

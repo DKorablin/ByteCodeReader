@@ -86,9 +86,9 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>Every <see cref="Jvm.CONSTANT_Class_info"/> entry in the constant_pool table which represents a class or interface C that is not a package member must have exactly one corresponding entry in the classes array.</summary>
+		/// <summary>Every <see cref="Jvm.CONSTANT_Class_info"/> entry in the <see cref="ClassFile.ConstantPool"/> table which represents a class or interface C that is not a package member must have exactly one corresponding entry in the classes array.</summary>
 		/// <remarks>
-		/// If a class has members that are classes or interfaces, its constant_pool table (and hence its InnerClasses attribute) must refer to each such member, even if that member is not otherwise mentioned by the class.
+		/// If a class has members that are classes or interfaces, it's <see cref="ClassFile.ConstantPool"/> table (and hence its InnerClasses attribute) must refer to each such member, even if that member is not otherwise mentioned by the class.
 		/// These rules imply that a nested class or interface member will have InnerClasses information for each enclosing class and for each immediate member.
 		/// </remarks>
 		public Data.BaseTable<InnerClassesRefRow, String> InnerClassesRef
@@ -258,7 +258,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The BootstrapMethods attribute records bootstrap method specifiers referenced by invokedynamic instructions (§invokedynamic).
 		/// </summary>
 		/// <remarks>
-		/// There must be exactly one BootstrapMethods attribute in the attributes table of a ClassFile structure if the constant_pool table of the ClassFile structure has at least one CONSTANT_InvokeDynamic_info entry (§4.4.10).
+		/// There must be exactly one BootstrapMethods attribute in the attributes table of a ClassFile structure if the <see cref="ClassFile.ConstantPool"/> table of the ClassFile structure has at least one CONSTANT_InvokeDynamic_info entry (§4.4.10).
 		/// There may be at most one BootstrapMethods attribute in the attributes table of a ClassFile structure.
 		/// </remarks>
 		public Data.BaseTable<BootstrapMethodsRow, String> BootstrapMethods
@@ -315,13 +315,12 @@ namespace AlphaOmega.Debug.AttributeData
 
 		internal AttributeTables(ClassFile file)
 			: base(file)
-		{
-		}
+		{ }
 
-		internal AttributeReference[] ReadAttributes(UInt16 attributes_count, ref UInt32 offset)
+		internal AttributeReference[] ReadAttributes(UInt16 attributesCount, ref UInt32 offset)
 		{
-			AttributeReference[] attributes = new AttributeReference[attributes_count];
-			for(UInt32 loop = 0; loop < attributes_count; loop++)
+			AttributeReference[] attributes = new AttributeReference[attributesCount];
+			for(UInt32 loop = 0; loop < attributesCount; loop++)
 			{
 				Jvm.attribute_info attribute = base.File.PtrToStructure<Jvm.attribute_info>(offset);
 				offset += (UInt32)Marshal.SizeOf(typeof(Jvm.attribute_info));
@@ -334,14 +333,16 @@ namespace AlphaOmega.Debug.AttributeData
 			return attributes;
 		}
 
-		internal AttributeReference[] ReadSubAttributes(UInt16 attributes_count, BinaryReader reader)
+		internal AttributeReference[] ReadSubAttributes(UInt16 attributesCount, BinaryReader reader)
 		{
-			AttributeReference[] attributes = new AttributeReference[attributes_count];
-			for(UInt32 loop = 0; loop < attributes_count; loop++)
+			AttributeReference[] attributes = new AttributeReference[attributesCount];
+			for(UInt32 loop = 0; loop < attributesCount; loop++)
 			{
-				Jvm.attribute_info attribute=new Jvm.attribute_info();
-				attribute.attribute_name_index = reader.ReadUInt16();
-				attribute.attribute_length = reader.ReadUInt32();
+				Jvm.attribute_info attribute = new Jvm.attribute_info()
+				{
+					attribute_name_index = reader.ReadUInt16(),
+					attribute_length = reader.ReadUInt32(),
+				};
 
 				Byte[] payload = reader.ReadBytes((Int32)attribute.attribute_length);
 
@@ -359,14 +360,14 @@ namespace AlphaOmega.Debug.AttributeData
 
 		private AttributeReference ParseAttribute(Jvm.attribute_info attribute, Byte[] payload)
 		{
-			Utf8Row constantRow = base.File.constant_pool.Utf8[attribute.attribute_name_index];
-			AttributeTable table = this.GetOrCreateTable(constantRow.bytes);
+			Utf8Row constantRow = base.File.ConstantPool.Utf8[attribute.attribute_name_index];
+			AttributeTable table = this.GetOrCreateTable(constantRow.Bytes);
 
 			using(MemoryStream stream = new MemoryStream(payload))
 			{
 				BinaryReader reader = BinaryEndianReader.CreateReader(EndianHelper.Endian.Big, stream);
 				UInt32 rowIndex = table.AddRow(reader);
-				return new AttributeReference(this, constantRow.bytes, rowIndex);
+				return new AttributeReference(this, constantRow.Bytes, rowIndex);
 			}
 		}
 

@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using AlphaOmega.Debug.ConstantData;
 using AlphaOmega.Debug.AttributeData;
-using System.Collections.Generic;
 
 namespace AlphaOmega.Debug
 {
@@ -13,100 +12,91 @@ namespace AlphaOmega.Debug
 	/// <remarks>https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html</remarks>
 	public class ClassFile : IDisposable
 	{
-		#region Fields
+		/// <summary>Class file loader</summary>
 		private IImageLoader _loader;
 		private readonly Jvm.ClassFile1 _header1;
 		private Jvm.ClassFile2 _header2;
-		private ClassRow[] _interfaces;
-		private Field_Info[] _fields;
-		private Method_Info[] _methods;
-		private AttributeReference[] _attributes;
-		private ConstantTables _constant_pool;
-		private readonly AttributeTables _attribute_pool;
-		#endregion Fields
-
-		/// <summary>Class file loader</summary>
-		private IImageLoader Loader { get { return this._loader; } }
+		private ConstantTables _constantPool;
 
 		/// <summary>The magic item supplies the magic number identifying the class file format; it has the value 0xCAFEBABE</summary>
-		public UInt32 magic { get { return this._header1.magic; } }
+		public UInt32 Magic => this._header1.magic;
 
 		/// <summary>Minor class file version</summary>
-		public UInt16 minor_version { get { return this._header1.minor_version; } }
+		public UInt16 MinorVersion => this._header1.minor_version;
 
 		/// <summary>Major class file version</summary>
-		public UInt16 major_version { get { return this._header1.major_version; } }
+		public UInt16 MajorVersion => this._header1.major_version;
 
-		/// <summary>A <see cref="constant_pool"/> index is considered valid if it is greater than zero and less than <see cref="constant_pool_count"/>, with the exception for constants of type long and double noted in §4.4.5</summary>
-		/// <remarks>The value of the <see cref="constant_pool_count"/> item is equal to the number of entries in the <see cref="constant_pool"/> table plus one</remarks>
-		public UInt16 constant_pool_count { get { return this._header1.constant_pool_count; } }
+		/// <summary>A <see cref="ConstantPool"/> index is considered valid if it is greater than zero and less than <see cref="ConstantPoolCount"/>, with the exception for constants of type long and double noted in §4.4.5</summary>
+		/// <remarks>The value of the <see cref="ConstantPoolCount"/> item is equal to the number of entries in the <see cref="ConstantPool"/> table plus one</remarks>
+		public UInt16 ConstantPoolCount => this._header1.constant_pool_count;
 
 		/// <summary>
-		/// The <see cref="constant_pool"/> is a table of structures (§4.4) representing various string constants, class and interface names, field names, and other constants that are referred to within the ClassFile structure and its substructures.
-		/// The format of each <see cref="constant_pool"/> table entry is indicated by its first "tag" byte.
+		/// The <see cref="ConstantPool"/> is a table of structures (§4.4) representing various string constants, class and interface names, field names, and other constants that are referred to within the ClassFile structure and its substructures.
+		/// The format of each <see cref="ConstantPool"/> table entry is indicated by its first "tag" byte.
 		/// </summary>
-		/// <remarks>The <see cref="constant_pool"/> table is indexed from 1 to constant_pool_count-1</remarks>
-		public ConstantTables constant_pool
+		/// <remarks>The <see cref="ConstantPool"/> table is indexed from 1 to constant_pool_count-1</remarks>
+		public ConstantTables ConstantPool
 		{
 			get
 			{
-				if(this._constant_pool == null)
+				if(this._constantPool == null)
 				{
 					UInt32 offset = (UInt32)Marshal.SizeOf(typeof(Jvm.ClassFile1));
-					this._constant_pool = new ConstantTables(this, ref offset);
+					this._constantPool = new ConstantTables(this, ref offset);
 				}
 
-				return this._constant_pool;
+				return this._constantPool;
 			}
 		}
 
 		/// <summary>The value of the access_flags item is a mask of flags used to denote access permissions to and properties of this class or interface</summary>
-		public Jvm.ClassFile2.ACC access_flags { get { return this._header2.access_flags; } }
+		public Jvm.ClassFile2.ACC AccessFlags => this._header2.access_flags;
 
-		/// <summary>The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the class or interface defined by this class file</summary>
-		/// <remarks>The value of the this_class item must be a valid index into the <see cref="constant_pool"/> table</remarks>
-		public Utf8Row this_class
+		/// <summary>The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the class or interface defined by this class file</summary>
+		/// <remarks>The value of the this_class item must be a valid index into the <see cref="ConstantPool"/> table</remarks>
+		public Utf8Row ThisClass
 		{
 			get
 			{
-				ClassRow row = this.constant_pool.Class[this._header2.this_class];
-				return this.constant_pool.Utf8[row.name_index.Index];
+				ClassRow row = this.ConstantPool.Class[this._header2.this_class];
+				return this.ConstantPool.Utf8[row.NameIndex.Index];
 			}
 		}
 
 		/// <summary>
-		/// For a class, the value of the super_class item either must be zero or must be a valid index into the <see cref="constant_pool"/> table.
-		/// If the value of the super_class item is nonzero, the <see cref="constant_pool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the direct superclass of the class defined by this class file. Neither the direct superclass nor any of its superclasses may have the ACC_FINAL flag set in the access_flags item of its ClassFile structure.
+		/// For a class, the value of the super_class item either must be zero or must be a valid index into the <see cref="ConstantPool"/> table.
+		/// If the value of the super_class item is nonzero, the <see cref="ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing the direct superclass of the class defined by this class file. Neither the direct superclass nor any of its superclasses may have the ACC_FINAL flag set in the access_flags item of its ClassFile structure.
 		/// 
 		/// If the value of the super_class item is zero, then this class file must represent the class Object, the only class or interface without a direct superclass.
-		/// For an interface, the value of the super_class item must always be a valid index into the <see cref="constant_pool"/> table.
-		/// The <see cref="constant_pool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure representing the class Object.
+		/// For an interface, the value of the super_class item must always be a valid index into the <see cref="ConstantPool"/> table.
+		/// The <see cref="ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure representing the class Object.
 		/// </summary>
-		public Utf8Row super_class
+		public Utf8Row SuperClass
 		{
 			get
 			{
 				if(this._header2.super_class == 0)
 					return null;
 
-				ClassRow row = this.constant_pool.Class[this._header2.super_class];
-				return this.constant_pool.Utf8[row.name_index.Index];
+				ClassRow row = this.ConstantPool.Class[this._header2.super_class];
+				return this.ConstantPool.Utf8[row.NameIndex.Index];
 			}
 		}
 
 		/// <summary>The value of the interfaces_count item gives the number of direct superinterfaces of this class or interface type</summary>
-		public UInt16 interfaces_count { get { return this._header2.interfaces_count; } }
+		public UInt16 InterfacesCount => this._header2.interfaces_count;
 
-		/// <summary>The constant_pool entry at each value of interfaces[i], where 0 ≤ i &lt; interfaces_count, must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing an interface that is a direct superinterface of this class or interface type, in the left-to-right order given in the source for the type</summary>
-		/// <remarks>Each value in the interfaces array must be a valid index into the constant_pool table</remarks>
-		public ClassRow[] interfaces { get { return this._interfaces; } }
+		/// <summary>The <see cref="ClassFile.ConstantPool"/> entry at each value of interfaces[i], where 0 ≤ i &lt; interfaces_count, must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing an interface that is a direct superinterface of this class or interface type, in the left-to-right order given in the source for the type</summary>
+		/// <remarks>Each value in the interfaces array must be a valid index into the <see cref="ClassFile.ConstantPool"/> table</remarks>
+		public ClassRow[] Interfaces { get; private set; }
 
 		/// <summary>
 		/// Each value in the fields table must be a field_info (§4.5) structure giving a complete description of a field in this class or interface.
 		/// The fields table includes only those fields that are declared by this class or interface.
 		/// It does not include items representing fields that are inherited from superclasses or superinterfaces.
 		/// </summary>
-		public Field_Info[] fields { get { return this._fields; } }
+		public Field_Info[] Fields { get; private set; }
 
 		/// <summary>
 		/// Each value in the methods table must be a method_info (§4.6) structure giving a complete description of a method in this class or interface.
@@ -116,7 +106,7 @@ namespace AlphaOmega.Debug
 		/// The method_info structures represent all methods declared by this class or interface type, including instance methods, class methods, instance initialization methods (§2.9), and any class or interface initialization method (§2.9).
 		/// The methods table does not include items representing methods that are inherited from superclasses or superinterfaces.
 		/// </remarks>
-		public Method_Info[] methods { get { return this._methods; } }
+		public MethodInfo[] Methods { get; private set; }
 
 		/// <summary>Each value of the attributes table must be an attribute_info (§4.7) structure.</summary>
 		/// <remarks>
@@ -125,10 +115,10 @@ namespace AlphaOmega.Debug
 		/// If a Java Virtual Machine implementation recognizes class files whose version number is 51.0 or above, it must recognize and correctly read BootstrapMethods (§4.7.21) attributes found in the attributes table of a ClassFile structure of a class file whose version number is 51.0 or above.
 		/// A Java Virtual Machine implementation is required to silently ignore any or all attributes in the attributes table of a ClassFile structure that it does not recognize. Attributes not defined in this specification are not allowed to affect the semantics of the class file, but only to provide additional descriptive information (§4.7.1).
 		/// </remarks>
-		public AttributeReference[] attributes { get { return this._attributes; } }
+		public AttributeReference[] Attributes { get; private set; }
 
 		/// <summary>Class files is valid</summary>
-		public Boolean IsValid { get { return this._header1.IsValid; } }
+		public Boolean IsValid => this._header1.IsValid;
 
 		/// <summary>
 		/// The values of the minor_version and major_version items are the minor and major version numbers of this class file.
@@ -140,10 +130,10 @@ namespace AlphaOmega.Debug
 		/// A Java Virtual Machine implementation can support a class file format of version v if and only if v lies in some contiguous range Mi.0 ≤ v ≤ Mj.m.
 		/// The release level of the Java SE platform to which a Java Virtual Machine implementation conforms is responsible for determining the range.
 		/// </remarks>
-		public Version Version { get { return this._header1.Version; } }
+		public Version Version => this._header1.Version;
 
 		/// <summary>All attributes from all structures</summary>
-		public AttributeTables attribute_pool { get { return this._attribute_pool; } }
+		public AttributeTables AttributePool { get; }
 
 		/// <summary>Create instance of Class file reader</summary>
 		/// <param name="loader">Image loader</param>
@@ -158,66 +148,66 @@ namespace AlphaOmega.Debug
 			if(!this._header1.IsValid)
 				throw new ArgumentException("Invalid class file");
 
-			this._attribute_pool = new AttributeTables(this);
+			this.AttributePool = new AttributeTables(this);
 			this.ReadClassFile();
 		}
 
 		private void ReadClassFile()
 		{
 			/*offset += (UInt32)Marshal.SizeOf(typeof(Jvm.ClassFile1));
-			ConstantTables constant_pool = new ConstantTables(this, ref offset);*/
-			UInt32 offset = (UInt32)Marshal.SizeOf(typeof(Jvm.ClassFile1)) + this.constant_pool.DataLength;
+			ConstantTables constantPool = new ConstantTables(this, ref offset);*/
+			UInt32 offset = (UInt32)Marshal.SizeOf(typeof(Jvm.ClassFile1)) + this.ConstantPool.DataLength;
 
 			this._header2 = this.PtrToStructure<Jvm.ClassFile2>(offset);
 			offset += (UInt32)Marshal.SizeOf(typeof(Jvm.ClassFile2));
 
 			//interfaces
-			this._interfaces = new ClassRow[this._header2.interfaces_count];
-			for(Int32 loop = 0; loop < this._interfaces.Length; loop++)
+			this.Interfaces = new ClassRow[this._header2.interfaces_count];
+			for(Int32 loop = 0; loop < this.Interfaces.Length; loop++)
 			{
 				UInt16 classIndex = this.PtrToStructure<UInt16>(offset);
 				offset += (UInt16)Marshal.SizeOf(typeof(UInt16));
-				this._interfaces[loop] = this.constant_pool.Class[classIndex];
+				this.Interfaces[loop] = this.ConstantPool.Class[classIndex];
 			}
 
 			//fields
 			UInt16 fields_count = this.PtrToStructure<UInt16>(offset);
 			offset += (UInt16)Marshal.SizeOf(typeof(UInt16));
 
-			this._fields = new Field_Info[fields_count];
-			for(Int32 loop = 0; loop < fields.Length; loop++)
+			this.Fields = new Field_Info[fields_count];
+			for(Int32 loop = 0; loop < this.Fields.Length; loop++)
 			{
 				UInt32 start = offset;
 				Jvm.field_info field = this.PtrToStructure<Jvm.field_info>(offset);
 				offset += (UInt16)Marshal.SizeOf(typeof(Jvm.field_info));
 
-				AttributeReference[] attributes = this.attribute_pool.ReadAttributes(field.attributes_count, ref offset);
+				AttributeReference[] attributes = this.AttributePool.ReadAttributes(field.attributes_count, ref offset);
 				UInt32 dataLength = offset - start;
 
-				this._fields[loop] = new Field_Info(this, field, attributes, start, dataLength);
+				this.Fields[loop] = new Field_Info(this, field, attributes, start, dataLength);
 			}
 
 			//methods
 			UInt16 methods_count = this.PtrToStructure<UInt16>(offset);
 			offset += (UInt16)Marshal.SizeOf(typeof(UInt16));
 
-			this._methods = new Method_Info[methods_count];
-			for(Int32 loop = 0; loop < methods.Length; loop++)
+			this.Methods = new MethodInfo[methods_count];
+			for(Int32 loop = 0; loop < this.Methods.Length; loop++)
 			{
 				UInt32 start = offset;
 				Jvm.method_info method = this.PtrToStructure<Jvm.method_info>(offset);
 				offset += (UInt16)Marshal.SizeOf(typeof(Jvm.method_info));
 
-				AttributeReference[] attributes = this.attribute_pool.ReadAttributes(method.attributes_count, ref offset);
+				AttributeReference[] attributes = this.AttributePool.ReadAttributes(method.attributes_count, ref offset);
 				UInt32 dataLength = offset - start;
 
-				this._methods[loop] = new Method_Info(this, method, attributes, start, dataLength);
+				this.Methods[loop] = new MethodInfo(this, method, attributes, start, dataLength);
 			}
 
 			UInt16 attributes_count = this.PtrToStructure<UInt16>(offset);
 			offset += (UInt16)Marshal.SizeOf(typeof(UInt16));
 
-			this._attributes = this.attribute_pool.ReadAttributes(attributes_count, ref offset);
+			this.Attributes = this.AttributePool.ReadAttributes(attributes_count, ref offset);
 		}
 
 		/// <summary>Read bytes from image</summary>
@@ -230,7 +220,7 @@ namespace AlphaOmega.Debug
 			/*if(!this.Loader.IsModuleMapped)
 				rva = this.OffsetToRva(offset);*/
 
-			return this.Loader.ReadBytes(rva, length);
+			return this._loader.ReadBytes(rva, length);
 		}
 
 		/// <summary>Get structure from specific RVA</summary>
@@ -246,7 +236,7 @@ namespace AlphaOmega.Debug
 			UInt32 length = (UInt32)Marshal.SizeOf(typeof(T));
 			Byte[] data = this.ReadBytes(rva, length);
 
-			return this.Loader.PtrToStructure<T>(rva);
+			return this._loader.PtrToStructure<T>(rva);
 		}
 
 		/// <summary>Get string from specific RVA</summary>
@@ -258,7 +248,7 @@ namespace AlphaOmega.Debug
 			/*if(!this.Loader.IsModuleMapped)
 				rva = this.OffsetToRva(offset);*/
 
-			return this.Loader.PtrToStringAnsi(rva);
+			return this._loader.PtrToStringAnsi(rva);
 		}
 
 		/// <summary>Close loader</summary>

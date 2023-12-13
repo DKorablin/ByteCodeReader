@@ -27,6 +27,6 @@ namespace AlphaOmega.Debug.ConstantData
 		/// 
 		/// Then the float value equals the result of the mathematical expression s · m · 2e-150.
 		/// </remarks>
-		public UInt32 bytes { get { return base.GetValue<UInt32>(0); } }
+		public UInt32 Bytes => base.GetValue<UInt32>(0);
 	}
 }

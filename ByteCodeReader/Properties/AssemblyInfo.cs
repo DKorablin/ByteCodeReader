@@ -6,7 +6,9 @@ using System.Runtime.InteropServices;
 
 [assembly: System.CLSCompliant(false)]
 
-#if !NETSTANDARD
+#if NETSTANDARD
+[assembly: AssemblyMetadata("RepositoryUrl", "https://github.com/DKorablin/ByteCodeReader")]
+#else
 [assembly: AssemblyCompany("Danila Korablin")]
 [assembly: AssemblyCopyright("Copyright © Danila Korablin 2016-2023")]
 [assembly: AssemblyProduct("JVM ClassFile reader")]

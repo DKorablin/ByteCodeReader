@@ -7,7 +7,6 @@ namespace AlphaOmega.Debug.AttributeData
 	{
 		internal AttributeRow(AttributeTable table, UInt16 index, AttributeCell[] cells)
 			: base(table, index, cells)
-		{
-		}
+		{ }
 	}
 }

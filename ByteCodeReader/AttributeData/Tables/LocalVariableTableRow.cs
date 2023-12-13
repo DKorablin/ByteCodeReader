@@ -1,6 +1,5 @@
 ﻿using System;
 using AlphaOmega.Debug.Data;
-using System.Collections.Generic;
 
 namespace AlphaOmega.Debug.AttributeData
 {
@@ -14,21 +13,21 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </remarks>
 	public class LocalVariableTableRow : BaseRow<String>
 	{
-		private AttributeReference[] local_variable_tableI { get { return base.GetValue<AttributeReference[]>(0); } }
+		private AttributeReference[] LocalVariableTableI => base.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the local_variable_table_length item indicates the number of entries in the local_variable_table array</summary>
-		public UInt16 local_variable_table_length { get { return (UInt16)this.local_variable_tableI.Length; } }
+		public UInt16 LocalVariableTableLength => (UInt16)this.LocalVariableTableI.Length;
 
 		/// <summary>
 		/// Each entry in the local_variable_table array indicates a range of code array offsets within which a local variable has a value.
 		/// It also indicates the index into the local variable array of the current frame at which that local variable can be found.
 		/// </summary>
-		public LocalVariableTableRefRow[] local_variable_table
+		public LocalVariableTableRefRow[] LocalVariableTable
 		{
 			get
 			{
-				AttributeReference[] references = this.local_variable_tableI;
-				BaseTable<LocalVariableTableRefRow, String> baseTable = base.Root.File.attribute_pool.LocalVariableTableRef;
+				AttributeReference[] references = this.LocalVariableTableI;
+				BaseTable<LocalVariableTableRefRow, String> baseTable = base.Root.File.AttributePool.LocalVariableTableRef;
 
 				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
 			}

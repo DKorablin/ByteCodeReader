@@ -29,10 +29,10 @@ namespace AlphaOmega.Debug.ConstantData
 		///     
 		/// Then the floating-point value equals the double value of the mathematical expression s · m · 2e-1075.
 		/// </remarks>
-		public UInt32 high_bytes { get { return base.GetValue<UInt32>(0); } }
+		public UInt32 HighBytes => base.GetValue<UInt32>(0);
 
 		/// <summary>The high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Double_info"/> structure together represent the double value in IEEE 754 floating-point double format (§2.3.2)</summary>
 		/// <remarks>The bytes of each item are stored in big-endian (high byte first) order</remarks>
-		public UInt32 low_bytes { get { return base.GetValue<UInt32>(1); } }
+		public UInt32 LowBytes => base.GetValue<UInt32>(1);
 	}
 }

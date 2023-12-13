@@ -13,28 +13,28 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </remarks>
 	public class EnclosingMethodRow : BaseRow<String>
 	{
-		private UInt16 class_indexI { get { return base.GetValue<UInt16>(0); } }
+		private UInt16 ClassIndexI => base.GetValue<UInt16>(0);
 
-		private UInt16 method_indexI { get { return base.GetValue<UInt16>(1); } }
+		private UInt16 MethodIndexI => base.GetValue<UInt16>(1);
 
-		/// <summary>The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> (§4.4.1) structure representing the innermost class that encloses the declaration of the current class</summary>
-		/// <remarks>The value of the class_index item must be a valid index into the constant_pool table</remarks>
-		public ConstantReference class_index { get { return new ConstantReference(base.Root.File.constant_pool, Jvm.CONSTANT.Class, this.class_indexI); } }
+		/// <summary>The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> (§4.4.1) structure representing the innermost class that encloses the declaration of the current class</summary>
+		/// <remarks>The value of the class_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table</remarks>
+		public ConstantReference ClassIndex => new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Class, this.ClassIndexI);
 
 		/// <summary>
 		/// If the current class is not immediately enclosed by a method or constructor, then the value of the method_index item must be zero.
-		/// Otherwise, the value of the method_index item must be a valid index into the constant_pool table.
-		/// The constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_NameAndType_info"/> structure (§4.4.6) representing the name and type of a method in the class referenced by the class_index attribute above.
+		/// Otherwise, the value of the method_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
+		/// The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_NameAndType_info"/> structure (§4.4.6) representing the name and type of a method in the class referenced by the class_index attribute above.
 		/// </summary>
 		/// <remarks>It is the responsibility of a Java compiler to ensure that the method identified via the method_index is indeed the closest lexically enclosing method of the class that contains this EnclosingMethod attribute</remarks>
-		public ConstantReference method_index
+		public ConstantReference MethodIndex
 		{
 			get
 			{
-				UInt16 idRef = this.method_indexI;
+				UInt16 idRef = this.MethodIndexI;
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.constant_pool, Jvm.CONSTANT.NameAndType, idRef);
+					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.NameAndType, idRef);
 			}
 		}
 	}

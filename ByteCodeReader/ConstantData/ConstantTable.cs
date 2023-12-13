@@ -4,13 +4,12 @@ using System.Diagnostics;
 namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>Generic constant table structures</summary>
-	[DebuggerDisplay("Type={Type} RowsCount={RowsCount}")]
+	[DebuggerDisplay("Type={"+nameof(Type)+"} RowsCount={"+nameof(RowsCount)+"}")]
 	public class ConstantTable : Table<Jvm.CONSTANT>
 	{
 		internal ConstantTable(ConstantTables root, Jvm.CONSTANT tag)
 			: base(root, tag, ConstantTable.GetTableDescription(tag))
-		{
-		}
+		{ }
 
 		internal void AddRow(UInt16 constantIndex, ref UInt32 offset)
 		{
@@ -35,59 +34,59 @@ namespace AlphaOmega.Debug.ConstantData
 			{
 			case Jvm.CONSTANT.Class:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(ClassRow.name_index), };
+				columnName = new String[] { nameof(ClassRow.NameIndex), };
 				break;
 			case Jvm.CONSTANT.Double:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt32, ConstantColumnType.UInt32, };
-				columnName = new String[] { nameof(DoubleRow.high_bytes), nameof(DoubleRow.low_bytes), };
+				columnName = new String[] { nameof(DoubleRow.HighBytes), nameof(DoubleRow.LowBytes), };
 				break;
 			case Jvm.CONSTANT.Fieldref:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(FieldrefRow.class_index), nameof(FieldrefRow.name_and_type_index), };
+				columnName = new String[] { nameof(FieldrefRow.ClassIndex), nameof(FieldrefRow.NameAndTypeIndex), };
 				break;
 			case Jvm.CONSTANT.Float:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt32, };
-				columnName = new String[] { nameof(FloatRow.bytes), };
+				columnName = new String[] { nameof(FloatRow.Bytes), };
 				break;
 			case Jvm.CONSTANT.Integer:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt32, };
-				columnName = new String[] { nameof(IntegerRow.bytes), };
+				columnName = new String[] { nameof(IntegerRow.Bytes), };
 				break;
 			case Jvm.CONSTANT.InterfaceMethodref:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(InterfaceMethodrefRow.class_index), nameof(InterfaceMethodrefRow.name_and_type_index), };
+				columnName = new String[] { nameof(InterfaceMethodrefRow.ClassIndex), nameof(InterfaceMethodrefRow.NameAndTypeIndex), };
 				break;
 			case Jvm.CONSTANT.InvokeDynamic:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(InvokeDynamicRow.bootstrap_method_attr_index), nameof(InvokeDynamicRow.name_and_type_index), };
+				columnName = new String[] { nameof(InvokeDynamicRow.BootstrapMethodAttrIndex), nameof(InvokeDynamicRow.NameAndTypeIndex), };
 				break;
 			case Jvm.CONSTANT.Long:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt32, ConstantColumnType.UInt32, };
-				columnName = new String[] { nameof(LongRow.high_bytes), nameof(LongRow.low_bytes), };
+				columnName = new String[] { nameof(LongRow.HighBytes), nameof(LongRow.LowBytes), };
 				break;
 			case Jvm.CONSTANT.MethodHandle:
 				columnType = new ConstantColumnType[] { ConstantColumnType.Byte, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(MethodHandleRow.reference_kind), nameof(MethodHandleRow.reference_index), };
+				columnName = new String[] { nameof(MethodHandleRow.ReferenceKind), nameof(MethodHandleRow.ReferenceIndex), };
 				break;
 			case Jvm.CONSTANT.Methodref:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(MethodrefRow.class_index), nameof(MethodrefRow.name_and_type_index), };
+				columnName = new String[] { nameof(MethodrefRow.ClassIndex), nameof(MethodrefRow.NameAndTypeIndex), };
 				break;
 			case Jvm.CONSTANT.MethodType:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(MethodTypeRow.descriptor_index), };
+				columnName = new String[] { nameof(MethodTypeRow.DescriptorIndex), };
 				break;
 			case Jvm.CONSTANT.NameAndType:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(NameAndTypeRow.name_index), nameof(NameAndTypeRow.descriptor_index), };
+				columnName = new String[] { nameof(NameAndTypeRow.NameIndex), nameof(NameAndTypeRow.DescriptorIndex), };
 				break;
 			case Jvm.CONSTANT.String:
 				columnType = new ConstantColumnType[] { ConstantColumnType.UInt16, };
-				columnName = new String[] { nameof(StringRow.string_index), };
+				columnName = new String[] { nameof(StringRow.StringIndex), };
 				break;
 			case Jvm.CONSTANT.Utf8:
 				columnType = new ConstantColumnType[] { /*ConstantColumnType.UInt32,*/ ConstantColumnType.Utf8String, };
-				columnName = new String[] { /*"length",*/ nameof(Utf8Row.bytes), };
+				columnName = new String[] { /*"length",*/ nameof(Utf8Row.Bytes), };
 				break;
 			default:
 				throw new NotSupportedException();

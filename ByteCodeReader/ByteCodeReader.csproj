@@ -1,68 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>AlphaOmega.Debug</RootNamespace>
-    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-    <AssemblyTitle>Byte Code Reader</AssemblyTitle>
-    <Company>Danila Korablin</Company>
-    <Product>JVM ClassFile reader</Product>
-    <Copyright>Copyright © Danila Korablin 2016-2023</Copyright>
-    <Configuration>Debug</Configuration>
-    <AssemblyVersion>1.0.*</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Deterministic>false</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\..\bin\</OutputPath>
-    <DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>False</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\..\..\AlphaOmega (NoPwd).snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\FileReader.Shared\ImageData\IBaseRow.cs">
-      <Link>Data\Interface\IBaseRow.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\ICell.cs">
-      <Link>Data\Interface\ICell.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\IColumn.cs">
-      <Link>Data\Interface\IColumn.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\IRow.cs">
-      <Link>Data\Interface\IRow.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\IRowPointer.cs">
-      <Link>Data\Interface\IRowPointer.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\ITable.cs">
-      <Link>Data\Interface\ITable.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageData\ITables.cs">
-      <Link>Data\Interface\ITables.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\BinaryEndianReader.cs">
-      <Link>ImageLoader\BinaryEndianReader.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\EndianHelper.cs">
-      <Link>ImageLoader\EndianHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\IImageLoader.cs">
-      <Link>ImageLoader\IImageLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\LookupLoader.cs">
-      <Link>ImageLoader\LookupLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\PinnedBufferReader.cs">
-      <Link>ImageLoader\PinnedBufferReader.cs</Link>
-    </Compile>
-    <Compile Include="..\FileReader.Shared\ImageLoader\StreamLoader.cs">
-      <Link>ImageLoader\StreamLoader.cs</Link>
-    </Compile>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<RootNamespace>AlphaOmega.Debug</RootNamespace>
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+		<AssemblyTitle>Byte Code Reader</AssemblyTitle>
+		<Company>Danila Korablin</Company>
+		<Product>JVM ClassFile reader</Product>
+		<Copyright>Copyright © Danila Korablin 2016-2023</Copyright>
+		<Configuration>Debug</Configuration>
+		<AssemblyVersion>1.0.*</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Deterministic>false</Deterministic>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<OutputPath>..\..\bin\</OutputPath>
+		<DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\FileReader.Shared\ImageData\IBaseRow.cs">
+			<Link>Data\Interface\IBaseRow.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\ICell.cs">
+			<Link>Data\Interface\ICell.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\IColumn.cs">
+			<Link>Data\Interface\IColumn.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\IRow.cs">
+			<Link>Data\Interface\IRow.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\IRowPointer.cs">
+			<Link>Data\Interface\IRowPointer.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\ITable.cs">
+			<Link>Data\Interface\ITable.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageData\ITables.cs">
+			<Link>Data\Interface\ITables.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\BinaryEndianReader.cs">
+			<Link>ImageLoader\BinaryEndianReader.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\EndianHelper.cs">
+			<Link>ImageLoader\EndianHelper.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\IImageLoader.cs">
+			<Link>ImageLoader\IImageLoader.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\LookupLoader.cs">
+			<Link>ImageLoader\LookupLoader.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\PinnedBufferReader.cs">
+			<Link>ImageLoader\PinnedBufferReader.cs</Link>
+		</Compile>
+		<Compile Include="..\FileReader.Shared\ImageLoader\StreamLoader.cs">
+			<Link>ImageLoader\StreamLoader.cs</Link>
+		</Compile>
+	</ItemGroup>
 </Project>

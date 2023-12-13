@@ -7,10 +7,10 @@ namespace AlphaOmega.Debug.ConstantData
 	public class InterfaceMethodrefRow : BaseRow<Jvm.CONSTANT>
 	{
 		/// <summary>The class_index item of a <see cref="Jvm.CONSTANT_InterfaceMethodref_info"/> structure must be an interface type.</summary>
-		private UInt16 class_indexI { get { return base.GetValue<UInt16>(0); } }
+		private UInt16 ClassIndexI => base.GetValue<UInt16>(0);
 
 		/// <summary>The class_index item of a <see cref="Jvm.CONSTANT_InterfaceMethodref_info"/> structure must be an interface type.</summary>
-		public ConstantReference class_index { get { return new ConstantReference(base.Root, Jvm.CONSTANT.Class, this.class_indexI); } }
+		public ConstantReference ClassIndex => new ConstantReference(base.Root, Jvm.CONSTANT.Class, this.ClassIndexI);
 
 		/// <summary>
 		/// The value of the name_and_type_index item must be a valid index into the constant_pool table.
@@ -19,7 +19,7 @@ namespace AlphaOmega.Debug.ConstantData
 		/// In a <see cref="Jvm.CONSTANT_Fieldref_info"/>, the indicated descriptor must be a field descriptor (§4.3.2).
 		/// Otherwise, the indicated descriptor must be a method descriptor (§4.3.3).
 		/// </summary>
-		private UInt16 name_and_type_indexI { get { return base.GetValue<UInt16>(1); } }
+		private UInt16 NameAndTypeIndexI => base.GetValue<UInt16>(1);
 
 		/// <summary>
 		/// The value of the name_and_type_index item must be a valid index into the constant_pool table.
@@ -28,6 +28,6 @@ namespace AlphaOmega.Debug.ConstantData
 		/// In a <see cref="Jvm.CONSTANT_Fieldref_info"/>, the indicated descriptor must be a field descriptor (§4.3.2).
 		/// Otherwise, the indicated descriptor must be a method descriptor (§4.3.3).
 		/// </summary>
-		public ConstantReference name_and_type_index { get { return new ConstantReference(base.Root, Jvm.CONSTANT.NameAndType, this.name_and_type_indexI); } }
+		public ConstantReference NameAndTypeIndex => new ConstantReference(base.Root, Jvm.CONSTANT.NameAndType, this.NameAndTypeIndexI);
 	}
 }

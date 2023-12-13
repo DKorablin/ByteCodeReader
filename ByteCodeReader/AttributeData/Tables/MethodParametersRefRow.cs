@@ -9,7 +9,7 @@ namespace AlphaOmega.Debug.AttributeData
 	{
 		/// <summary>Method parameter access flag</summary>
 		[Flags]
-		public enum ACC : ushort
+		public enum ACC : UInt16
 		{
 			/// <summary> Indicates that the formal parameter was declared final.</summary>
 			FINAL = 0x0010,
@@ -21,26 +21,26 @@ namespace AlphaOmega.Debug.AttributeData
 			MANDATED = 0x8000,
 		}
 
-		private UInt16 name_indexI { get { return base.GetValue<UInt16>(0); } }
+		private UInt16 NameIndexI => base.GetValue<UInt16>(0);
 
-		/// <summary>The value of the name_index item must either be zero or a valid index into the constant_pool table</summary>
+		/// <summary>The value of the name_index item must either be zero or a valid index into the <see cref="ClassFile.ConstantPool"/> table</summary>
 		/// <remarks>
 		/// If the value of the name_index item is zero, then this parameters element indicates a formal parameter with no name.
-		/// If the value of the name_index item is nonzero, the constant_pool entry at that index must be a <see cref="Jvm.CONSTANT_Utf8_info"/> structure representing a valid unqualified name denoting a formal parameter (§4.2.2).
+		/// If the value of the name_index item is nonzero, the <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Utf8_info"/> structure representing a valid unqualified name denoting a formal parameter (§4.2.2).
 		/// </remarks>
-		public ConstantReference name_index
+		public ConstantReference NameIndex
 		{
 			get
 			{
-				UInt16 idRef = this.name_indexI;
+				UInt16 idRef = this.NameIndexI;
 
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.constant_pool, Jvm.CONSTANT.Utf8, idRef);
+					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, idRef);
 			}
 		}
 
 		/// <summary>Method parameter access flag</summary>
-		public ACC access_flags { get { return base.GetValue<ACC>(1); } }
+		public ACC AccessFlags => base.GetValue<ACC>(1);
 	}
 }

@@ -7,7 +7,6 @@ namespace AlphaOmega.Debug.ConstantData
 	{
 		internal ConstantRow(ConstantTable table, UInt16 index, ConstantCell[] cells)
 			: base(table, index, cells)
-		{
-		}
+		{ }
 	}
 }

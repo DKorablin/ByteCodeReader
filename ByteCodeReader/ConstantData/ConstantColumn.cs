@@ -7,17 +7,11 @@ namespace AlphaOmega.Debug.ConstantData
 	[DebuggerDisplay("tag={TableType} Name={Name}")]
 	public class ConstantColumn : Column<Jvm.CONSTANT>
 	{
-		#region Fields
-		private readonly ConstantColumnType _columnType;
-		#endregion Fields
-
 		/// <summary>Hardcoed column types</summary>
-		public ConstantColumnType ColumnType { get { return this._columnType; } }
+		public ConstantColumnType ColumnType { get; }
 
 		internal ConstantColumn(Jvm.CONSTANT tableType, ConstantColumnType columnType, String columnName, UInt16 columnIndex)
 			: base(tableType, columnName, columnIndex)
-		{
-			this._columnType = columnType;
-		}
+			=> this.ColumnType = columnType;
 	}
 }

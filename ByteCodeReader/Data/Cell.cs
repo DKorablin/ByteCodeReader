@@ -8,38 +8,22 @@ namespace AlphaOmega.Debug
 	[DebuggerDisplay("Column={Column.Name} Value={Value}")]
 	public class Cell<T> : ICell
 	{
-		#region Fields
-		private Column<T> _column;
-		private UInt32 _rawValue;
-		private Object _value;
-		#endregion Fields
-
 		/// <summary>Abstract value stored in the column</summary>
-		public Object Value
-		{
-			get { return this._value; }
-			protected set { this._value = value; }
-		}
+		public Object Value { get; protected set; }
 
 		/// <summary>Here can be cell value or value length or reference to the different table</summary>
-		public UInt32 RawValue
-		{
-			get { return this._rawValue; }
-			protected set { this._rawValue = value; }
-		}
+		public UInt32 RawValue { get; protected set; }
 
 		/// <summary>Description of the column owner</summary>
-		public Column<T> Column { get { return this._column; } }
+		public Column<T> Column { get; }
 
-        /// <inheritdoc/>
-        IColumn ICell.Column { get { return this.Column; } }
+		/// <inheritdoc/>
+		IColumn ICell.Column => this.Column;
 
 		/// <summary>Create instance of the generic cell specifying owner column</summary>
 		/// <param name="column">Owner column</param>
 		/// <exception cref="ArgumentNullException">column is null</exception>
 		public Cell(Column<T> column)
-		{
-			this._column = column ?? throw new ArgumentNullException(nameof(column));
-		}
+			=> this.Column = column ?? throw new ArgumentNullException(nameof(column));
 	}
 }

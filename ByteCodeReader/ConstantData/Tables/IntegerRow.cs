@@ -8,6 +8,6 @@ namespace AlphaOmega.Debug.ConstantData
 	{
 		/// <summary>The bytes item of the <see cref="Jvm.CONSTANT_Integer_info"/> structure represents the value of the int constant</summary>
 		/// <remarks>The bytes of the value are stored in big-endian (high byte first) order</remarks>
-		public UInt32 bytes { get { return base.GetValue<UInt32>(0); } }
+		public UInt32 Bytes => base.GetValue<UInt32>(0);
 	}
 }

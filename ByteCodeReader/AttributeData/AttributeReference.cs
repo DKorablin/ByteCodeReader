@@ -7,24 +7,19 @@ namespace AlphaOmega.Debug.AttributeData
 	[DebuggerDisplay("Type={TableType} Index={Index}")]
 	public class AttributeReference : IRowPointer
 	{
-		#region Fields
-		private readonly Tables<String> _root;
-		private readonly String _type;
-		private readonly UInt32 _index;
-		#endregion Fields
-
 		/// <summary>Attribute tables array</summary>
-		private Tables<String> Root { get { return this._root; } }
-		ITables IRowPointer.Root { get { return this._root; } }
+		private readonly Tables<String> _root;
+
+		ITables IRowPointer.Root => this._root;
 
 		/// <summary>Attribute type</summary>
-		public String TableType { get { return this._type; } }
+		public String TableType { get; }
 
 		/// <inheritdoc/>
-		Object IRowPointer.TableType { get { return this._type; } }
+		Object IRowPointer.TableType => this.TableType;
 
 		/// <summary>Attribute index</summary>
-		public UInt32 Index { get { return this._index; } }
+		public UInt32 Index { get; }
 
 		/// <summary>Create instance to the attributes table</summary>
 		/// <param name="root">Attributes tables storage</param>
@@ -35,33 +30,29 @@ namespace AlphaOmega.Debug.AttributeData
 		public AttributeReference(Tables<String> root, String type, UInt32 index)
 		{
 			this._root = root ?? throw new ArgumentNullException(nameof(root));
-			this._type = type ?? throw new ArgumentNullException(nameof(type));
-			this._index = index;
+			this.TableType = type ?? throw new ArgumentNullException(nameof(type));
+			this.Index = index;
 		}
 
 		/// <summary>Gets the constant reference</summary>
 		/// <returns>Reference row</returns>
-		/// <exception cref="ArgumentException">Reference not found</exception>
+		/// <exception cref="InvalidOperationException">Reference not found</exception>
 		public Row<String> GetReference()
 		{
 			Row<String> result = this.TableType == null
-				? this.Root.GetRowByIndex(this.Index)
-				: this.Root[this.TableType][this.Index];
+				? this._root.GetRowByIndex(this.Index)
+				: this._root[this.TableType][this.Index];
 
-			return result ?? throw new ArgumentException($"Reference by index {this.Index} not found", nameof(result));
+			return result ?? throw new InvalidOperationException($"Reference by index {this.Index} not found");
 		}
 
 		/// <inheritdoc/>
 		IRow IRowPointer.GetReference()
-		{
-			return this.GetReference();
-		}
+			=> this.GetReference();
 
 		/// <summary>Reference string representation</summary>
 		/// <returns>String</returns>
 		public override String ToString()
-		{
-			return $"{this.GetType().Name}: {{{this.TableType}}}:{{{this.Index}}}";
-		}
+			=> $"{this.GetType().Name}: {{{this.TableType}}}:{{{this.Index}}}";
 	}
 }
