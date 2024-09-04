@@ -14,7 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        token: ${{secrets.SUBMODULE_TOKEN}}
         submodules: true
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -91,7 +90,7 @@ jobs:
     steps:
     - name: Decoding SNK
       id: sign_key_file
-      uses: timheuer/base64-to-file@v1 
+      uses: timheuer/base64-to-file@v1.2
       with:
         fileName: 'Signature.snk'
         encodedString: ${{secrets.SIGN_KEY}}
