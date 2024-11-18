@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("RepositoryUrl", "https://github.com/DKorablin/ByteCodeReader")]
 #else
 [assembly: AssemblyCompany("Danila Korablin")]
-[assembly: AssemblyCopyright("Copyright © Danila Korablin 2016-2023")]
+[assembly: AssemblyCopyright("Copyright © Danila Korablin 2016-2024")]
 [assembly: AssemblyProduct("JVM ClassFile reader")]
 [assembly: AssemblyTitle("Byte Code Reader")]
 #if DEBUG

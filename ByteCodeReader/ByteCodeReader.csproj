@@ -7,7 +7,7 @@
 		<AssemblyTitle>Byte Code Reader</AssemblyTitle>
 		<Company>Danila Korablin</Company>
 		<Product>JVM ClassFile reader</Product>
-		<Copyright>Copyright © Danila Korablin 2016-2023</Copyright>
+		<Copyright>Copyright © Danila Korablin 2016-2024</Copyright>
 		<Configuration>Debug</Configuration>
 		<AssemblyVersion>1.0.*</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
@@ -20,7 +20,7 @@
 		<CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
