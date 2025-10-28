@@ -21,7 +21,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>docs\README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/DKorablin/ByteCodeReader</RepositoryUrl>
-		<PackageTags>ByteCode;Reader;Dex;Dex;Parser</PackageTags>
+		<PackageTags>ByteCode;Reader;Dex;Parser</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

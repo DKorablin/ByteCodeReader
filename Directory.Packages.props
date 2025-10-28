@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 	<ItemGroup>
 		<!--Source Link Support-->
