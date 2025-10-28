@@ -10,7 +10,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <remarks>There may be at most one MethodParameters attribute in the attributes table of a method_info structure</remarks>
 	public class MethodParametersRow : BaseRow<String>
 	{
-		private AttributeReference[] ParametersI => base.GetValue<AttributeReference[]>(0);
+		private AttributeReference[] ParametersI => this.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the parameters_count item indicates the number of parameter descriptors in the method descriptor (§4.3.3) referenced by the descriptor_index of the attribute's enclosing method_info structure</summary>
 		/// <remarks>
@@ -25,9 +25,9 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				AttributeReference[] references = this.ParametersI;
-				BaseTable<MethodParametersRefRow, String> baseTable = base.Root.File.AttributePool.MethodParametersRef;
+				BaseTable<MethodParametersRefRow, String> baseTable = this.Root.File.AttributePool.MethodParametersRef;
 
-				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
+				return Array.ConvertAll(references, item => baseTable[item.Index]);
 			}
 		}
 	}

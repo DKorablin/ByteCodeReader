@@ -10,7 +10,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <param name="root">Attribute tables collection</param>
 		/// <param name="type">Type of the attribute table</param>
 		internal AttributeTable(AttributeTables root, String type)
-			: base(root, type, AttributeTable.GetTableDescrption(type))
+			: base(root, type, AttributeTable.GetTableDescription(type))
 		{ }
 
 		internal UInt32 AddRow(BinaryReader reader)
@@ -26,7 +26,7 @@ namespace AlphaOmega.Debug.AttributeData
 			return base.AddRow(row);
 		}
 
-		private static AttributeColumn[] GetTableDescrption(String type)
+		private static AttributeColumn[] GetTableDescription(String type)
 		{
 			_ = type ?? throw new ArgumentNullException(nameof(type));
 

@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>Reference to the constant tables</summary>
-	[DebuggerDisplay("Type={TableType} Index={Index}")]
+	[DebuggerDisplay("Type={" + nameof(TableType) + "} Index={" + nameof(Index) + "}")]
 	public class ConstantReference : IRowPointer
 	{
 		/// <summary><see cref="ClassFile.ConstantPool"/> array</summary>
@@ -33,7 +33,7 @@ namespace AlphaOmega.Debug.ConstantData
 			: this(root, index)
 			=> this.TableType = type;
 
-		/// <summary>Create instance to the constans table with the transparent index</summary>
+		/// <summary>Create instance to the constants table with the transparent index</summary>
 		/// <param name="root">Constants tables storage</param>
 		/// <param name="index">Transparent index</param>
 		public ConstantReference(Tables<Jvm.CONSTANT> root, UInt32 index)

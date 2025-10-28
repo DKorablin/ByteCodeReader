@@ -8,7 +8,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <remarks>A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</remarks>
 	public class ConstantValueRow : BaseRow<String>
 	{
-		private UInt16 ConstantValueIndexI => base.GetValue<UInt16>(0);
+		private UInt16 ConstantValueIndexI => this.GetValue<UInt16>(0);
 
 		/// <summary>
 		/// The value of the constantvalue_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
@@ -22,6 +22,6 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <see cref="Jvm.CONSTANT.Integer"/>
 		/// <see cref="Jvm.CONSTANT.String"/>
 		/// </remarks>
-		public ConstantReference ConstantValueIndex => new ConstantReference(base.Root.File.ConstantPool, this.ConstantValueIndexI);
+		public ConstantReference ConstantValueIndex => new ConstantReference(this.Root.File.ConstantPool, this.ConstantValueIndexI);
 	}
 }

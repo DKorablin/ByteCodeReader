@@ -13,7 +13,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </remarks>
 	public class LocalVariableTableRow : BaseRow<String>
 	{
-		private AttributeReference[] LocalVariableTableI => base.GetValue<AttributeReference[]>(0);
+		private AttributeReference[] LocalVariableTableI => this.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the local_variable_table_length item indicates the number of entries in the local_variable_table array</summary>
 		public UInt16 LocalVariableTableLength => (UInt16)this.LocalVariableTableI.Length;
@@ -27,9 +27,9 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				AttributeReference[] references = this.LocalVariableTableI;
-				BaseTable<LocalVariableTableRefRow, String> baseTable = base.Root.File.AttributePool.LocalVariableTableRef;
+				BaseTable<LocalVariableTableRefRow, String> baseTable = this.Root.File.AttributePool.LocalVariableTableRef;
 
-				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
+				return Array.ConvertAll(references, item => baseTable[item.Index]);
 			}
 		}
 	}

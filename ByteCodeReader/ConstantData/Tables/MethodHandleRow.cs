@@ -9,10 +9,10 @@ namespace AlphaOmega.Debug.ConstantData
 	{
 		/// <summary>The value denotes the kind of this method handle, which characterizes its bytecode behavior (§5.4.3.5)</summary>
 		/// <remarks>The value of the reference_kind item must be in the range 1 to 9</remarks>
-		public Jvm.REF ReferenceKind => base.GetValue<Jvm.REF>(0);
+		public Jvm.REF ReferenceKind => this.GetValue<Jvm.REF>(0);
 
 		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table</summary>
-		private UInt16 ReferenceIndexI => base.GetValue<UInt16>(1);
+		private UInt16 ReferenceIndexI => this.GetValue<UInt16>(1);
 
 		/// <summary> The value of the reference_index item must be a valid index into the constant_pool table</summary>
 		public ConstantReference ReferenceIndex
@@ -41,7 +41,7 @@ namespace AlphaOmega.Debug.ConstantData
 					throw new NotSupportedException();
 				}
 
-				return new ConstantReference(base.Root, tag, this.ReferenceIndexI);
+				return new ConstantReference(this.Root, tag, this.ReferenceIndexI);
 			}
 		}
 	}

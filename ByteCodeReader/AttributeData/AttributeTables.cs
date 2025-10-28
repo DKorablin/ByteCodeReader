@@ -40,10 +40,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>
-		/// Each entry in the exception_table array describes one exception handler in the code array.
-		/// The order of the handlers in the exception_table array is significant (§2.10).
-		/// </summary>
+		/// <summary>Each entry in the exception_table array describes one exception handler in the code array.</summary>
+		/// <remarks>The order of the handlers in the exception_table array is significant (§2.10).</remarks>
 		public Data.BaseTable<ExceptionTableRefRow, String> ExceptionTableRef
 		{
 			get
@@ -58,8 +56,8 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <summary>
 		/// The Exceptions attribute is a variable-length attribute in the attributes table of a method_info structure (§4.6).
 		/// The Exceptions attribute indicates which checked exceptions a method may throw.
-		/// There may be at most one Exceptions attribute in each method_info structure.
 		/// </summary>
+		/// <remarks>There may be at most one Exceptions attribute in each method_info structure.</remarks>
 		public Data.BaseTable<ExceptionsRow, String> Exceptions
 		{
 			get
@@ -121,8 +119,8 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <summary>
 		/// The Signature attribute is a fixed-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6).
 		/// A Signature attribute records a signature (§4.7.9.1) for a class, interface, constructor, method, or field whose declaration in the Java programming language uses type variables or parameterized types.
-		/// See The Java Language Specification, Java SE 8 Edition for details about these types.
 		/// </summary>
+		/// <remarks>See The Java Language Specification, Java SE 8 Edition for details about these types.</remarks>
 		public Data.BaseTable<SignatureRow, String> Signature
 		{
 			get
@@ -208,10 +206,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>
-		/// Each entry in the local_variable_table array indicates a range of code array offsets within which a local variable has a value.
-		/// It also indicates the index into the local variable array of the current frame at which that local variable can be found.
-		/// </summary>
+		/// <summary>Each entry in the local_variable_table array indicates a range of code array offsets within which a local variable has a value.</summary>
+		/// <remarks>It also indicates the index into the local variable array of the current frame at which that local variable can be found.</remarks>
 		public Data.BaseTable<LocalVariableTableRefRow, String> LocalVariableTableRef
 		{
 			get
@@ -223,10 +219,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>
-		/// The LocalVariableTypeTable attribute is an optional variable-length attribute in the attributes table of a Code attribute (§4.7.3).
-		/// It may be used by debuggers to determine the value of a given local variable during the execution of a method.
-		/// </summary>
+		/// <summary>The LocalVariableTypeTable attribute is an optional variable-length attribute in the attributes table of a Code attribute (§4.7.3).</summary>
+		/// <remarks>It may be used by debuggers to determine the value of a given local variable during the execution of a method.</remarks>
 		public Data.BaseTable<LocalVariableTypeTableRow, String> LocalVariableTypeTableRow
 		{
 			get
@@ -238,10 +232,8 @@ namespace AlphaOmega.Debug.AttributeData
 			}
 		}
 
-		/// <summary>
-		/// Each entry in the local_variable_type_table array indicates a range of code array offsets within which a local variable has a value.
-		/// It also indicates the index into the local variable array of the current frame at which that local variable can be found.
-		/// </summary>
+		/// <summary>Each entry in the local_variable_type_table array indicates a range of code array offsets within which a local variable has a value.</summary>
+		/// <remarks>It also indicates the index into the local variable array of the current frame at which that local variable can be found.</remarks>
 		public Data.BaseTable<LocalVariableTypeTableRefRow, String> LocalVariableTypeTableRef
 		{
 			get

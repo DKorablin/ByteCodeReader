@@ -7,7 +7,7 @@ namespace AlphaOmega.Debug
 {
 	/// <summary>Each method, including each instance initialization method (§2.9) and the class or interface initialization method (§2.9), is described by a method_info structure.</summary>
 	/// <remarks>No two methods in one class file may have the same name and descriptor (§4.3.3)</remarks>
-	[DebuggerDisplay("{AccessFlags} {Descriptor.bytes} {Name.bytes}")]
+	[DebuggerDisplay("{" + nameof(AccessFlags) + "} {" + nameof(Descriptor) + ".bytes} {" + nameof(Name) + ".bytes}")]
 	public class MethodInfo : ISectionData
 	{
 		/// <summary>Class file owner</summary>

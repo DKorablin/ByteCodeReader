@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>Generic constant table structures</summary>
-	[DebuggerDisplay("Type={"+nameof(Type)+"} RowsCount={"+nameof(RowsCount)+"}")]
+	[DebuggerDisplay("Type={" + nameof(Type) + "} RowsCount={" + nameof(RowsCount) + "}")]
 	public class ConstantTable : Table<Jvm.CONSTANT>
 	{
 		internal ConstantTable(ConstantTables root, Jvm.CONSTANT tag)

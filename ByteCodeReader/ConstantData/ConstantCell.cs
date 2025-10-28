@@ -23,7 +23,7 @@ namespace AlphaOmega.Debug.ConstantData
 				case ConstantColumnType.UInt32:
 					return sizeof(UInt32);
 				case ConstantColumnType.Utf8String:
-					return sizeof(UInt16) + base.RawValue;//Here is the length of a column is stored
+					return sizeof(UInt16) + this.RawValue;//Here is the length of a column is stored
 				default:
 					throw new NotImplementedException();
 				}
@@ -38,21 +38,21 @@ namespace AlphaOmega.Debug.ConstantData
 			switch(this._columnType)
 			{
 			case ConstantColumnType.Byte:
-				base.RawValue = file.ReadBytes(offset, 1)[0];
-				base.Value = (Byte)base.RawValue;
+				this.RawValue = file.ReadBytes(offset, 1)[0];
+				this.Value = (Byte)this.RawValue;
 				break;
 			case ConstantColumnType.UInt16:
-				base.RawValue = file.PtrToStructure<UInt16>(offset);
-				base.Value = (UInt16)base.RawValue;
+				this.RawValue = file.PtrToStructure<UInt16>(offset);
+				this.Value = (UInt16)this.RawValue;
 				break;
 			case ConstantColumnType.UInt32:
-				base.RawValue = file.PtrToStructure<UInt32>(offset);
-				base.Value = base.RawValue;
+				this.RawValue = file.PtrToStructure<UInt32>(offset);
+				this.Value = this.RawValue;
 				break;
 			case ConstantColumnType.Utf8String:
-				base.RawValue = file.PtrToStructure<UInt16>(offset);
-				Byte[] bytes = file.ReadBytes(offset + sizeof(UInt16), base.RawValue);
-				base.Value = System.Text.Encoding.UTF8.GetString(bytes);
+				this.RawValue = file.PtrToStructure<UInt16>(offset);
+				Byte[] bytes = file.ReadBytes(offset + sizeof(UInt16), this.RawValue);
+				this.Value = System.Text.Encoding.UTF8.GetString(bytes);
 				break;
 			default:
 				throw new NotImplementedException();

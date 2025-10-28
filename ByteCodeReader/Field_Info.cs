@@ -7,7 +7,7 @@ namespace AlphaOmega.Debug
 {
 	/// <summary>Each field is described by a field_info structure</summary>
 	/// <remarks>No two fields in one class file may have the same name and descriptor (§4.3.2)</remarks>
-	[DebuggerDisplay("{AccessFlags} {Descriptor.bytes} {Name.bytes}")]
+	[DebuggerDisplay("{" + nameof(AccessFlags) + "} {" + nameof(Descriptor) + ".bytes} {" + nameof(Name) + ".bytes}")]
 	public class Field_Info : ISectionData
 	{
 		/// <summary>Class file owner</summary>
@@ -37,7 +37,7 @@ namespace AlphaOmega.Debug
 		/// </remarks>
 		public AttributeReference[] Attributes { get; }
 
-		/// <summary>Create instance of Jvm.fileld_info native structure wrapper</summary>
+		/// <summary>Create instance of Jvm.field_info native structure wrapper</summary>
 		/// <param name="file">Owner class file</param>
 		/// <param name="field">Native structure</param>
 		/// <param name="attributes">Field attributes</param>

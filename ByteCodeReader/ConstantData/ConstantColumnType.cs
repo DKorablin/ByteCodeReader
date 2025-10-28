@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlphaOmega.Debug.ConstantData
+﻿namespace AlphaOmega.Debug.ConstantData
 {
 	/// <summary>Constant column types</summary>
 	public enum ConstantColumnType

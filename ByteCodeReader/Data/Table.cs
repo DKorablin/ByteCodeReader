@@ -9,7 +9,7 @@ namespace AlphaOmega.Debug
 	{
 		private readonly List<Row<T>> _rows = new List<Row<T>>();
 
-		/// <summary>Tables colection</summary>
+		/// <summary>Tables collection</summary>
 		public Tables<T> Root { get; }
 
 		/// <summary>All rows from current table</summary>

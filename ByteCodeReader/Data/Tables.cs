@@ -65,7 +65,7 @@ namespace AlphaOmega.Debug
 			return index;
 		}
 
-		/// <summary>Adds row to the collection with transaprent row index</summary>
+		/// <summary>Adds row to the collection with transparent row index</summary>
 		/// <param name="rowIndex">Transparent row index</param>
 		/// <param name="row">Row</param>
 		/// <exception cref="ArgumentNullException">row is null</exception>

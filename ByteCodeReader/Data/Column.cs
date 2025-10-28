@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace AlphaOmega.Debug
 {
-	/// <summary>Generic colum for dynamic structures</summary>
+	/// <summary>Generic column for dynamic structures</summary>
 	/// <typeparam name="T">Type of the owner table</typeparam>
 	[DebuggerDisplay("Type={"+nameof(TableType)+"} Name={"+nameof(Name)+"}")]
 	public class Column<T> : IColumn
@@ -15,7 +15,7 @@ namespace AlphaOmega.Debug
 		/// <remarks>From CONSTANT structures</remarks>
 		public String Name { get; }
 
-		/// <summary>Zero based index from the beggining of structure</summary>
+		/// <summary>Zero based index from the beginning of structure</summary>
 		public UInt16 Index { get; }
 
 		/// <summary>Create instance of generic column specifying parent table and column description</summary>

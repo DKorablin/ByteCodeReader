@@ -42,17 +42,17 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The <see cref="ClassFile.ConstantPool"/> entry at that index must be a <see cref="Jvm.CONSTANT_Class_info"/> structure (§4.4.1) representing C.
 		/// The remaining items in the classes array entry give information about C.
 		/// </summary>
-		private UInt16 InnerClassInfoIndexI => base.GetValue<UInt16>(0);
+		private UInt16 InnerClassInfoIndexI => this.GetValue<UInt16>(0);
 
-		private UInt16 OuterClassInfoIndexI => base.GetValue<UInt16>(1);
+		private UInt16 OuterClassInfoIndexI => this.GetValue<UInt16>(1);
 
-		private UInt16 InnerNameIndexI => base.GetValue<UInt16>(2);
+		private UInt16 InnerNameIndexI => this.GetValue<UInt16>(2);
 
 		/// <summary>
 		/// The value of the inner_class_access_flags item is a mask of flags used to denote access permissions to and properties of class or interface C as declared in the source code from which this class file was compiled.
 		/// It is used by a compiler to recover the original information when source code is not available.
 		/// </summary>
-		public ACC InnerClassAccessFlags => base.GetValue<ACC>(3);
+		public ACC InnerClassAccessFlags => this.GetValue<ACC>(3);
 
 		/// <summary>
 		/// The value of the inner_class_info_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
@@ -60,7 +60,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The remaining items in the classes array entry give information about C.
 		/// </summary>
 		public ConstantReference InnerClassInfoIndex
-			=> new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Class, this.InnerClassInfoIndexI);
+			=> new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Class, this.InnerClassInfoIndexI);
 
 		/// <summary>
 		/// If C is not a member of a class or an interface (that is, if C is a top-level class or interface (JLS §7.6) or a local class (JLS §14.3) or an anonymous class (JLS §15.9.5)), the value of the outer_class_info_index item must be zero.
@@ -75,7 +75,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Class, idRef);
+					: new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Class, idRef);
 			}
 		}
 
@@ -91,7 +91,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, idRef);
+					: new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, idRef);
 			}
 		}
 	}

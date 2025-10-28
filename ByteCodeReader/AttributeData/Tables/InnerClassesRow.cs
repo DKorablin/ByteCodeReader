@@ -3,13 +3,11 @@ using AlphaOmega.Debug.Data;
 
 namespace AlphaOmega.Debug.AttributeData
 {
-	/// <summary>
-	/// The InnerClasses attribute is a variable-length attribute in the attributes table of a ClassFile structure (§4.1).
-	/// If the constant pool of a class or interface C contains a <see cref="Jvm.CONSTANT_Class_info"/> entry which represents a class or interface that is not a member of a package, then C's ClassFile structure must have exactly one InnerClasses attribute in its attributes table.
-	/// </summary>
+	/// <summary>The InnerClasses attribute is a variable-length attribute in the attributes table of a ClassFile structure (§4.1).</summary>
+	/// <remarks>If the constant pool of a class or interface C contains a <see cref="Jvm.CONSTANT_Class_info"/> entry which represents a class or interface that is not a member of a package, then C's ClassFile structure must have exactly one InnerClasses attribute in its attributes table.</remarks>
 	public class InnerClassesRow : BaseRow<String>
 	{
-		private AttributeReference[] ClassesI => base.GetValue<AttributeReference[]>(0);
+		private AttributeReference[] ClassesI => this.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the number_of_classes item indicates the number of entries in the classes array.</summary>
 		public UInt16 NumberOfClasses => (UInt16)this.ClassesI.Length;
@@ -24,9 +22,9 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				AttributeReference[] references = this.ClassesI;
-				BaseTable<InnerClassesRefRow, String> baseTable = base.Root.File.AttributePool.InnerClassesRef;
+				BaseTable<InnerClassesRefRow, String> baseTable = this.Root.File.AttributePool.InnerClassesRef;
 
-				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
+				return Array.ConvertAll(references, item => baseTable[item.Index]);
 			}
 		}
 	}

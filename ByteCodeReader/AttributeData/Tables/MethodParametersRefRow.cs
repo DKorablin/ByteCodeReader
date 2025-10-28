@@ -21,7 +21,7 @@ namespace AlphaOmega.Debug.AttributeData
 			MANDATED = 0x8000,
 		}
 
-		private UInt16 NameIndexI => base.GetValue<UInt16>(0);
+		private UInt16 NameIndexI => this.GetValue<UInt16>(0);
 
 		/// <summary>The value of the name_index item must either be zero or a valid index into the <see cref="ClassFile.ConstantPool"/> table</summary>
 		/// <remarks>
@@ -36,11 +36,11 @@ namespace AlphaOmega.Debug.AttributeData
 
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, idRef);
+					: new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, idRef);
 			}
 		}
 
 		/// <summary>Method parameter access flag</summary>
-		public ACC AccessFlags => base.GetValue<ACC>(1);
+		public ACC AccessFlags => this.GetValue<ACC>(1);
 	}
 }

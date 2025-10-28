@@ -318,7 +318,7 @@ namespace AlphaOmega.Debug
 		public enum ATTRIBUTE
 		{
 			/// <summary>Undefined custom attribute</summary>
-			/// <remarks>Will be readed as Byte[]</remarks>
+			/// <remarks>Will be read as Byte[]</remarks>
 			Undefined,
 			/// <summary>A ConstantValue attribute represents the value of a constant expression (JLS §15.28)</summary>
 			ConstantValue,
@@ -430,7 +430,7 @@ namespace AlphaOmega.Debug
 			/// </summary>
 			public UInt16 name_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Class;
 		}
 
@@ -459,7 +459,7 @@ namespace AlphaOmega.Debug
 			/// </remarks>
 			public UInt16 name_and_type_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Fieldref;
 		}
 
@@ -477,7 +477,7 @@ namespace AlphaOmega.Debug
 			/// <remarks>The return type of such a method must be void</remarks>
 			public UInt16 name_and_type_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Methodref;
 		}
 
@@ -494,7 +494,7 @@ namespace AlphaOmega.Debug
 			/// <summary>banana banana banana</summary>
 			public UInt16 name_and_type_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.InterfaceMethodref;
 		}
 
@@ -509,7 +509,7 @@ namespace AlphaOmega.Debug
 			/// <remarks>The value of the string_index item must be a valid index into the constant_pool table</remarks>
 			public UInt16 string_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.String;
 		}
 
@@ -560,7 +560,7 @@ namespace AlphaOmega.Debug
 			/// </remarks>
 			public UInt32 bytes;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Float;
 		}
 
@@ -590,7 +590,7 @@ namespace AlphaOmega.Debug
 			/// <summary>The unsigned high_bytes and low_bytes items of the <see cref="CONSTANT_Long_info"/> structure together represent the value of the long constant</summary>
 			public UInt32 low_bytes;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Long;
 		}
 
@@ -632,7 +632,7 @@ namespace AlphaOmega.Debug
 			/// </summary>
 			public UInt32 low_bytes;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Double;
 		}
 
@@ -651,7 +651,7 @@ namespace AlphaOmega.Debug
 			/// <remarks>The value of the descriptor_index item must be a valid index into the constant_pool table</remarks>
 			public UInt16 descriptor_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.NameAndType;
 		}
 
@@ -672,7 +672,7 @@ namespace AlphaOmega.Debug
 			/// </remarks>
 			public Byte[] bytes;*/
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.Utf8;
 		}
 
@@ -691,7 +691,7 @@ namespace AlphaOmega.Debug
 			/// <summary> The value of the reference_index item must be a valid index into the constant_pool table</summary>
 			public Byte reference_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.MethodHandle;
 		}
 
@@ -706,7 +706,7 @@ namespace AlphaOmega.Debug
 			/// <remarks>The value of the descriptor_index item must be a valid index into the constant_pool table</remarks>
 			public UInt16 descriptor_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.MethodType;
 		}
 
@@ -724,7 +724,7 @@ namespace AlphaOmega.Debug
 			/// <remarks>The value of the name_and_type_index item must be a valid index into the constant_pool table</remarks>
 			public UInt16 name_and_type_index;
 
-			/// <summary>CONSTANT validataion</summary>
+			/// <summary>CONSTANT validation</summary>
 			public Boolean IsValid => this.tag == CONSTANT.InvokeDynamic;
 		}
 		#endregion CONSTANT. See: ConstantTables.cs

@@ -1,30 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFrameworks>net20;netstandard2.0</TargetFrameworks>
 		<OutputType>Library</OutputType>
 		<RootNamespace>AlphaOmega.Debug</RootNamespace>
-		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
-		<AssemblyTitle>Byte Code Reader</AssemblyTitle>
-		<Company>Danila Korablin</Company>
-		<Product>JVM ClassFile reader</Product>
-		<Copyright>Copyright © Danila Korablin 2016-2024</Copyright>
-		<Configuration>Debug</Configuration>
-		<AssemblyVersion>1.0.*</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
+		<Configuration>Release</Configuration>
 		<Deterministic>false</Deterministic>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<OutputPath>..\..\bin\</OutputPath>
-		<DocumentationFile>..\..\bin\ByteCodeReader.xml</DocumentationFile>
-		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
+
+	<!--nuspec-->
+	<PropertyGroup>
+		<PackageId>AlphaOmega.ByteCodeReader</PackageId>
+		<Version>$(Version)</Version>
+		<Title>Byte Code Reader</Title>
+		<Description>JVM ClassFile format reader.</Description>
+		<Authors>Danila Korablin</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>docs\README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/DKorablin/ByteCodeReader</RepositoryUrl>
+		<PackageTags>ByteCode;Reader;Dex;Dex;Parser</PackageTags>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<None Include="..\README.md" Pack="true" PackagePath="\docs" />
 	</ItemGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<Optimize>true</Optimize>
+		<PublishSingleFile>true</PublishSingleFile>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<AssemblyAttributes Include="AssemblyMetadata">
+			<_Parameter1>ProjectUrl</_Parameter1>
+			<_Parameter2>https://github.com/DKorablin/ByteCodeReader</_Parameter2>
+		</AssemblyAttributes>
+	</ItemGroup>
+
 	<ItemGroup>
 		<Compile Include="..\FileReader.Shared\ImageData\IBaseRow.cs">
 			<Link>Data\Interface\IBaseRow.cs</Link>

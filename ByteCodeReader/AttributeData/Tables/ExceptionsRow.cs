@@ -11,7 +11,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </summary>
 	public class ExceptionsRow : BaseRow<String>
 	{
-		private UInt16[] ExceptionIndexTableI => base.GetValue<UInt16[]>(0);
+		private UInt16[] ExceptionIndexTableI => this.GetValue<UInt16[]>(0);
 
 		/// <summary>The value of the number_of_exceptions item indicates the number of entries in the exception_index_table</summary>
 		public UInt16 NumberOfExceptions => (UInt16)this.ExceptionIndexTableI.Length;
@@ -32,9 +32,9 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				UInt16[] idRef = this.ExceptionIndexTableI;
-				ConstantTables tables = base.Root.File.ConstantPool;
+				ConstantTables tables = this.Root.File.ConstantPool;
 
-				return Array.ConvertAll(idRef, delegate(UInt16 id) { return new ConstantReference(tables, Jvm.CONSTANT.Class, id); });
+				return Array.ConvertAll(idRef, id => new ConstantReference(tables, Jvm.CONSTANT.Class, id));
 			}
 		}
 	}

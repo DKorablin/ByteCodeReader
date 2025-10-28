@@ -12,6 +12,6 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The information is represented using a modified UTF-8 string (§4.4.7) with no terminating zero byte.
 		/// </summary>
 		/// <remarks>Note that the debug_extension array may denote a string longer than that which can be represented with an instance of class String.</remarks>
-		public Byte[] DebugExtension => base.GetValue<Byte[]>(0);
+		public Byte[] DebugExtension => this.GetValue<Byte[]>(0);
 	}
 }

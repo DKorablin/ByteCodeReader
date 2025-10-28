@@ -25,8 +25,8 @@ namespace AlphaOmega.Debug.AttributeData
 		/// <param name="root">Attributes tables storage</param>
 		/// <param name="type">Attribute type</param>
 		/// <param name="index">Transparent index to the attributes table</param>
-		/// <exception cref="ArgumentNullException">root is null</exception>
-		/// <exception cref="ArgumentNullException">type is null or empty</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="root"/> is null</exception>
+		/// <exception cref="ArgumentNullException"><paramref name="type"/> is null or empty</exception>
 		public AttributeReference(Tables<String> root, String type, UInt32 index)
 		{
 			this._root = root ?? throw new ArgumentNullException(nameof(root));

@@ -16,7 +16,7 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The value of end_pc either must be a valid index into the code array of the opcode of an instruction or must be equal to code_length, the length of the code array.
 		/// The value of start_pc must be less than the value of end_pc.
 		/// </summary>
-		public UInt16 StartPc => base.GetValue<UInt16>(0);
+		public UInt16 StartPc => this.GetValue<UInt16>(0);
 
 		/// <summary>
 		/// The values of the two items start_pc and end_pc indicate the ranges in the code array at which the exception handler is active.
@@ -24,15 +24,15 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The value of end_pc either must be a valid index into the code array of the opcode of an instruction or must be equal to code_length, the length of the code array.
 		/// The value of start_pc must be less than the value of end_pc.
 		/// </summary>
-		public UInt16 EndPc => base.GetValue<UInt16>(1);
+		public UInt16 EndPc => this.GetValue<UInt16>(1);
 
 		/// <summary>
 		/// The value of the handler_pc item indicates the start of the exception handler.
 		/// The value of the item must be a valid index into the code array and must be the index of the opcode of an instruction.
 		/// </summary>
-		public UInt16 HandlerPc => base.GetValue<UInt16>(2);
+		public UInt16 HandlerPc => this.GetValue<UInt16>(2);
 
-		private UInt16 CatchTypeI => base.GetValue<UInt16>(3);
+		private UInt16 CatchTypeI => this.GetValue<UInt16>(3);
 
 		/// <summary>
 		/// If the value of the catch_type item is nonzero, it must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
@@ -49,7 +49,7 @@ namespace AlphaOmega.Debug.AttributeData
 
 				return idRef == 0
 					? null
-					: new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Class, idRef);
+					: new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Class, idRef);
 			}
 		}
 	}

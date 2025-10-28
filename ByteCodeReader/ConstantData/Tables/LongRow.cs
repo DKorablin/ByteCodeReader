@@ -20,9 +20,9 @@ namespace AlphaOmega.Debug.ConstantData
 		/// The high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Double_info"/> structure together represent the double value in IEEE 754 floating-point double format (§2.3.2).
 		/// The bytes of each item are stored in big-endian (high byte first) order.
 		/// </remarks>
-		public UInt32 HighBytes => base.GetValue<UInt32>(0);
+		public UInt32 HighBytes => this.GetValue<UInt32>(0);
 
 		/// <summary>The unsigned high_bytes and low_bytes items of the <see cref="Jvm.CONSTANT_Long_info"/> structure together represent the value of the long constant</summary>
-		public UInt32 LowBytes => base.GetValue<UInt32>(1);
+		public UInt32 LowBytes => this.GetValue<UInt32>(1);
 	}
 }

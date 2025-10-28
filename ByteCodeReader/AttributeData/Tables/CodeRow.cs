@@ -13,11 +13,11 @@ namespace AlphaOmega.Debug.AttributeData
 	public class CodeRow : BaseRow<String>
 	{
 		/// <summary>The value of the max_stack item gives the maximum depth of the operand stack of this method (§2.6.2) at any point during execution of the method.</summary>
-		public UInt16 MaxStack => base.GetValue<UInt16>(0);
+		public UInt16 MaxStack => this.GetValue<UInt16>(0);
 
 		/// <summary>The value of the max_locals item gives the number of local variables in the local variable array allocated upon invocation of this method (§2.6.1), including the local variables used to pass parameters to the method on its invocation.</summary>
 		/// <remarks>The greatest local variable index for a value of type long or double is max_locals - 2. The greatest local variable index for a value of any other type is max_locals - 1.</remarks>
-		public UInt16 MaxLocals => base.GetValue<UInt16>(1);
+		public UInt16 MaxLocals => this.GetValue<UInt16>(1);
 
 		/// <summary>The value of the code_length item gives the number of bytes in the code array for this method.</summary>
 		/// <remarks>The value of code_length must be greater than zero (as the code array must not be empty) and less than 65536.</remarks>
@@ -29,12 +29,12 @@ namespace AlphaOmega.Debug.AttributeData
 		/// (Refer to the descriptions of those instructions for more information on the consequences of code array alignment.)
 		/// </summary>
 		/// <remarks>The detailed constraints on the contents of the code array are extensive and are given in a separate section (§4.9).</remarks>
-		public Byte[] Code => base.GetValue<Byte[]>(2);
+		public Byte[] Code => this.GetValue<Byte[]>(2);
 
 		/// <summary>The value of the exception_table_length item gives the number of entries in the exception_table table.</summary>
 		public UInt16 ExceptionTableLength => (UInt16)this.ExceptionTableI.Length;
 
-		private AttributeReference[] ExceptionTableI => base.GetValue<AttributeReference[]>(3);
+		private AttributeReference[] ExceptionTableI => this.GetValue<AttributeReference[]>(3);
 
 		/// <summary>
 		/// Each entry in the exception_table array describes one exception handler in the code array.
@@ -45,7 +45,7 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				AttributeReference[] references = this.ExceptionTableI;
-				BaseTable<ExceptionTableRefRow, String> baseTable = base.Root.File.AttributePool.ExceptionTableRef;
+				BaseTable<ExceptionTableRefRow, String> baseTable = this.Root.File.AttributePool.ExceptionTableRef;
 
 				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
 			}
@@ -56,6 +56,6 @@ namespace AlphaOmega.Debug.AttributeData
 
 		/// <summary>A Code attribute can have any number of optional attributes associated with it</summary>
 		/// <remarks>Each value of the attributes table must be an attribute structure (§4.7)</remarks>
-		public AttributeReference[] Attributes => base.GetValue<AttributeReference[]>(4);
+		public AttributeReference[] Attributes => this.GetValue<AttributeReference[]>(4);
 	}
 }

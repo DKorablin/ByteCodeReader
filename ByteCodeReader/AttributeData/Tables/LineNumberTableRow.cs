@@ -13,7 +13,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// </remarks>
 	public class LineNumberTableRow : BaseRow<String>
 	{
-		private AttributeReference[] LineNumberTableI => base.GetValue<AttributeReference[]>(0);
+		private AttributeReference[] LineNumberTableI => this.GetValue<AttributeReference[]>(0);
 
 		/// <summary>The value of the line_number_table_length item indicates the number of entries in the line_number_table array</summary>
 		public UInt16 LineNumberTableLength => (UInt16)this.LineNumberTableI.Length;
@@ -24,9 +24,9 @@ namespace AlphaOmega.Debug.AttributeData
 			get
 			{
 				AttributeReference[] references = this.LineNumberTableI;
-				BaseTable<LineNumberTableRefRow, String> baseTable = base.Root.File.AttributePool.LineNumberTableRef;
+				BaseTable<LineNumberTableRefRow, String> baseTable = this.Root.File.AttributePool.LineNumberTableRef;
 
-				return Array.ConvertAll(references, delegate(AttributeReference item) { return baseTable[item.Index]; });
+				return Array.ConvertAll(references, item => baseTable[item.Index]);
 			}
 		}
 	}

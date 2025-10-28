@@ -7,11 +7,11 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <summary>
 	/// The Signature attribute is a fixed-length attribute in the attributes table of a ClassFile, field_info, or method_info structure (§4.1, §4.5, §4.6).
 	/// A Signature attribute records a signature (§4.7.9.1) for a class, interface, constructor, method, or field whose declaration in the Java programming language uses type variables or parameterized types.
-	/// See The Java Language Specification, Java SE 8 Edition for details about these types.
 	/// </summary>
+	/// <remarks>See The Java Language Specification, Java SE 8 Edition for details about these types.</remarks>
 	public class SignatureRow : BaseRow<String>
 	{
-		private UInt16 SignatureIndexI => base.GetValue<UInt16>(0);
+		private UInt16 SignatureIndexI => this.GetValue<UInt16>(0);
 
 		/// <summary>
 		/// The value of the signature_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
@@ -22,6 +22,6 @@ namespace AlphaOmega.Debug.AttributeData
 		/// Instead, Signature attributes are checked by methods of the Java SE platform class libraries which expose generic signatures of classes, interfaces, constructors, methods, and fields.
 		/// Examples include getGenericSuperclass in Class and toGenericString in java.lang.reflect.Executable.
 		/// </remarks>
-		public ConstantReference SignatureIndex => new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, this.SignatureIndexI);
+		public ConstantReference SignatureIndex => new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, this.SignatureIndexI);
 	}
 }

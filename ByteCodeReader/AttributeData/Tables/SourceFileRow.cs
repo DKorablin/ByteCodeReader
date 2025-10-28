@@ -8,7 +8,7 @@ namespace AlphaOmega.Debug.AttributeData
 	/// <remarks>There may be at most one SourceFile attribute in the attributes table of a <see cref="ClassFile"/> structure.</remarks>
 	public class SourceFileRow : BaseRow<String>
 	{
-		private UInt16 SourceFileIndexI => base.GetValue<UInt16>(0);
+		private UInt16 SourceFileIndexI => this.GetValue<UInt16>(0);
 
 		/// <summary>
 		/// The value of the sourcefile_index item must be a valid index into the <see cref="ClassFile.ConstantPool"/> table.
@@ -18,6 +18,6 @@ namespace AlphaOmega.Debug.AttributeData
 		/// The string referenced by the sourcefile_index item will be interpreted as indicating the name of the source file from which this class file was compiled.
 		/// It will not be interpreted as indicating the name of a directory containing the file or an absolute path name for the file; such platform-specific additional information must be supplied by the run-time interpreter or development tool at the time the file name is actually used.
 		/// </remarks>
-		public ConstantReference SourceFileIndex => new ConstantReference(base.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, this.SourceFileIndexI);
+		public ConstantReference SourceFileIndex => new ConstantReference(this.Root.File.ConstantPool, Jvm.CONSTANT.Utf8, this.SourceFileIndexI);
 	}
 }
